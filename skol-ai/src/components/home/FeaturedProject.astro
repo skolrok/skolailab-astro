@@ -1,0 +1,79 @@
+---
+/* FeaturedProject — sekcija 6 (homepage-copy.md). Solimat, mockup + parallax. */
+import Button from "../Button.astro";
+import CloudinaryImage from "../CloudinaryImage.astro";
+import { cases } from "../../data/cases";
+
+const c = cases["solimat"];
+const tags = ["UI/UX dizajn", "Avtomatizacija", "Premium web"];
+---
+
+<section class="fp" data-parallax-trigger>
+  <div class="container-page fp__grid">
+    <div class="fp__text">
+      <p class="kicker" data-reveal>[ Izpostavljen projekt ]</p>
+      <h2 class="fp__title" data-reveal>Solimat. Celovita digitalna prenova.</h2>
+      <p class="fp__body" data-reveal>
+        Migracija z WordPressa na čisto, statično in bliskovito hitro infrastrukturo. Lasten admin
+        sistem, dvojezičnost (SI/EN), napredni tracking in pametni obrazci, ki obiskovalca spremenijo
+        v povpraševanje.
+      </p>
+      <ul class="fp__tags" data-reveal>
+        {tags.map((t) => <li class="tag">{t}</li>)}
+      </ul>
+      <p class="fp__result" data-reveal>
+        <span class="fp__result-label">Rezultat</span>
+        <span class="fp__result-val">[ izmerjena številka — po objavi ]</span>
+      </p>
+      <div class="fp__cta" data-reveal>
+        <Button href="/projekti/solimat" variant="primary" dl="cta_click">Oglej si projekt →</Button>
+      </div>
+    </div>
+
+    <div class="fp__media" data-reveal>
+      <div class="fp__parallax" data-parallax="8">
+        <CloudinaryImage
+          src={c.image}
+          alt={c.imageAlt}
+          width={1200}
+          height={900}
+          sizes="(min-width: 960px) 50vw, 100vw"
+          class="fp__img"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fp { padding-block: clamp(4rem, 10vh, 8rem); border-top: 1px solid var(--color-hairline); }
+  .fp__grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); align-items: center; }
+  @media (min-width: 960px) { .fp__grid { grid-template-columns: 1fr 1.1fr; gap: clamp(3rem, 6vw, 5rem); } }
+
+  .fp__title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(30px, 4.5vw, 56px); line-height: 1.04; letter-spacing: -0.01em; max-width: 16ch;
+  }
+  .fp__body { margin-top: 1.5rem; max-width: 48ch; color: var(--color-bone-dim); line-height: 1.65; }
+  .fp__tags { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; padding: 0; margin: 1.75rem 0 0; }
+  .tag {
+    font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--color-bone-dim); border: 1px solid var(--color-hairline); border-radius: 999px; padding: 0.45rem 0.9rem;
+  }
+  .fp__result { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.25rem; }
+  .fp__result-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold); }
+  .fp__result-val { color: var(--color-bone-dim); font-size: 0.95rem; opacity: 0.75; }
+  .fp__cta { margin-top: 2.25rem; }
+
+  .fp__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-ink-2);
+  }
+  .fp__parallax { position: absolute; inset: -12% 0; will-change: transform; }
+  .fp__media :global(.fp__img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+</style>

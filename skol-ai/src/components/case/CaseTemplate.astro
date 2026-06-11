@@ -1,0 +1,214 @@
+---
+/* CaseTemplate — predloga case studyja (showroom-and-cases.md).
+   Sekcije: Hero · Izziv · Pristop · Kaj smo zgradili · Rezultat · LiveCTA. */
+import Button from "../Button.astro";
+import CloudinaryImage from "../CloudinaryImage.astro";
+import type { CaseStudy } from "../../data/cases";
+
+interface Props {
+  caseStudy: CaseStudy;
+}
+const { caseStudy: c } = Astro.props;
+---
+
+<!-- ===================== HERO ===================== -->
+<section class="case-hero">
+  <div class="container-page">
+    <nav class="breadcrumb" aria-label="Drobtinice" data-hero>
+      <a href="/">Domov</a>
+      <span aria-hidden="true">/</span>
+      <a href="/showroom">Showroom</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{c.name}</span>
+    </nav>
+
+    <p class="kicker" data-hero>[ Projekt — {c.category} ]</p>
+    <h1 class="case-hero__title" data-hero>{c.h1}</h1>
+
+    <ul class="case-hero__tags" data-hero>
+      {c.tags.map((t) => <li class="tag">{t}</li>)}
+    </ul>
+
+    <div class="case-hero__cta" data-hero>
+      <Button href={c.liveUrl} variant="primary" external dl="cta_click">
+        Oglej si v živo → {c.liveLabel}
+      </Button>
+    </div>
+  </div>
+
+  <!-- Glavni mockup projekta (Cloudinary, responsive; sicer placeholder) -->
+  <div class="container-page">
+    <div class="case-mock" data-hero>
+      {c.image ? (
+        <CloudinaryImage
+          src={c.image}
+          alt={c.imageAlt ?? `Spletna stran ${c.name}`}
+          width={1600}
+          height={900}
+          sizes="(min-width: 1280px) 1200px, 100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="case-mock__img"
+        />
+      ) : (
+        <span class="case-mock__label" aria-hidden="true">{c.liveLabel}</span>
+      )}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== IZZIV + PRISTOP ===================== -->
+<section class="case-block">
+  <div class="container-page case-cols">
+    <article data-reveal>
+      <p class="kicker case-cols__label">[ Izziv ]</p>
+      <p class="case-cols__text">{c.challenge}</p>
+    </article>
+    <article data-reveal>
+      <p class="kicker case-cols__label">[ Pristop ]</p>
+      <p class="case-cols__text case-cols__text--bright">{c.approach}</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== KAJ SMO ZGRADILI ===================== -->
+<section class="case-block case-built">
+  <div class="container-page">
+    <header class="case-built__head">
+      <p class="kicker" data-reveal>[ Kaj smo zgradili ]</p>
+      <h2 class="section-title" data-reveal>Kaj smo zgradili.</h2>
+    </header>
+    <ul class="built-list">
+      {c.built.map((item, i) => (
+        <li class="built-item" data-reveal>
+          <span class="built-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <span class="built-text">{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== REZULTAT ===================== -->
+<section class="case-block case-result">
+  <div class="container-page">
+    <p class="kicker" data-reveal>[ Rezultat ]</p>
+    <p class="case-result__text" data-reveal>{c.result}</p>
+  </div>
+</section>
+
+<!-- ===================== LIVE CTA ===================== -->
+<section class="live-cta">
+  <div class="container-page">
+    <p class="kicker" data-reveal>[ V živo ]</p>
+    <h2 class="live-cta__title" data-reveal>Najlažje je videti v živo.</h2>
+    <div class="live-cta__actions" data-reveal>
+      <Button href={c.liveUrl} variant="primary" external dl="cta_click">
+        Obišči {c.liveLabel} →
+      </Button>
+      <Button href="/showroom" variant="ghost">← Nazaj v showroom</Button>
+    </div>
+    <p class="live-cta__note" data-reveal>
+      Želiš podobno za svojo znamko? <a href="/kontakt" data-cursor>Začnimo ustvarjati →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .section-title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(34px, 5.5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- HERO ---------- */
+  .case-hero { padding-top: clamp(3rem, 9vh, 7rem); padding-bottom: clamp(3rem, 7vh, 5rem); }
+  .breadcrumb {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center;
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--color-bone-dim); margin-bottom: 2rem;
+  }
+  .breadcrumb a { color: var(--color-bone-dim); transition: color 0.3s var(--ease-reveal); }
+  .breadcrumb a:hover { color: var(--color-gold); }
+  .breadcrumb [aria-current="page"] { color: var(--color-bone); }
+
+  .case-hero__title {
+    margin-top: 1.5rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(40px, 7vw, 100px); line-height: 0.98; letter-spacing: -0.01em;
+    max-width: 18ch;
+  }
+  .case-hero__tags { display: flex; flex-wrap: wrap; gap: 0.75rem; list-style: none; padding: 0; margin: 2rem 0 0; }
+  .tag {
+    font-family: var(--font-mono); font-weight: 500; font-size: 0.6875rem;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-bone-dim);
+    border: 1px solid var(--color-hairline); border-radius: 999px; padding: 0.5rem 1rem;
+  }
+  .case-hero__cta { margin-top: 2.5rem; }
+
+  .case-mock {
+    margin-top: clamp(2.5rem, 6vw, 5rem);
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    background:
+      radial-gradient(120% 120% at 50% 0%, rgb(200 169 110 / 0.06), transparent 60%),
+      var(--color-ink-2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .case-mock__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .case-mock__label {
+    font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--color-bone-dim);
+  }
+
+  /* ---------- IZZIV / PRISTOP ---------- */
+  .case-block { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .case-cols { display: grid; gap: 3rem; }
+  @media (min-width: 768px) { .case-cols { grid-template-columns: 1fr 1fr; gap: clamp(3rem, 6vw, 6rem); } }
+  .case-cols__label { margin-bottom: 1.25rem; }
+  .case-cols__text {
+    font-family: var(--font-display); font-size: clamp(20px, 2.4vw, 30px);
+    line-height: 1.4; color: var(--color-bone-dim); max-width: 34ch;
+  }
+  .case-cols__text--bright { color: var(--color-bone); }
+
+  /* ---------- KAJ SMO ZGRADILI ---------- */
+  .case-built__head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .built-list { list-style: none; margin: 0; padding: 0; }
+  .built-item {
+    display: flex; gap: 1.5rem; align-items: baseline; padding: 1.5rem 0;
+    border-top: 1px solid var(--color-hairline);
+    font-size: clamp(16px, 1.8vw, 22px); line-height: 1.5; color: var(--color-bone);
+  }
+  .built-item:last-child { border-bottom: 1px solid var(--color-hairline); }
+  .built-num {
+    font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.2em;
+    color: var(--color-gold); flex: none; padding-top: 0.35rem;
+  }
+  .built-text { max-width: 58ch; }
+
+  /* ---------- REZULTAT ---------- */
+  .case-result__text {
+    margin-top: 1.5rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(26px, 4vw, 52px); line-height: 1.18; letter-spacing: -0.01em;
+    color: var(--color-bone); max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  /* ---------- LIVE CTA ---------- */
+  .live-cta { padding-block: clamp(5rem, 12vh, 9rem); border-top: 1px solid var(--color-hairline); }
+  .live-cta__title {
+    margin-top: 1.25rem; font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(34px, 6vw, 80px); line-height: 1; letter-spacing: -0.01em; max-width: 16ch;
+  }
+  .live-cta__actions { margin-top: 2.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+  .live-cta__note { margin-top: 2rem; color: var(--color-bone-dim); font-size: 0.95rem; }
+  .live-cta__note a { color: var(--color-gold); }
+  .live-cta__note a:hover { text-decoration: underline; }
+</style>

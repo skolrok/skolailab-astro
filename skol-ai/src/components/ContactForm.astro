@@ -1,0 +1,245 @@
+---
+/* ContactForm — ime, e-mail, podjetje, izbor storitve, sporočilo.
+   POST na n8n webhook (placeholder). Ob uspehu potrditev na strani.
+   Dostopnost: vidne labele, required oznake, napaka ob polju, loading, aria-live. */
+const services = [
+  "Spletna stran",
+  "AI agent",
+  "Vizualije",
+  "Oglasi",
+  "Drugo",
+];
+---
+
+<div class="cf">
+  <form id="kontakt-form" class="cf__form" novalidate>
+    <div class="cf__row">
+      <div class="field">
+        <label for="cf-ime">Ime <span class="req" aria-hidden="true">*</span></label>
+        <input id="cf-ime" name="ime" type="text" required autocomplete="name" data-cursor />
+        <p class="field-error" id="err-ime" aria-live="polite"></p>
+      </div>
+      <div class="field">
+        <label for="cf-email">E-mail <span class="req" aria-hidden="true">*</span></label>
+        <input id="cf-email" name="email" type="email" required autocomplete="email" inputmode="email" data-cursor />
+        <p class="field-error" id="err-email" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="cf__row">
+      <div class="field">
+        <label for="cf-podjetje">Podjetje <span class="opt">(neobvezno)</span></label>
+        <input id="cf-podjetje" name="podjetje" type="text" autocomplete="organization" data-cursor />
+      </div>
+      <div class="field">
+        <label for="cf-storitev">Kaj potrebuješ? <span class="req" aria-hidden="true">*</span></label>
+        <select id="cf-storitev" name="storitev" required data-cursor>
+          <option value="" disabled selected>Izberi…</option>
+          {services.map((s) => <option value={s}>{s}</option>)}
+        </select>
+        <p class="field-error" id="err-storitev" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="cf-sporocilo">Sporočilo <span class="req" aria-hidden="true">*</span></label>
+      <textarea id="cf-sporocilo" name="sporocilo" rows="5" required data-cursor></textarea>
+      <p class="field-error" id="err-sporocilo" aria-live="polite"></p>
+    </div>
+
+    <div class="cf__actions">
+      <button type="submit" class="cf__submit" data-cursor>
+        <span class="cf__submit-label">Pošlji →</span>
+      </button>
+      <p class="cf__status" id="cf-status" role="alert" aria-live="assertive"></p>
+    </div>
+  </form>
+
+  <!-- Potrditev po uspešni oddaji -->
+  <div class="cf__success" id="cf-success" hidden role="status" aria-live="polite">
+    <span class="cf__check" aria-hidden="true">✓</span>
+    <h3 class="cf__success-title">Sporočilo je oddano.</h3>
+    <p class="cf__success-text">
+      Hvala. Odgovorim v 24 urah. Če se mudi, pokliči
+      <a href="tel:+38631295869" data-dl="tel_click" data-cursor>+386 31 295 869</a>.
+    </p>
+  </div>
+</div>
+
+<script>
+  // TODO: zamenjaj s pravim n8n webhook URL-jem (Faza 6).
+  const WEBHOOK = "https://n8n.example.com/webhook/skolai-kontakt";
+  const isPlaceholder = !WEBHOOK || WEBHOOK.includes("example.com");
+
+  const form = document.getElementById("kontakt-form");
+  const statusEl = document.getElementById("cf-status");
+  const successEl = document.getElementById("cf-success");
+  const submitBtn = form?.querySelector(".cf__submit");
+  const labelEl = form?.querySelector(".cf__submit-label");
+
+  const fieldMsg = (name, msg) => {
+    const el = document.getElementById("err-" + name);
+    const input = form.elements[name];
+    if (el) el.textContent = msg || "";
+    if (input) {
+      input.classList.toggle("is-invalid", !!msg);
+      if (msg) input.setAttribute("aria-invalid", "true");
+      else input.removeAttribute("aria-invalid");
+    }
+  };
+
+  const validateField = (name) => {
+    const input = form.elements[name];
+    if (!input) return true;
+    const v = (input.value || "").trim();
+    if (input.hasAttribute("required") && !v) {
+      fieldMsg(name, "To polje je obvezno.");
+      return false;
+    }
+    if (input.type === "email" && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      fieldMsg(name, "Vnesi veljaven e-mail.");
+      return false;
+    }
+    fieldMsg(name, "");
+    return true;
+  };
+
+  // Inline validacija ob blur (ne ob vsaki tipki)
+  ["ime", "email", "storitev", "sporocilo"].forEach((name) => {
+    const input = form?.elements[name];
+    input?.addEventListener("blur", () => validateField(name));
+  });
+
+  const setLoading = (on) => {
+    if (!submitBtn) return;
+    submitBtn.disabled = on;
+    if (labelEl) labelEl.textContent = on ? "Pošiljam…" : "Pošlji →";
+  };
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "";
+
+    const names = ["ime", "email", "storitev", "sporocilo"];
+    const firstInvalid = names.find((n) => !validateField(n));
+    if (firstInvalid) {
+      form.elements[firstInvalid].focus(); // fokus na prvo napačno polje (a11y)
+      statusEl.textContent = "Preveri označena polja.";
+      return;
+    }
+
+    setLoading(true);
+    const data = Object.fromEntries(new FormData(form));
+
+    try {
+      if (isPlaceholder) {
+        // Demo način: brez pravega webhooka pokažemo potrditveno stanje.
+        console.warn("[kontakt] WEBHOOK je placeholder — simuliram uspeh. Nastavi pravi n8n URL.");
+        await new Promise((r) => setTimeout(r, 600));
+      } else {
+        const res = await fetch(WEBHOOK, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("Bad status " + res.status);
+      }
+
+      // dataLayer konverzija (build-package §6)
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "form_submit" });
+      // Meta Pixel standardni konverzijski event (sproži se le, če je pixel naložen)
+      if (typeof window.fbq === "function") window.fbq("track", "Lead");
+
+      form.hidden = true;
+      successEl.hidden = false;
+      successEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (err) {
+      setLoading(false);
+      statusEl.textContent =
+        "Pošiljanje ni uspelo. Poskusi znova ali piši na info@skolailab.com.";
+    }
+  });
+</script>
+
+<style>
+  .cf { width: 100%; }
+  .cf__row { display: grid; gap: 1.5rem; }
+  @media (min-width: 640px) { .cf__row { grid-template-columns: 1fr 1fr; } }
+  .cf__form { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .field { display: flex; flex-direction: column; gap: 0.5rem; }
+  .field label {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--color-bone-dim);
+  }
+  .req { color: var(--color-gold); }
+  .opt { color: var(--color-bone-dim); opacity: 0.7; letter-spacing: 0.06em; }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    background: var(--color-ink-2);
+    border: 1px solid var(--color-hairline);
+    border-radius: 8px;
+    color: var(--color-bone);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    min-height: 48px; /* dotik ≥44px */
+    transition: border-color 0.25s var(--ease-reveal), background-color 0.25s var(--ease-reveal);
+  }
+  .field textarea { resize: vertical; line-height: 1.6; }
+  .field select { appearance: none; cursor: pointer; }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--color-bone-dim); opacity: 0.6; }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    background: #181511;
+  }
+  .field .is-invalid { border-color: var(--color-error); }
+
+  .field-error {
+    margin: 0; min-height: 1rem;
+    font-size: 0.8rem; color: var(--color-error);
+  }
+
+  .cf__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 0.5rem; }
+  .cf__submit {
+    background: var(--color-gold); color: var(--color-ink);
+    font-family: var(--font-body); font-weight: 700; font-size: 0.95rem;
+    border: 1px solid var(--color-gold); border-radius: 999px;
+    padding: 1rem 2rem; cursor: pointer;
+    transition: background-color 0.3s var(--ease-reveal), color 0.3s var(--ease-reveal), opacity 0.3s;
+  }
+  .cf__submit:hover { background: transparent; color: var(--color-gold); }
+  .cf__submit:disabled { opacity: 0.55; cursor: progress; }
+  .cf__status { margin: 0; font-size: 0.85rem; color: var(--color-error); }
+
+  /* Potrditev */
+  .cf__success {
+    border: 1px solid rgb(127 168 138 / 0.4);
+    background: rgb(127 168 138 / 0.06);
+    border-radius: 14px;
+    padding: clamp(2rem, 4vw, 3rem);
+    text-align: left;
+  }
+  .cf__check {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 999px;
+    background: var(--color-success); color: var(--color-ink);
+    font-size: 1.4rem; font-weight: 700;
+  }
+  .cf__success-title {
+    margin: 1.25rem 0 0.5rem;
+    font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--color-bone);
+  }
+  .cf__success-text { margin: 0; color: var(--color-bone-dim); line-height: 1.6; }
+  .cf__success-text a { color: var(--color-gold); }
+</style>

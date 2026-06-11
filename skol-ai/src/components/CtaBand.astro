@@ -1,0 +1,79 @@
+---
+/* CtaBand — zaključni CTA pas (ponovno uporabljen na podstraneh in domači).
+   Aktivna tel:/mailto: z dataLayer eventi. */
+import Button from "./Button.astro";
+
+interface Props {
+  title?: string;
+  sub?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  kicker?: string;
+}
+const {
+  title = "Začnimo ustvarjati.",
+  sub = "Povej mi, kaj gradiš. Odgovorim v 24 urah.",
+  ctaLabel = "Začnimo ustvarjati →",
+  ctaHref = "/kontakt",
+  kicker = "[ Začnimo ]",
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="container-page">
+    <p class="kicker" data-reveal>{kicker}</p>
+    <h2 class="cta-band__title" data-reveal>{title}</h2>
+    <p class="cta-band__sub" data-reveal>{sub}</p>
+
+    <div class="cta-band__actions" data-reveal>
+      <Button href={ctaHref} variant="primary" dl="cta_click">{ctaLabel}</Button>
+      <div class="cta-band__contact">
+        <a href="tel:+38631295869" data-dl="tel_click" data-cursor>+386 31 295 869</a>
+        <a href="mailto:info@skolailab.com" data-dl="mailto_click" data-cursor>info@skolailab.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    border-top: 1px solid var(--color-hairline);
+    padding-block: clamp(5rem, 13vh, 10rem);
+  }
+  .cta-band__title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 7vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    max-width: 16ch;
+  }
+  .cta-band__sub {
+    margin-top: 1.5rem;
+    max-width: 44ch;
+    font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+  .cta-band__actions {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem 3rem;
+  }
+  .cta-band__contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+  }
+  .cta-band__contact a {
+    color: var(--color-bone-dim);
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .cta-band__contact a:hover { color: var(--color-gold); }
+</style>

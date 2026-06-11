@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ProofBar from "../components/home/ProofBar.astro";
+import ServicesOverview from "../components/home/ServicesOverview.astro";
+import Protokol from "../components/Protokol.astro";
+import ShowroomTeaser from "../components/home/ShowroomTeaser.astro";
+import FeaturedProject from "../components/home/FeaturedProject.astro";
+import ManifestTeaser from "../components/home/ManifestTeaser.astro";
+import HomeFaq from "../components/home/HomeFaq.astro";
+import ContactSection from "../components/home/ContactSection.astro";
+import { homeFaqJsonLd } from "../data/homeFaq";
+
+const siteUrl = (Astro.site ?? new URL("https://skolailab.com")).origin;
+const schema = homeFaqJsonLd(siteUrl);
+---
+
+<BaseLayout
+  title="Estetika kot nepravična prednost"
+  description="Spletne strani, AI agenti in vizualije za znamke, ki nočejo biti kot vse ostale. Kreativni studio iz Trebnjega, delamo po vsej Sloveniji."
+  jsonLd={schema}
+>
+  <Hero />
+  <ProofBar />
+  <ServicesOverview />
+  <Protokol />
+  <ShowroomTeaser />
+  <FeaturedProject />
+  <ManifestTeaser />
+  <HomeFaq />
+  <ContactSection />
+</BaseLayout>

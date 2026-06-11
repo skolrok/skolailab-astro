@@ -1,0 +1,261 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import CtaBand from "../components/CtaBand.astro";
+import CloudinaryVideo from "../components/CloudinaryVideo.astro";
+import { caseList } from "../data/cases";
+
+// Kurirana galerija — AI video kosi (Cloudinary f_auto -> mp4, lazy autoplay).
+const CLD = "https://res.cloudinary.com/ddl75cyhk/video/upload/f_auto";
+const visuals = [
+  { n: "01", title: "Bartog", cat: "Avtomobilizem", src: `${CLD}/v1772400185/skolai-bartog-avtomobilizem-akcija_rhgjx8.mov` },
+  { n: "02", title: "Vitaproshop", cat: "Šport · Adrenalin", src: `${CLD}/v1772400185/skolai-vitaproshop-sport-adrenalin_z2lkej.mov` },
+  { n: "03", title: "Solimat", cat: "Arhitektura", src: `${CLD}/v1772400185/skolai-solimat-arhitektura-pergola_ukfu8s.mov` },
+  { n: "04", title: "Berryshka", cat: "Tekoče zlato", src: `${CLD}/v1772400185/skolai-berryshka-tekoce-zlato_nsn6we.mov` },
+];
+const aiModelVideo = `${CLD}/v1773247789/ai-agencija-skol-ai-virtualni-ambasador_jnpxz1.mp4`;
+
+// Solimat (featured) najprej
+const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.featured));
+---
+
+<BaseLayout
+  title="Showroom"
+  description="Manj, a večje. Pravi projekti, ki smo jih spravili v živo, in vizualije, ki ne obstajajo nikjer drugje. Kjer povprečje umre."
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="sr-hero">
+    <div class="container-page">
+      <p class="kicker" data-hero>[ Showroom ]</p>
+      <h1 class="sr-hero__title" data-hero>Kjer povprečje umre.</h1>
+      <p class="sr-hero__sub" data-hero>
+        Manj, a večje. Vsak kos je 100 % po meri. Tu so projekti, ki smo jih spravili v živo,
+        in vizualije, ki ne obstajajo nikjer drugje.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== A) PROJEKTI ===================== -->
+  <section class="projects-sec">
+    <div class="container-page">
+      <header class="sr-head">
+        <p class="kicker" data-reveal>[ Projekti ]</p>
+        <h2 class="section-title" data-reveal>Spravljeno v živo.</h2>
+      </header>
+
+      <div class="projects">
+        {projects.map((p) => (
+          <a
+            href={`/projekti/${p.slug}`}
+            class:list={["proj", { "proj--featured": p.featured }]}
+            data-reveal
+            data-cursor
+          >
+            <div class="proj__visual" aria-hidden="true">
+              <span class="proj__visual-label">{p.liveLabel}</span>
+            </div>
+            <div class="proj__body">
+              <p class="proj__cat">{p.category}</p>
+              <h3 class="proj__name">{p.name}</h3>
+              <p class="proj__teaser">{p.teaser}</p>
+              <ul class="proj__tags">
+                {p.tags.map((t) => <li>{t}</li>)}
+              </ul>
+              <span class="proj__more">Oglej si projekt →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== B) STUDIO / VIZUALIJE (Z-depth "vstop v prostor") ===================== -->
+  <section class="vis" data-dl-view="showroom_view">
+    <div class="container-page">
+      <header class="sr-head">
+        <p class="kicker" data-reveal>[ Studio ]</p>
+        <h2 class="section-title" data-reveal>Vstop v prostor.</h2>
+        <p class="vis__sub" data-reveal>
+          100 % AI, 100 % po meri. Nič stocka, nič ponavljanja. Kurirano, ne natlačeno.
+        </p>
+      </header>
+    </div>
+
+    <div class="vis__viewport">
+      <div class="vis__stage" data-depth>
+        <div class="container-page">
+          <div class="vis__grid">
+            {visuals.map((v) => (
+              <figure class="tile" data-cursor tabindex="0">
+                <CloudinaryVideo src={v.src} class="tile__media" />
+                <span class="tile__index" aria-hidden="true">{v.n}</span>
+                <figcaption class="tile__meta">
+                  <span class="tile__cat">{v.cat}</span>
+                  <span class="tile__title">{v.title}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AI MODEL FEATURE ===================== -->
+  <section class="ai-model">
+    <div class="container-page ai-model__grid">
+      <div class="ai-model__visual" data-reveal>
+        <CloudinaryVideo src={aiModelVideo} class="ai-model__media" />
+        <span class="ai-model__tag" aria-hidden="true">AI model</span>
+      </div>
+      <div class="ai-model__text">
+        <p class="kicker" data-reveal>[ Virtualni model ]</p>
+        <h2 class="ai-model__title" data-reveal>Obraz, ki nikoli ne odpove.</h2>
+        <p class="ai-model__body" data-reveal>
+          En render virtualnega modela kot dokaz zmožnosti. Digitalni ambasador znamke:
+          24/7 prisoten, popolnoma konsistenten, brez dram.
+        </p>
+        <div data-reveal>
+          <Button href="/virtualni-vplivnezi" variant="ghost">Spoznaj virtualne vplivneže →</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand kicker="[ Naslednji korak ]" />
+</BaseLayout>
+
+<style>
+  .section-title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(34px, 5.5vw, 72px); line-height: 1; letter-spacing: -0.01em;
+  }
+  .sr-head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+
+  /* ---------- HERO ---------- */
+  .sr-hero { padding-top: clamp(3rem, 9vh, 7rem); padding-bottom: clamp(2.5rem, 6vh, 5rem); }
+  .sr-hero__title {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(44px, 8vw, 116px); line-height: 0.96; letter-spacing: -0.01em;
+    margin-top: 1.5rem; max-width: 14ch;
+  }
+  .sr-hero__sub {
+    margin-top: 2rem; max-width: 52ch; font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65; color: var(--color-bone-dim);
+  }
+
+  /* ---------- PROJEKTI ---------- */
+  .projects-sec { padding-block: clamp(3rem, 7vh, 6rem); border-top: 1px solid var(--color-hairline); }
+  .projects { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
+  @media (min-width: 860px) { .projects { grid-template-columns: 1.35fr 1fr; align-items: start; } }
+
+  .proj {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--color-hairline); border-radius: 14px; overflow: hidden;
+    background: var(--color-ink-2);
+    transition: border-color 0.3s var(--ease-reveal), transform 0.4s var(--ease-reveal);
+  }
+  .proj:hover { border-color: rgb(200 169 110 / 0.4); transform: translateY(-6px); }
+  .proj__visual {
+    aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 1.25rem;
+    background:
+      radial-gradient(130% 130% at 50% 0%, rgb(200 169 110 / 0.07), transparent 60%),
+      linear-gradient(180deg, #181511, var(--color-ink-2));
+    border-bottom: 1px solid var(--color-hairline);
+  }
+  .proj--featured .proj__visual { aspect-ratio: 16 / 11; }
+  .proj__visual-label {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--color-bone-dim);
+  }
+  .proj__body { padding: clamp(1.5rem, 2.5vw, 2.25rem); display: flex; flex-direction: column; gap: 0.75rem; }
+  .proj__cat {
+    font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--color-gold);
+  }
+  .proj__name {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.05; color: var(--color-bone);
+  }
+  .proj__teaser { color: var(--color-bone-dim); font-size: 0.98rem; line-height: 1.6; max-width: 46ch; }
+  .proj__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; margin: 0.25rem 0; }
+  .proj__tags li {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--color-bone-dim); border: 1px solid var(--color-hairline); border-radius: 999px; padding: 0.35rem 0.7rem;
+  }
+  .proj__more {
+    margin-top: 0.5rem; font-family: var(--font-body); font-weight: 700; font-size: 0.9rem;
+    color: var(--color-gold);
+  }
+
+  /* ---------- VIZUALIJE — globinski "vstop v prostor" ---------- */
+  .vis { padding-top: clamp(3rem, 7vh, 6rem); padding-bottom: clamp(4rem, 9vh, 8rem); border-top: 1px solid var(--color-hairline); }
+  .vis__sub { margin-top: 1.25rem; max-width: 46ch; color: var(--color-bone-dim); }
+  /* perspektiva = "kamera"; stage se ob skrolu pomakne po Z (initDepth) */
+  .vis__viewport { perspective: 1100px; perspective-origin: 50% 45%; overflow: hidden; }
+  .vis__stage { transform-style: preserve-3d; will-change: transform, opacity; }
+  .vis__grid { display: grid; gap: clamp(1rem, 2.5vw, 2rem); margin-top: 1rem; }
+  @media (min-width: 700px) { .vis__grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .tile {
+    position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden;
+    border: 1px solid var(--color-hairline); border-radius: 12px;
+    background:
+      radial-gradient(140% 120% at 50% 0%, rgb(200 169 110 / 0.08), transparent 55%),
+      linear-gradient(160deg, #181511 0%, var(--color-ink-2) 70%);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.35s var(--ease-reveal);
+  }
+  .tile:hover, .tile:focus-visible { border-color: rgb(200 169 110 / 0.5); }
+  /* video zapolni ploščico */
+  .tile__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .tile__index {
+    position: absolute; top: 1rem; left: 1.1rem; z-index: 1;
+    font-family: var(--font-mono); font-weight: 500; font-size: 0.8rem; letter-spacing: 0.2em;
+    color: rgb(237 232 223 / 0.6); line-height: 1;
+    text-shadow: 0 1px 8px rgb(11 10 9 / 0.6);
+    transition: color 0.35s var(--ease-reveal);
+  }
+  .tile:hover .tile__index, .tile:focus-visible .tile__index { color: var(--color-gold); }
+  .tile__meta {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+    display: flex; flex-direction: column; gap: 0.25rem;
+    padding: 1.25rem;
+    background: linear-gradient(0deg, rgb(11 10 9 / 0.9), transparent);
+    transform: translateY(0.5rem); opacity: 0;
+    transition: transform 0.35s var(--ease-reveal), opacity 0.35s var(--ease-reveal);
+  }
+  .tile:hover .tile__meta, .tile:focus-visible .tile__meta { transform: translateY(0); opacity: 1; }
+  .tile__cat {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--color-gold);
+  }
+  .tile__title { font-family: var(--font-display); font-size: 1.25rem; color: var(--color-bone); }
+
+  /* ---------- AI MODEL FEATURE ---------- */
+  .ai-model { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .ai-model__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (min-width: 800px) { .ai-model__grid { grid-template-columns: 0.85fr 1fr; } }
+  .ai-model__visual {
+    position: relative; overflow: hidden;
+    aspect-ratio: 3 / 4; border-radius: 14px; border: 1px solid var(--color-hairline);
+    background:
+      radial-gradient(120% 90% at 50% 10%, rgb(200 169 110 / 0.1), transparent 55%),
+      linear-gradient(160deg, #1a1612, var(--color-ink-2));
+    max-width: 460px;
+  }
+  .ai-model__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ai-model__tag {
+    position: absolute; left: 1.25rem; bottom: 1.25rem; z-index: 1;
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--color-bone);
+    text-shadow: 0 1px 8px rgb(11 10 9 / 0.7);
+  }
+  .ai-model__title {
+    margin-top: 1.25rem; font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(30px, 4.5vw, 60px); line-height: 1.02; letter-spacing: -0.01em; max-width: 14ch;
+  }
+  .ai-model__body { margin-top: 1.5rem; max-width: 46ch; color: var(--color-bone-dim); line-height: 1.65; }
+  .ai-model__text > div { margin-top: 2rem; }
+</style>

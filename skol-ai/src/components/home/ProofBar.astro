@@ -1,0 +1,62 @@
+---
+/* ProofBar — sekcija 2 (homepage-copy.md). Pravi referenci, brez izmišljotin. */
+const refs = [
+  { name: "Solimat", href: "/projekti/solimat" },
+  { name: "Bar Bazenček", href: "/projekti/bar-bazencek" },
+];
+---
+
+<section class="proof">
+  <div class="container-page proof__inner">
+    <p class="kicker" data-reveal>[ Izbrani projekti ]</p>
+    <ul class="proof__list" data-reveal>
+      {refs.map((r) => (
+        <li>
+          <a href={r.href} class="proof__ref" data-cursor>{r.name}</a>
+        </li>
+      ))}
+      <li class="proof__next" aria-hidden="true">Naslednja je lahko vaša.</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .proof {
+    border-top: 1px solid var(--color-hairline);
+    border-bottom: 1px solid var(--color-hairline);
+    padding-block: clamp(2rem, 4vw, 3rem);
+  }
+  .proof__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1rem clamp(2rem, 5vw, 4rem);
+  }
+  .proof__inner .kicker { flex: none; }
+  .proof__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1rem clamp(2rem, 5vw, 3.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .proof__ref {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    color: var(--color-bone);
+    line-height: 1;
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .proof__ref:hover { color: var(--color-gold); }
+  .proof__next {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-bone-dim);
+    align-self: center;
+  }
+</style>

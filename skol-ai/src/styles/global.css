@@ -1,0 +1,28 @@
+/* =========================================================================
+   SKOL AI — Entry stylesheet (uvožen v BaseLayout.astro)
+   Vrstni red: Tailwind -> tokeni/@theme -> self-hosted fonti.
+   ========================================================================= */
+@import "tailwindcss";
+
+/* Design tokeni (@theme) + bazni in komponentni sloji */
+@import "./tokens.css";
+
+/* --- Self-hosted fonti (@fontsource) ---------------------------------------
+   Agregatne weight datoteke vsebujejo @font-face za vse subsete z
+   unicode-range, zato brskalnik prenese latin-ext (č/š/ž) le, ko je v rabi.
+   font-display: swap je že nastavljen v fontsource CSS.
+   --------------------------------------------------------------------------- */
+
+/* Fraunces — display / naslovi (400, 500, 400 italic) */
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/400-italic.css";
+
+/* Hanken Grotesk — body / UI (400, 500, 700) */
+@import "@fontsource/hanken-grotesk/400.css";
+@import "@fontsource/hanken-grotesk/500.css";
+@import "@fontsource/hanken-grotesk/700.css";
+
+/* JetBrains Mono — labele / številke (400, 500) */
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";

@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceTemplate from "../components/service/ServiceTemplate.astro";
+import { services, serviceJsonLd } from "../data/services";
+
+const service = services["oglasne-kreative"];
+const siteUrl = (Astro.site ?? new URL("https://skolailab.com")).origin;
+const schema = serviceJsonLd(service, siteUrl);
+---
+
+<BaseLayout
+  titleExact={service.metaTitle}
+  description={service.metaDescription}
+  ogType="article"
+  jsonLd={schema}
+>
+  <ServiceTemplate service={service} />
+</BaseLayout>

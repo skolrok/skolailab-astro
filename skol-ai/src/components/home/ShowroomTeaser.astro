@@ -1,0 +1,37 @@
+---
+/* ShowroomTeaser — sekcija 5 (homepage-copy.md). */
+import Button from "../Button.astro";
+---
+
+<section class="st">
+  <div class="container-page">
+    <p class="kicker" data-reveal>[ Showroom ]</p>
+    <h2 class="st__title" data-reveal>Kjer povprečje umre.</h2>
+    <p class="st__sub" data-reveal>
+      Vsaka vizualija tukaj je 100 % AI in 100 % po meri. Nič stocka, nič ponavljanja,
+      nič „že videnega“.
+    </p>
+    <div class="st__cta" data-reveal>
+      <Button href="/showroom" variant="primary" dl="cta_click">Vstopi v showroom →</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .st {
+    padding-block: clamp(5rem, 12vh, 10rem);
+    border-top: 1px solid var(--color-hairline);
+    text-align: center;
+  }
+  .st__title {
+    margin-top: 1.5rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(44px, 8vw, 116px); line-height: 0.96; letter-spacing: -0.015em;
+  }
+  .st__sub {
+    margin: 2rem auto 0;
+    max-width: 52ch;
+    font-size: clamp(15px, 1.5vw, 19px); line-height: 1.65; color: var(--color-bone-dim);
+  }
+  .st__cta { margin-top: 2.75rem; display: flex; justify-content: center; }
+</style>

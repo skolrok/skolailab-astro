@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import CloudinaryImage from "../components/CloudinaryImage.astro";
+
+const paras = [
+  "Večina znamk izgleda enako. Iste predloge, iste stock fotografije, isti prazni stavki. Povprečje, ki se utaplja v povprečju.",
+  "Klasične agencije so del problema. Prepočasne in predrage. Mesece delajo to, kar je danes mogoče v dnevih.",
+  "Mi delamo drugače. Ne pišemo neskončnih vrstic kode, gradimo digitalne ekosisteme z umetno inteligenco. Hiper-realistične vizualije, ki ne obstajajo nikjer drugje. Bliskovite spletne strani. AI agente, ki delajo, ko vi spite. Vse v delčku časa in stroška.",
+  "Ampak AI ni čarovnija. Je orodje. Najmočnejše doslej, a vseeno orodje. Brez vizije, okusa in strategije zgenerira le več povprečja.",
+];
+const rule = "Zato velja eno pravilo: orodje je umetno, vizija je človeška.";
+const closing =
+  "To ni prihodnost. To je zdaj. In medtem ko vaša konkurenca še razmišlja, vi že dominirate.";
+---
+
+<BaseLayout
+  titleExact="Manifest | SKOL AI Kreativni studio"
+  description="Konec povprečnosti, začetek dominacije. Zakaj gradimo z umetno inteligenco in zakaj je vizija vedno človeška."
+  ogType="article"
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="mf-hero">
+    <div class="container-page">
+      <p class="kicker" data-hero>[ Manifest ]</p>
+      <h1 class="mf-hero__title" data-hero>Konec povprečnosti.</h1>
+    </div>
+  </section>
+
+  <!-- ===================== TELO ===================== -->
+  <section class="mf-body">
+    <div class="container-page mf-body__col">
+      {paras.map((p, i) => (
+        <p class:list={["mf-p", { "mf-p--lead": i === 0 }]} data-reveal>{p}</p>
+      ))}
+
+      <p class="mf-rule" data-reveal>{rule}</p>
+
+      <p class="mf-p" data-reveal>{closing}</p>
+    </div>
+  </section>
+
+  <!-- ===================== CITAT + ROK ===================== -->
+  <section class="mf-quote-sec">
+    <div class="container-page mf-quote__grid">
+      <figure class="mf-portrait" data-reveal>
+        <CloudinaryImage
+          src="v1772532610/rok-skol-ai-kreativni-studio-direktor_z5inpr.png"
+          alt="Rok Skol, kreativni vodja in ustanovitelj SKOL AI"
+          width={720}
+          height={900}
+          sizes="(min-width: 800px) 360px, 80vw"
+          class="mf-portrait__img"
+        />
+      </figure>
+      <blockquote class="mf-quote" data-reveal>
+        <p class="mf-quote__text">„Orodje je umetno. <em class="accent">Vizija</em> je človeška.“</p>
+        <figcaption class="mf-quote__by">
+          Rok Skol<span>kreativni vodja &amp; ustanovitelj</span>
+        </figcaption>
+      </blockquote>
+    </div>
+  </section>
+
+  <CtaBand kicker="[ Naslednji korak ]" />
+</BaseLayout>
+
+<style>
+  /* ---------- HERO ---------- */
+  .mf-hero { padding-top: clamp(3rem, 10vh, 8rem); padding-bottom: clamp(2rem, 5vh, 4rem); }
+  .mf-hero__title {
+    margin-top: 1.5rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(48px, 9vw, 132px); line-height: 0.95; letter-spacing: -0.015em;
+    max-width: 12ch;
+  }
+
+  /* ---------- TELO ---------- */
+  .mf-body { padding-block: clamp(2rem, 5vh, 4rem); }
+  .mf-body__col { max-width: 60ch; }
+  .mf-p {
+    font-size: clamp(17px, 1.8vw, 21px);
+    line-height: 1.7;
+    color: var(--color-bone-dim);
+    margin-bottom: 1.75rem;
+  }
+  .mf-p--lead {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 34px);
+    line-height: 1.4;
+    color: var(--color-bone);
+    margin-bottom: 2.5rem;
+  }
+  .mf-rule {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3.4vw, 44px);
+    line-height: 1.3;
+    color: var(--color-bone);
+    margin: 3rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--color-gold);
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  /* ---------- CITAT + PORTRET ---------- */
+  .mf-quote-sec { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .mf-quote__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (min-width: 800px) { .mf-quote__grid { grid-template-columns: 0.7fr 1.3fr; } }
+
+  .mf-portrait {
+    margin: 0; aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    background:
+      radial-gradient(120% 90% at 50% 8%, rgb(200 169 110 / 0.1), transparent 55%),
+      linear-gradient(160deg, #1a1612, var(--color-ink-2));
+    max-width: 360px;
+  }
+  .mf-portrait__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .mf-quote { margin: 0; }
+  .mf-quote__text {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(28px, 5vw, 64px); line-height: 1.1; letter-spacing: -0.01em;
+    color: var(--color-bone); max-width: 16ch;
+  }
+  .accent { color: var(--color-gold); font-style: italic; }
+  .mf-quote__by {
+    margin-top: 2rem;
+    font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--color-gold);
+    display: flex; flex-direction: column; gap: 0.35rem;
+  }
+  .mf-quote__by span { color: var(--color-bone-dim); letter-spacing: 0.14em; }
+</style>

@@ -1,0 +1,77 @@
+---
+/* ManifestTeaser — sekcija 7 (homepage-copy.md). Izjava + Rok portret + citat. */
+import Button from "../Button.astro";
+import CloudinaryImage from "../CloudinaryImage.astro";
+---
+
+<section class="mt">
+  <div class="container-page">
+    <p class="kicker" data-reveal>[ Manifest ]</p>
+    <p class="mt__statement" data-reveal>
+      Klasične agencije so prepočasne in predrage. Mi ne pišemo vrstic kode, gradimo digitalne
+      ekosisteme z umetno inteligenco. Hiper-realistične vizualije in bliskovite strani,
+      <em class="accent">v delčku časa.</em>
+    </p>
+
+    <div class="mt__quote-row">
+      <figure class="mt__portrait" data-reveal>
+        <CloudinaryImage
+          src="v1772532610/rok-skol-ai-kreativni-studio-direktor_z5inpr.png"
+          alt="Rok Skol, kreativni vodja in ustanovitelj SKOL AI"
+          width={640}
+          height={800}
+          sizes="(min-width: 800px) 280px, 60vw"
+          class="mt__img"
+        />
+      </figure>
+      <blockquote class="mt__quote" data-reveal>
+        <p class="mt__quote-text">„Orodje je umetno. <em class="accent">Vizija</em> je človeška.“</p>
+        <figcaption class="mt__by">
+          Rok Skol<span>kreativni vodja &amp; ustanovitelj</span>
+        </figcaption>
+        <div class="mt__cta">
+          <Button href="/manifest" variant="ghost">Preberi cel manifest →</Button>
+        </div>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mt { padding-block: clamp(4rem, 10vh, 8rem); border-top: 1px solid var(--color-hairline); }
+  .mt__statement {
+    margin-top: 1.5rem;
+    max-width: 26ch;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(26px, 4vw, 52px); line-height: 1.18; letter-spacing: -0.01em;
+    color: var(--color-bone); text-wrap: balance;
+  }
+  .accent { color: var(--color-gold); font-style: italic; }
+
+  .mt__quote-row {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: center;
+  }
+  @media (min-width: 700px) { .mt__quote-row { grid-template-columns: auto 1fr; } }
+
+  .mt__portrait {
+    margin: 0; width: 100%; max-width: 240px; aspect-ratio: 4 / 5;
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--color-hairline);
+    background: var(--color-ink-2);
+  }
+  .mt__portrait :global(.mt__img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .mt__quote { margin: 0; }
+  .mt__quote-text {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(24px, 4vw, 44px); line-height: 1.15; letter-spacing: -0.01em;
+    color: var(--color-bone); max-width: 18ch;
+  }
+  .mt__by {
+    margin-top: 1.5rem;
+    font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-gold); display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .mt__by span { color: var(--color-bone-dim); letter-spacing: 0.12em; }
+  .mt__cta { margin-top: 2rem; }
+</style>

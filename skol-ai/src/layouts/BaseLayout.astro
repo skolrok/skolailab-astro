@@ -1,0 +1,682 @@
+---
+/* =========================================================================
+   SKOL AI — BaseLayout
+   <head> meta + JSON-LD (Organization + LocalBusiness + WebSite),
+   Consent Mode v2 + CookieYes + GTM (placeholderji),
+   sticky nav s scroll-progress linijo, footer z aktivnima tel:/mailto: + IG/FB.
+   Temna baza, gold accent. Vir resnice: design-system/MASTER.md
+   ========================================================================= */
+import "../styles/global.css";
+
+/* Ključni fonti za nad-pregibno vsebino — preload (Vite vrne hashiran URL).
+   Fraunces 500 = H1/naslovi, Hanken 400 = body. */
+import frauncesDisplay from "@fontsource/fraunces/files/fraunces-latin-500-normal.woff2";
+import hankenBody from "@fontsource/hanken-grotesk/files/hanken-grotesk-latin-400-normal.woff2";
+
+/* ---------- Brand / kontakt (vir: content/extra-pages-copy.md) ---------- */
+const BRAND = {
+  name: "SKOL AI",
+  legalName: "SKOL AI Kreativni studio",
+  tagline: "Orodje je umetno. Vizija je človeška.",
+  phoneDisplay: "+386 31 295 869",
+  phoneHref: "tel:+38631295869",
+  email: "info@skolailab.com",
+  city: "Trebnje",
+  postalCode: "8210",
+  country: "SI",
+  founder: "Rok Skol",
+  instagram: "https://www.instagram.com/skolailab/",
+  facebook: "https://www.facebook.com/profile.php?id=61586836539363",
+};
+
+/* ---------- Tracking (vir: build-package.md §6) ------------
+   Consent Mode v2 default (denied) se naloži vedno (le dataLayer push, brez mreže).
+   GTM je aktiven; GA4 + Google Ads (+ Meta) se prožijo PREK GTM kontejnerja.
+   CookieYes + samostojni Meta Pixel ostaneta gated (brez ID-ja). */
+const GTM_ID = "GTM-5PNH39GD";                  // aktiven GTM kontejner
+const COOKIEYES_ID = "XXXXXXXXXXXXXXXXXXXXXXXX"; // TODO: pravi CookieYes client_data ID
+const META_PIXEL_ID = "XXXXXXXXXXXXXXX";        // gated; Meta gre prek GTM
+const trackingEnabled = !GTM_ID.includes("XXXX");
+const cookieYesEnabled = !COOKIEYES_ID.includes("XXXX");
+const metaPixelEnabled = !META_PIXEL_ID.includes("XXXX");
+
+/* ---------- Navigacija (vir: homepage-copy.md §10) ---------- */
+const navItems = [
+  { label: "Domov", href: "/" },
+  { label: "Storitve", href: "/#storitve" },
+  { label: "Showroom", href: "/showroom" },
+  { label: "Manifest", href: "/manifest" },
+  { label: "Kontakt", href: "/kontakt" },
+];
+
+/* ---------- Props + izpeljane SEO vrednosti ---------- */
+interface Props {
+  title?: string;
+  titleExact?: string;  // celoten <title> kot je (brez dodajanja "| SKOL AI")
+  description?: string;
+  image?: string;       // pot do OG slike (relativna ali absolutna)
+  noindex?: boolean;
+  ogType?: "website" | "article";
+  jsonLd?: object | object[]; // dodatna schema na stran (Service, FAQPage, BreadcrumbList…)
+}
+
+const {
+  title,
+  titleExact,
+  description = "AI spletne strani, agenti in vizualije za znamke, ki nočejo biti kot vse ostale. Kreativni studio iz Trebnjega, delamo po vsej Sloveniji.",
+  image, // opcijsko: ročno povozi OG sliko; sicer izpeljemo iz poti
+  noindex = false,
+  ogType = "website",
+  jsonLd,
+} = Astro.props;
+
+const extraSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
+const siteOrigin = Astro.site ?? new URL("https://skolailab.com");
+const siteUrl = siteOrigin.origin;
+const canonical = new URL(Astro.url.pathname, siteOrigin).href;
+
+/* OG slika: izpeljana iz poti (public/og/<slug>.png; "/" -> default).
+   Generirano s scripts/generate-assets.mjs. */
+const ogSlug = Astro.url.pathname.replace(/^\/|\/$/g, "").replace(/\//g, "-") || "default";
+const ogImage = new URL(image ?? `/og/${ogSlug}.png`, siteOrigin).href;
+const brandImage = new URL("/og/default.png", siteOrigin).href; // dosleden brand vir za schemo
+const pageTitle = titleExact ?? (title ? `${title} | ${BRAND.name}` : `${BRAND.name} — AI kreativni studio, ${BRAND.city}`);
+const year = new Date().getFullYear();
+
+/* aktivna pot za nav — sidrne (#) povezave niso "trenutna stran" */
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => {
+  if (href.includes("#")) return false;
+  const clean = href.replace(/\/$/, "") || "/";
+  return clean === "/" ? path === "/" : path.startsWith(clean);
+};
+
+/* ---------- JSON-LD: Organization + LocalBusiness + WebSite ---------- */
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: BRAND.name,
+      alternateName: BRAND.legalName,
+      url: `${siteUrl}/`,
+      logo: brandImage,
+      email: BRAND.email,
+      telephone: BRAND.phoneHref.replace("tel:", ""),
+      founder: { "@type": "Person", name: BRAND.founder },
+      sameAs: [BRAND.instagram, BRAND.facebook],
+    },
+    {
+      "@type": ["LocalBusiness", "ProfessionalService"],
+      "@id": `${siteUrl}/#localbusiness`,
+      name: BRAND.name,
+      image: brandImage,
+      url: `${siteUrl}/`,
+      telephone: BRAND.phoneHref.replace("tel:", ""),
+      email: BRAND.email,
+      priceRange: "€€",
+      parentOrganization: { "@id": `${siteUrl}/#organization` },
+      founder: { "@type": "Person", name: BRAND.founder },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: BRAND.city,
+        postalCode: BRAND.postalCode,
+        addressCountry: BRAND.country,
+      },
+      areaServed: { "@type": "Country", name: "Slovenija" },
+      knowsLanguage: ["sl", "en"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: BRAND.name,
+      inLanguage: "sl-SI",
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="sl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Preload ključnih fontov (manj font-swap utripa, hitrejši LCP) -->
+    <link rel="preload" href={frauncesDisplay} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={hankenBody} as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <!-- JS-flag čim prej: omogoči reveal pre-hide brez utripa (no-JS = vidno) -->
+    <script is:inline>document.documentElement.classList.add("js");</script>
+
+    <!-- ================= Consent Mode v2 — default DENIED (pred GTM) ============
+         GDPR: nič ad/analytics shrambe brez privolitve. CookieYes nato pošlje
+         gtag('consent','update',...) ob sprejemu. (build-package.md §6) -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+        functionality_storage: "granted",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", true);
+    </script>
+
+    {/* CookieYes — naloži se nad GTM, da upravlja privolitev (placeholder gated) */}
+    {cookieYesEnabled && (
+      <script
+        is:inline
+        id="cookieyes"
+        type="text/javascript"
+        src={`https://cdn-cookieyes.com/client_data/${COOKIEYES_ID}/script.js`}
+      ></script>
+    )}
+
+    {/* Google Tag Manager — en kontejner za GA4 / Google Ads / Meta (placeholder gated) */}
+    {trackingEnabled && (
+      <script is:inline set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`} />
+    )}
+
+    {/* Meta Pixel base (placeholder gated). GDPR: privolitev privzeto preklicana; CookieYes/GTM odobri ob sprejemu. Lead ob oddaji obrazca. */}
+    {metaPixelEnabled && (
+      <script is:inline set:html={`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('consent','revoke');fbq('init','${META_PIXEL_ID}');fbq('track','PageView');`} />
+    )}
+
+    <!-- ===================== SEO / social meta ===================== -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#0b0a09" />
+    <meta name="author" content={BRAND.founder} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={BRAND.name} />
+    <meta property="og:locale" content="sl_SI" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`SKOL AI — ${title ?? "AI kreativni studio"}`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon (placeholder iz Astro scaffolda; zamenjaj s SKOL AI znakom) -->
+    <!-- Favicon / ikone (SKOL AI mark) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <!-- JSON-LD: Organization + LocalBusiness + WebSite -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+    {extraSchemas.map((s) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+  </head>
+
+  <body class="bg-ink text-bone font-body antialiased">
+    {/* GTM noscript fallback (placeholder gated) */}
+    {trackingEnabled && (
+      <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />
+    )}
+    {/* Meta Pixel noscript fallback (placeholder gated) */}
+    {metaPixelEnabled && (
+      <noscript set:html={`<img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1"/>`} />
+    )}
+
+    <a href="#main" class="skip-link">Preskoči na vsebino</a>
+
+    <!-- ======================= LOADER (00→100 + zavesa) ======================= -->
+    <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Nalaganje">
+      <div class="loader__inner">
+        <span class="loader__word">SKOL<span class="text-gold"> AI</span></span>
+        <span class="loader__count" id="loader-count">00</span>
+      </div>
+      <div class="loader__bar" aria-hidden="true"><span id="loader-bar-fill"></span></div>
+    </div>
+
+    <!-- ======================= NAVIGACIJA ======================= -->
+    <header id="site-header" class="site-header">
+      <div class="container-page flex items-center justify-between gap-6 h-[var(--nav-h)]">
+        <!-- Wordmark (logo TBD → tipografski placeholder) -->
+        <a href="/" class="wordmark" title="Domov">
+          SKOL<span class="text-gold"> AI</span>
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:block" aria-label="Glavna navigacija">
+          <ul class="flex items-center gap-8">
+            {navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="nav-link"
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <!-- Mobile toggle -->
+        <button
+          id="nav-toggle"
+          class="md:hidden inline-flex items-center justify-center w-10 h-10 -mr-2 text-bone"
+          aria-label="Odpri meni"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span class="nav-burger" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <!-- Scroll-progress linija (gold) -->
+      <div class="scroll-progress" aria-hidden="true"><span id="scroll-bar"></span></div>
+    </header>
+
+    <!-- Mobile meni -->
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <nav class="container-page py-10" aria-label="Mobilna navigacija">
+        <ul class="flex flex-col gap-6">
+          {navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="mobile-link"
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-10 pt-8 hairline">
+          <a href={BRAND.phoneHref} class="mobile-meta" data-dl="tel_click">{BRAND.phoneDisplay}</a>
+          <a href={`mailto:${BRAND.email}`} class="mobile-meta" data-dl="mailto_click">{BRAND.email}</a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- ======================= VSEBINA ======================= -->
+    <main id="main">
+      <slot />
+    </main>
+
+    <!-- ======================= FOOTER ======================= -->
+    <footer class="bg-ink-2 mt-32">
+      <div class="container-page py-20">
+        <div class="grid gap-12 md:grid-cols-12">
+          <!-- Brand -->
+          <div class="md:col-span-5">
+            <a href="/" class="wordmark text-2xl" title="Domov">
+              SKOL<span class="text-gold"> AI</span>
+            </a>
+            <p class="mt-5 max-w-xs text-bone-dim font-display italic text-lg leading-snug">
+              {BRAND.tagline}
+            </p>
+            <p class="mt-4 max-w-sm text-sm text-bone-dim">
+              Kreativni studio za AI spletne strani, agente in vizualije.
+            </p>
+          </div>
+
+          <!-- Navigacija -->
+          <nav class="md:col-span-3" aria-label="Footer navigacija">
+            <p class="kicker mb-5">Studio</p>
+            <ul class="flex flex-col gap-3">
+              {navItems.map((item) => (
+                <li><a href={item.href} class="footer-link">{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+
+          <!-- Kontakt -->
+          <div class="md:col-span-2">
+            <p class="kicker mb-5">Kontakt</p>
+            <ul class="flex flex-col gap-3">
+              <li>
+                <a href={BRAND.phoneHref} class="footer-link" data-dl="tel_click">
+                  {BRAND.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${BRAND.email}`} class="footer-link" data-dl="mailto_click">
+                  {BRAND.email}
+                </a>
+              </li>
+              <li class="text-sm text-bone-dim mt-2">{BRAND.city}, Slovenija</li>
+            </ul>
+          </div>
+
+          <!-- Družbeno -->
+          <div class="md:col-span-2">
+            <p class="kicker mb-5">Sledi</p>
+            <ul class="flex flex-col gap-3">
+              <li>
+                <a href={BRAND.instagram} class="footer-link" target="_blank" rel="noopener noreferrer">
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a href={BRAND.facebook} class="footer-link" target="_blank" rel="noopener noreferrer">
+                  Facebook
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Spodnji pas -->
+        <div class="mt-16 pt-8 hairline flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p class="font-mono text-xs uppercase tracking-[0.2em] text-bone-dim">
+            © {year} {BRAND.name} · {BRAND.city}, Slovenija
+          </p>
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-[0.2em]">
+            <a href="/zasebnost" class="footer-link">Zasebnost</a>
+            <a href="/piskotki" class="footer-link">Piškotki</a>
+            <button type="button" class="footer-link cky-revisit" data-cky-tag="revisit-consent">
+              Nastavitve piškotkov
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CustomCursor (desktop) — gold obroč z lerp sledenjem -->
+    <div id="cursor" class="cursor" aria-hidden="true"></div>
+
+    <!-- Loader + hero razkritje: majhen INLINE skript (brez GSAP), teče takoj.
+         Neodvisno od težke motion datoteke -> LCP ni vezan na 132 kB bundle. -->
+    <script is:inline>
+      (() => {
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var loader = document.getElementById("loader");
+        var countEl = document.getElementById("loader-count");
+        var bar = document.getElementById("loader-bar-fill");
+        var heroes = Array.prototype.slice.call(document.querySelectorAll("[data-hero]"));
+        var done = false;
+        function revealHero() {
+          for (var i = 0; i < heroes.length; i++) {
+            heroes[i].style.transitionDelay = i * 0.06 + "s";
+            heroes[i].classList.add("is-in");
+          }
+        }
+        function finish() {
+          if (done) return;
+          done = true;
+          document.body.style.overflow = "";
+          document.documentElement.classList.add("is-loaded");
+          revealHero();
+        }
+        if (!loader || reduce) {
+          if (loader) loader.style.display = "none";
+          finish();
+          return;
+        }
+        document.body.style.overflow = "hidden";
+        var dur = 800, t0 = performance.now();
+        function tick(now) {
+          var p = Math.min(1, (now - t0) / dur);
+          if (countEl) countEl.textContent = String(Math.round(p * 100)).padStart(2, "0");
+          if (bar) bar.style.transform = "scaleX(" + p + ")";
+          if (p < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            loader.classList.add("is-up"); // zavesa gor (CSS prehod)
+            setTimeout(function () { loader.style.display = "none"; finish(); }, 600);
+          }
+        }
+        requestAnimationFrame(tick);
+        // failsafe: če rAF zastane (zavihek v ozadju), skrij loader in razkrij hero
+        setTimeout(function () {
+          if (done) return;
+          if (loader) loader.style.display = "none";
+          finish();
+        }, 3000);
+      })();
+    </script>
+
+    <!-- Motion sistem (težko, deferran): Lenis + GSAP/ScrollTrigger, reveals, cursor, depth -->
+    <script>
+      import { initMotion } from "../lib/motion.js";
+      initMotion();
+    </script>
+
+    <!-- ============ Nav obnašanje: scroll-progress, scrolled stanje, mobile meni ============ -->
+    <script is:inline>
+      (() => {
+        const header = document.getElementById("site-header");
+        const bar = document.getElementById("scroll-bar");
+        const toggle = document.getElementById("nav-toggle");
+        const menu = document.getElementById("mobile-menu");
+
+        // scroll-progress + scrolled stanje (rAF throttled)
+        let ticking = false;
+        const onScroll = () => {
+          const st = window.scrollY || document.documentElement.scrollTop;
+          const h = document.documentElement.scrollHeight - window.innerHeight;
+          const p = h > 0 ? st / h : 0;
+          if (bar) bar.style.transform = `scaleX(${p})`;
+          if (header) header.classList.toggle("is-scrolled", st > 12);
+          ticking = false;
+        };
+        const requestTick = () => {
+          if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+        };
+        window.addEventListener("scroll", requestTick, { passive: true });
+        window.addEventListener("resize", requestTick, { passive: true });
+        onScroll();
+
+        // mobile meni
+        const setMenu = (open) => {
+          if (!menu || !toggle) return;
+          menu.hidden = !open;
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.setAttribute("aria-label", open ? "Zapri meni" : "Odpri meni");
+          toggle.classList.toggle("is-open", open);
+          document.body.style.overflow = open ? "hidden" : "";
+        };
+        toggle?.addEventListener("click", () => setMenu(menu?.hidden ?? true));
+        menu?.querySelectorAll("a").forEach((a) =>
+          a.addEventListener("click", () => setMenu(false))
+        );
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setMenu(false);
+        });
+
+        // ===== dataLayer evente (build-package.md §6) =====
+        window.dataLayer = window.dataLayer || [];
+        const fired = new Set();
+        const dl = (event, extra) => {
+          if (!event) return;
+          window.dataLayer.push({ event, ...(extra || {}) });
+        };
+        const dlOnce = (event) => {
+          if (fired.has(event)) return;
+          fired.add(event);
+          dl(event);
+        };
+
+        // tel_click / mailto_click / cta_click (klik na [data-dl])
+        document.addEventListener("click", (e) => {
+          const el = e.target instanceof Element ? e.target.closest("[data-dl]") : null;
+          if (el) dl(el.getAttribute("data-dl"));
+        });
+
+        // scroll_75 — enkrat, ko obiskovalec doseže 75 % globine strani
+        const onScrollDepth = () => {
+          const st = window.scrollY || document.documentElement.scrollTop;
+          const h = document.documentElement.scrollHeight - window.innerHeight;
+          if (h > 0 && st / h >= 0.75) {
+            dlOnce("scroll_75");
+            window.removeEventListener("scroll", onScrollDepth);
+          }
+        };
+        window.addEventListener("scroll", onScrollDepth, { passive: true });
+        onScrollDepth();
+
+        // showroom_view in druge view evente — [data-dl-view] enkrat ob vstopu v viewport
+        const viewEls = document.querySelectorAll("[data-dl-view]");
+        if (viewEls.length && "IntersectionObserver" in window) {
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((en) => {
+                if (en.isIntersecting) {
+                  dlOnce(en.target.getAttribute("data-dl-view"));
+                  io.unobserve(en.target);
+                }
+              });
+            },
+            { threshold: 0.3 }
+          );
+          viewEls.forEach((el) => io.observe(el));
+        }
+      })();
+    </script>
+
+    <style>
+      :root { --nav-h: 4.5rem; }
+
+      /* --- Wordmark --- */
+      .wordmark {
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: 1.35rem;
+        letter-spacing: -0.01em;
+        color: var(--color-bone);
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      /* --- Sticky header --- */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        border-bottom: 1px solid transparent;
+        transition: background-color var(--duration-micro) var(--ease-reveal),
+          border-color var(--duration-micro) var(--ease-reveal),
+          backdrop-filter var(--duration-micro) var(--ease-reveal);
+      }
+      .site-header.is-scrolled {
+        background-color: rgb(11 10 9 / 0.72);
+        -webkit-backdrop-filter: blur(12px) saturate(140%);
+        backdrop-filter: blur(12px) saturate(140%);
+        border-bottom-color: var(--color-hairline);
+      }
+
+      /* --- Scroll-progress linija --- */
+      .scroll-progress {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        pointer-events: none;
+      }
+      .scroll-progress > span {
+        display: block;
+        height: 100%;
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        background: var(--color-gold);
+        will-change: transform;
+      }
+
+      /* --- Desktop nav linki --- */
+      .nav-link {
+        font-family: var(--font-body);
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: var(--color-bone);
+        opacity: 0.65;
+        transition: opacity var(--duration-micro) var(--ease-reveal),
+          color var(--duration-micro) var(--ease-reveal);
+      }
+      .nav-link:hover,
+      .nav-link[aria-current="page"] { opacity: 1; }
+      .nav-link[aria-current="page"] { color: var(--color-gold); }
+
+      /* --- Burger --- */
+      .nav-burger,
+      .nav-burger::before,
+      .nav-burger::after {
+        content: "";
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: currentColor;
+        transition: transform var(--duration-micro) var(--ease-reveal),
+          opacity var(--duration-micro) var(--ease-reveal);
+      }
+      .nav-burger { position: relative; }
+      .nav-burger::before { position: absolute; top: -6px; }
+      .nav-burger::after { position: absolute; top: 6px; }
+      #nav-toggle.is-open .nav-burger { background: transparent; }
+      #nav-toggle.is-open .nav-burger::before { transform: translateY(6px) rotate(45deg); }
+      #nav-toggle.is-open .nav-burger::after { transform: translateY(-6px) rotate(-45deg); }
+
+      /* --- Mobile meni --- */
+      .mobile-menu {
+        position: fixed;
+        inset: var(--nav-h) 0 0 0;
+        z-index: 40;
+        background: var(--color-ink);
+        overflow-y: auto;
+      }
+      .mobile-link {
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: clamp(2rem, 9vw, 3rem);
+        color: var(--color-bone);
+        line-height: 1.05;
+      }
+      .mobile-link[aria-current="page"] { color: var(--color-gold); }
+      .mobile-meta {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        color: var(--color-bone-dim);
+        padding-block: 0.35rem;
+      }
+      .mobile-meta:hover { color: var(--color-gold); }
+
+      /* --- Footer linki --- */
+      .footer-link {
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        color: var(--color-bone-dim);
+        background: none;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        text-align: left;
+        transition: color var(--duration-micro) var(--ease-reveal);
+      }
+      .footer-link:hover { color: var(--color-gold); }
+    </style>
+  </body>
+</html>

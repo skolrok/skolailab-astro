@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const lastUpdated = new Date().toLocaleDateString("sl-SI", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+const cookies = [
+  { name: "_ga, _ga_*", src: "Google Analytics", purpose: "analitika", ttl: "do 24 mesecev" },
+  { name: "_gcl_*", src: "Google Ads", purpose: "konverzije", ttl: "do 90 dni" },
+  { name: "_fbp", src: "Meta Pixel", purpose: "marketing", ttl: "do 90 dni" },
+  { name: "cookieyes-consent", src: "CookieYes", purpose: "beleži privolitev", ttl: "1 leto" },
+];
+---
+
+<BaseLayout
+  title="Politika piškotkov"
+  description="Katere piškotke uporablja SKOL AI, čemu služijo in kako upravljate svojo privolitev (Consent Mode v2)."
+>
+  <section class="legal">
+    <div class="container-page">
+      <p class="kicker" data-hero>[ Pravno ]</p>
+      <h1 class="legal__title" data-hero>Politika piškotkov</h1>
+
+      <div class="prose" data-reveal>
+        <h2>Kaj so piškotki</h2>
+        <p>
+          Majhne datoteke, ki se shranijo v vaš brskalnik in omogočajo delovanje strani ter
+          merjenje obiska.
+        </p>
+
+        <h2>Katere piškotke uporabljamo</h2>
+        <ul>
+          <li><strong>Nujni</strong> — potrebni za delovanje strani in beleženje vaše privolitve. Vedno aktivni.</li>
+          <li><strong>Analitični</strong> — Google Analytics (GA4): kako obiskovalci uporabljajo stran. Aktivni le ob privolitvi.</li>
+          <li><strong>Marketinški</strong> — Google Ads in Meta Pixel: merjenje oglasov in remarketing. Aktivni le ob privolitvi.</li>
+        </ul>
+
+        <h2>Upravljanje privolitve</h2>
+        <p>
+          Ob prvem obisku se prikaže pasica (CookieYes). Privolitev lahko kadar koli spremenite ali
+          prekličete prek nastavitev piškotkov na strani ali v svojem brskalniku. Brez privolitve
+          analitični in marketinški piškotki ne tečejo (Consent Mode v2).
+        </p>
+        <p>
+          <button type="button" class="prose-cta" data-cky-tag="revisit-consent">
+            Odpri nastavitve piškotkov
+          </button>
+        </p>
+
+        <h2>Seznam (primer)</h2>
+        <table>
+          <thead>
+            <tr><th>Piškotek</th><th>Izvor</th><th>Namen</th><th>Trajanje</th></tr>
+          </thead>
+          <tbody>
+            {cookies.map((c) => (
+              <tr>
+                <td>{c.name}</td>
+                <td>{c.src}</td>
+                <td>{c.purpose}</td>
+                <td>{c.ttl}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="prose-note">
+          Točen seznam se generira samodejno prek CookieYes skenerja po objavi.
+        </p>
+
+        <h2>Spremembe</h2>
+        <p>Zadnja sprememba: {lastUpdated}.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal { padding-top: clamp(3rem, 9vh, 7rem); padding-bottom: clamp(5rem, 12vh, 9rem); }
+  .legal__title {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 7vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+  }
+  .prose-cta {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-ink);
+    background: var(--color-gold);
+    border: 1px solid var(--color-gold);
+    border-radius: 999px;
+    padding: 0.65rem 1.4rem;
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease-reveal), color 0.3s var(--ease-reveal);
+  }
+  .prose-cta:hover { background: transparent; color: var(--color-gold); }
+</style>

@@ -1,0 +1,126 @@
+---
+/* Protokol — sekcija 4 (homepage-copy.md). Trije koraki s count-up 01/02/03. */
+const steps = [
+  {
+    n: 1,
+    title: "Strategija",
+    body: "Analiza vašega trga in konkurence. Določimo vizualno smer in arhitekturo, ki vas takoj loči od povprečja.",
+  },
+  {
+    n: 2,
+    title: "AI sinteza",
+    body: "Z našim AI studiom in vibecodingom zgeneriramo 100 % unikatne vizualije in zgradimo bliskovito hitro digitalno infrastrukturo.",
+  },
+  {
+    n: 3,
+    title: "Lansiranje",
+    body: "Prevzem trga. Stran in kreative gredo v živo. Znamka začne dominirati, konverzije rastejo, cena klika pade.",
+  },
+];
+---
+
+<section class="protokol" id="protokol">
+  <div class="container-page">
+    <header class="protokol__head">
+      <p class="kicker" data-reveal>[ Od povprečja do dominacije v treh korakih ]</p>
+      <h2 class="protokol__title" data-reveal>Naš protokol.</h2>
+    </header>
+
+    <ol class="protokol__steps">
+      {steps.map((s) => (
+        <li class="step" data-reveal>
+          <span class="step__num" data-count={s.n} data-count-pad="2" aria-hidden="true">00</span>
+          <h3 class="step__title">
+            <span class="sr-only">{String(s.n).padStart(2, "0")} · </span>{s.title}
+          </h3>
+          <p class="step__body">{s.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .protokol {
+    padding-block: clamp(5rem, 14vh, 11rem);
+  }
+  .protokol__head {
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+  .protokol__title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 7vw, 92px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .protokol__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+  @media (min-width: 768px) {
+    .protokol__steps {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+  }
+
+  .step {
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--color-hairline);
+  }
+  @media (min-width: 768px) {
+    .step {
+      padding: 2.5rem clamp(1.25rem, 2.5vw, 2.5rem);
+    }
+    .step:not(:first-child) {
+      border-left: 1px solid var(--color-hairline);
+    }
+    .step:first-child { padding-left: 0; }
+    .step:last-child { padding-right: 0; }
+  }
+
+  .step__num {
+    display: block;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1;
+    color: var(--color-gold);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+  .step__title {
+    margin-top: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    line-height: 1.1;
+    letter-spacing: 0;
+    color: var(--color-bone);
+  }
+  .step__body {
+    margin-top: 1rem;
+    max-width: 42ch;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

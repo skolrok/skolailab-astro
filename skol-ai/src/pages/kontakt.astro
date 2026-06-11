@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+
+const metaDescription =
+  "Povej, kaj gradiš. Odgovor v 24 urah. AI spletne strani, agenti in vizualije. Sedež Trebnje, delamo po vsej Sloveniji.";
+const siteUrl = (Astro.site ?? new URL("https://skolailab.com")).origin;
+
+// ContactPage (+ sitewide LocalBusiness iz BaseLayout, referenciran prek @id)
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": `${siteUrl}/kontakt#contactpage`,
+  url: `${siteUrl}/kontakt`,
+  name: "Kontakt | SKOL AI, Trebnje",
+  description: metaDescription,
+  inLanguage: "sl-SI",
+  isPartOf: { "@id": `${siteUrl}/#website` },
+  about: { "@id": `${siteUrl}/#localbusiness` },
+  mainEntity: { "@id": `${siteUrl}/#localbusiness` },
+};
+---
+
+<BaseLayout
+  titleExact="Kontakt | SKOL AI, Trebnje"
+  description={metaDescription}
+  jsonLd={schema}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="kt-hero">
+    <div class="container-page">
+      <p class="kicker" data-hero>[ Kontakt ]</p>
+      <h1 class="kt-hero__title" data-hero>Povej, kaj gradiš.</h1>
+      <p class="kt-hero__sub" data-hero>
+        Odgovorim v 24 urah. Brez prodajnih trikov, samo pogovor o tem, kaj rabiš in
+        kako to spraviva v živo.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== OBRAZEC + DIREKTNO ===================== -->
+  <section class="kt-main">
+    <div class="container-page kt-grid">
+      <div class="kt-form" data-reveal>
+        <ContactForm />
+      </div>
+
+      <aside class="kt-direct" data-reveal>
+        <div class="kt-block">
+          <p class="kicker">[ Direktno ]</p>
+          <ul class="kt-list">
+            <li>
+              <a href="tel:+38631295869" class="kt-link" data-dl="tel_click" data-cursor>+386 31 295 869</a>
+            </li>
+            <li>
+              <a href="mailto:info@skolailab.com" class="kt-link" data-dl="mailto_click" data-cursor>info@skolailab.com</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="kt-block">
+          <p class="kicker">[ Lokacija ]</p>
+          <p class="kt-loc">
+            Trebnje, Slovenija.<br />
+            Delamo lokalno in na daljavo po vsej Sloveniji in regiji.
+          </p>
+        </div>
+
+        <div class="kt-block">
+          <p class="kicker">[ Odziv ]</p>
+          <p class="kt-loc">Odgovorim v 24 urah. Po oddaji dobiš kratko potrdilo.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- HERO ---------- */
+  .kt-hero { padding-top: clamp(3rem, 9vh, 7rem); padding-bottom: clamp(2rem, 5vh, 4rem); }
+  .kt-hero__title {
+    margin-top: 1.5rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(44px, 8vw, 116px); line-height: 0.96; letter-spacing: -0.015em;
+    max-width: 14ch;
+  }
+  .kt-hero__sub {
+    margin-top: 2rem; max-width: 50ch; font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65; color: var(--color-bone-dim);
+  }
+
+  /* ---------- OBRAZEC + DIREKTNO ---------- */
+  .kt-main { padding-block: clamp(2.5rem, 6vh, 5rem) clamp(5rem, 12vh, 9rem); border-top: 1px solid var(--color-hairline); padding-top: clamp(3rem, 6vh, 5rem); }
+  .kt-grid { display: grid; gap: clamp(3rem, 6vw, 5rem); }
+  @media (min-width: 900px) { .kt-grid { grid-template-columns: 1.4fr 0.6fr; } }
+
+  .kt-direct { display: flex; flex-direction: column; gap: 2.5rem; }
+  .kt-block .kicker { margin-bottom: 1rem; }
+  .kt-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .kt-link {
+    font-family: var(--font-display); font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    color: var(--color-bone); transition: color 0.3s var(--ease-reveal);
+  }
+  .kt-link:hover { color: var(--color-gold); }
+  .kt-loc { color: var(--color-bone-dim); line-height: 1.6; font-size: 0.95rem; max-width: 34ch; }
+</style>

@@ -1,0 +1,28 @@
+# SKOL AI — robots.txt
+User-agent: *
+Allow: /
+
+# AI iskalniki / asistenti izrecno dobrodošli (GEO / AEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Brez zasebnih poti; vse je javno indeksabilno.
+Sitemap: https://skolailab.com/sitemap-index.xml

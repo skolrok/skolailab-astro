@@ -1,0 +1,44 @@
+---
+/* ContactSection — sekcija 9 (homepage-copy.md). CTAContact -> n8n (ContactForm). */
+import ContactForm from "../ContactForm.astro";
+---
+
+<section class="cs" id="kontakt">
+  <div class="container-page cs__grid">
+    <div class="cs__intro">
+      <p class="kicker" data-reveal>[ Začnimo ]</p>
+      <h2 class="cs__title" data-reveal>Začnimo ustvarjati.</h2>
+      <p class="cs__sub" data-reveal>Povej mi, kaj gradiš. Odgovorim v 24 urah.</p>
+      <div class="cs__direct" data-reveal>
+        <a href="tel:+38631295869" class="cs__link" data-dl="tel_click" data-cursor>+386 31 295 869</a>
+        <a href="mailto:info@skolailab.com" class="cs__link" data-dl="mailto_click" data-cursor>info@skolailab.com</a>
+      </div>
+    </div>
+
+    <div class="cs__form" data-reveal>
+      <ContactForm />
+    </div>
+  </div>
+</section>
+
+<style>
+  .cs {
+    padding-block: clamp(5rem, 12vh, 10rem);
+    border-top: 1px solid var(--color-hairline);
+  }
+  .cs__grid { display: grid; gap: clamp(3rem, 6vw, 5rem); }
+  @media (min-width: 900px) { .cs__grid { grid-template-columns: 0.85fr 1.15fr; } }
+
+  .cs__title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(40px, 7vw, 88px); line-height: 1; letter-spacing: -0.01em; max-width: 12ch;
+  }
+  .cs__sub { margin-top: 1.5rem; max-width: 40ch; font-size: clamp(15px, 1.5vw, 19px); line-height: 1.65; color: var(--color-bone-dim); }
+  .cs__direct { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .cs__link {
+    font-family: var(--font-display); font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    color: var(--color-bone); transition: color 0.3s var(--ease-reveal);
+  }
+  .cs__link:hover { color: var(--color-gold); }
+</style>

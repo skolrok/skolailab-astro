@@ -1,0 +1,53 @@
+---
+/* CloudinaryImage — optimizirana slika prek Cloudinarja.
+   f_auto,q_auto (format+kvaliteta), responsive srcset, EKSPLICITNE dimenzije
+   (brez CLS), lazy + decoding async. Drop-in, ko prispejo pravi asseti.
+
+   Uporaba:
+     <CloudinaryImage src="skolai/solimat-hero" alt="Solimat …" width={1600} height={1000} />
+     Hero (nad pregibom): loading="eager" fetchpriority="high"
+*/
+interface Props {
+  src: string; // Cloudinary public ID (pot za /upload/)
+  alt: string;
+  width: number;
+  height: number;
+  sizes?: string;
+  widths?: number[];
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
+  class?: string;
+  cloudName?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  sizes = "(min-width: 768px) 50vw, 100vw",
+  widths = [400, 640, 800, 1200, 1600],
+  loading = "lazy",
+  fetchpriority,
+  class: klass,
+  cloudName = "ddl75cyhk", // Cloudinary cloud name
+} = Astro.props;
+
+const base = `https://res.cloudinary.com/${cloudName}/image/upload`;
+const url = (w: number) => `${base}/f_auto,q_auto,c_limit,w_${w}/${src}`;
+const srcset = widths.map((w) => `${url(w)} ${w}w`).join(", ");
+---
+
+<img
+  src={url(widths[widths.length - 1])}
+  srcset={srcset}
+  sizes={sizes}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  decoding="async"
+  fetchpriority={fetchpriority}
+  class={klass}
+  style={`aspect-ratio:${width}/${height}`}
+/>

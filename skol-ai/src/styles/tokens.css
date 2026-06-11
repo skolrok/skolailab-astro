@@ -1,0 +1,346 @@
+/* =========================================================================
+   SKOL AI — Design tokens
+   Vir resnice: design-system/MASTER.md (+ content/color-palette.md, typography.md)
+   Tailwind v4: ta @theme blok JE konfiguracija. Ključi generirajo utilities:
+     --color-*  -> bg-*, text-*, border-* (npr. bg-ink, text-gold, border-hairline)
+     --font-*   -> font-* (npr. font-display, font-body, font-mono)
+   ========================================================================= */
+
+@theme {
+  /* --- Barve: temni sistem (6 jeder + 2 stanji) --- */
+  --color-ink: #0b0a09;       /* primarno ozadje — NE za tekst */
+  --color-ink-2: #141210;     /* dvignjene površine: kartice, footer, hover */
+  --color-bone: #ede8df;      /* primarni tekst (AAA na Ink) */
+  --color-bone-dim: #8a867e;  /* sekundarni tekst (AA na Ink) */
+  --color-gold: #c8a96e;      /* EDINI accent: CTA, ključne besede, hairline, številke */
+  --color-hairline: rgb(237 232 223 / 0.12); /* tanke ločilne črte */
+
+  /* funkcionalni stanji (obrazci) — zatajeni, da se ne tepeta z gold */
+  --color-success: #7fa88a;   /* potrditev oddaje */
+  --color-error: #c46b5a;     /* napaka validacije */
+
+  /* --- Tipografija: serif display + grotesk body + mono labele --- */
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
+
+  /* --- Motion (motion-interaction.md) --- */
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);   /* expo-out: reveals */
+  --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1);  /* zavesa loaderja */
+  --duration-reveal: 0.8s;
+  --duration-micro: 0.3s;
+
+  /* --- Vsebinska širina --- */
+  --container-page: 80rem; /* 1280px — max širina vsebine */
+}
+
+/* =========================================================================
+   Bazni sloj — temna baza skozi celo stran, topla off-white tipografija
+   ========================================================================= */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Lenis prevzame gladek skrol kasneje; tu varni fallback */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100svh;
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  /* Naslovi: Fraunces 500, tesen razmik (typography.md) */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.0;
+    text-wrap: balance;
+  }
+
+  /* Izbira besedila v gold */
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  /* Dostopen fokus — gold obroč */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Topel temni scrollbar */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-ink); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-2);
+    border-radius: 999px;
+    border: 2px solid var(--color-ink);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #211d19; }
+
+  /* Reduced-motion: izklopi gladek skrol in prehode (poln fallback) */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* =========================================================================
+   Komponentni pripomočki (editorial signature)
+   ========================================================================= */
+@layer components {
+  /* Kicker / labela: JetBrains Mono, VELIKE ČRKE, širok razmik [ tako ] */
+  .kicker {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.6875rem;       /* ~11px */
+    line-height: 1.4;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  /* Hairline ločilna črta */
+  .hairline {
+    border: 0;
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  /* Vsebinski wrapper */
+  .container-page {
+    width: 100%;
+    max-width: var(--container-page);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 3rem);
+  }
+
+  /* Skip-link (dostopnost) — skrit, dokler ni fokusiran */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    z-index: 120;
+    background: var(--color-gold);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: top var(--duration-micro) var(--ease-reveal);
+  }
+  .skip-link:focus { top: 1rem; }
+}
+
+/* =========================================================================
+   PROSE — pravne/dolge tekstovne strani (globalno, doseže slot vsebino)
+   ========================================================================= */
+.prose { max-width: 70ch; color: var(--color-bone-dim); }
+.prose > * + * { margin-top: 1.25rem; }
+.prose h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.1;
+  color: var(--color-bone);
+  margin-top: 3rem;
+}
+.prose h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  color: var(--color-bone);
+  margin-top: 2rem;
+}
+.prose p, .prose li { font-size: 1rem; line-height: 1.7; }
+.prose strong { color: var(--color-bone); font-weight: 600; }
+.prose a { color: var(--color-gold); text-underline-offset: 3px; }
+.prose a:hover { text-decoration: underline; }
+.prose ul { list-style: none; padding: 0; }
+.prose ul > li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-top: 0.6rem;
+}
+.prose ul > li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: var(--color-gold);
+  font-family: var(--font-mono);
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+.prose th, .prose td {
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--color-hairline);
+  vertical-align: top;
+}
+.prose th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.prose td { color: var(--color-bone-dim); }
+.prose td:first-child { color: var(--color-bone); font-family: var(--font-mono); font-size: 0.82rem; }
+.prose .prose-note { font-size: 0.85rem; color: var(--color-bone-dim); opacity: 0.8; font-style: italic; }
+
+/* =========================================================================
+   MOTION (lib/motion.js) — Reveal pre-hide, Loader, CustomCursor
+   Globalno (ne scoped), da doseže tudi vsebino v <slot/>.
+   ========================================================================= */
+
+/* --- Reveal: pred-skrij le, ko teče JS; brez JS / reduced-motion = vidno --- */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* --- Hero orkestrirano razkritje (gnan z inline loader skriptom, CSS prehod,
+       brez GSAP -> ni odvisno od težke motion datoteke -> hiter LCP) --- */
+html.js [data-hero] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-reveal), transform 0.8s var(--ease-reveal);
+  will-change: opacity, transform;
+}
+html.js [data-hero].is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-hero] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* --- Loader: pokrije viewport ob nalaganju (samo z JS) --- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  background: var(--color-ink);
+  transition: transform 0.6s var(--ease-curtain);
+  will-change: transform;
+}
+.loader.is-up { transform: translateY(-100%); } /* zavesa gor */
+html:not(.js) .loader { display: none; } /* brez JS: brez loaderja */
+@media (prefers-reduced-motion: reduce) {
+  .loader { transition: none; }
+}
+
+.loader__inner {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.loader__word {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  letter-spacing: -0.01em;
+  color: var(--color-bone);
+  line-height: 1;
+}
+.loader__count {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+.loader__bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-hairline);
+  overflow: hidden;
+}
+.loader__bar > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* --- CustomCursor: tanek gold obroč, lerp sledenje (desktop) --- */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-gold);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 0.3s var(--ease-reveal),
+    width 0.25s var(--ease-reveal),
+    height 0.25s var(--ease-reveal),
+    background-color 0.25s var(--ease-reveal);
+}
+.cursor.is-visible { opacity: 1; }
+.cursor.is-active {
+  width: 54px;
+  height: 54px;
+  background-color: rgb(200 169 110 / 0.12);
+}
+/* Skrij nativni kazalec, ko je custom aktiven (samo desktop) */
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button,
+html.has-cursor [data-cursor] {
+  cursor: none;
+}
+/* Na dotik napravah custom kazalca ni */
+@media (hover: none), (pointer: coarse) {
+  .cursor { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor { display: none; }
+}

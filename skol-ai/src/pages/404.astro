@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+
+const links = [
+  { label: "Domov", href: "/" },
+  { label: "Showroom", href: "/showroom" },
+  { label: "Manifest", href: "/manifest" },
+  { label: "Kontakt", href: "/kontakt" },
+];
+---
+
+<BaseLayout
+  title="Stran ne obstaja"
+  description="Te strani ni. Vrnite se domov ali pa povejte, kaj gradite."
+  noindex={true}
+>
+  <section class="nf">
+    <div class="container-page">
+      <p class="kicker" data-hero>[ 404 ]</p>
+      <h1 class="nf__title" data-hero>Stran ne obstaja.</h1>
+      <p class="nf__sub" data-hero>
+        Povezava je zastarela ali napačna. Nič hudega — povprečje tako ali tako ne živi tukaj.
+        Vrnite se na začetek ali pa povejte, kaj gradite.
+      </p>
+
+      <div class="nf__cta" data-hero>
+        <Button href="/" variant="primary" dl="cta_click">Nazaj domov →</Button>
+        <Button href="/kontakt" variant="ghost">Povej, kaj gradiš</Button>
+      </div>
+
+      <nav class="nf__links" data-hero aria-label="Hitre povezave">
+        {links.map((l) => <a href={l.href} class="nf__link" data-cursor>{l.label}</a>)}
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    display: flex;
+    align-items: center;
+    min-height: calc(100svh - var(--nav-h));
+    padding-block: clamp(3rem, 10vh, 8rem);
+  }
+  .nf__title {
+    margin-top: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(48px, 9vw, 132px);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    max-width: 12ch;
+  }
+  .nf__sub {
+    margin-top: 2rem;
+    max-width: 48ch;
+    font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+  .nf__cta {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+  .nf__links {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-hairline);
+  }
+  .nf__link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-bone-dim);
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .nf__link:hover { color: var(--color-gold); }
+</style>

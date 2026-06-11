@@ -1,0 +1,60 @@
+---
+/* HomeFaq — sekcija 8 (homepage-copy.md). Dostopen akordeon (details/summary). */
+import { homeFaq } from "../../data/homeFaq";
+---
+
+<section class="hf">
+  <div class="container-page hf__grid">
+    <header class="hf__head">
+      <p class="kicker" data-reveal>[ Jasno in glasno ]</p>
+      <h2 class="section-title" data-reveal>Pogosta vprašanja.</h2>
+    </header>
+    <div class="hf__list">
+      {homeFaq.map((f) => (
+        <details class="hf__item" data-reveal>
+          <summary class="hf__q">
+            <span>{f.q}</span>
+            <span class="hf__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="hf__a"><div class="hf__a-in"><p>{f.a}</p></div></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(34px, 5.5vw, 72px); line-height: 1; letter-spacing: -0.01em;
+  }
+  .hf { padding-block: clamp(4rem, 10vh, 8rem); border-top: 1px solid var(--color-hairline); }
+  .hf__grid { display: grid; gap: 3rem; }
+  @media (min-width: 900px) { .hf__grid { grid-template-columns: 0.8fr 1.2fr; gap: clamp(3rem, 6vw, 6rem); } }
+
+  .hf__list { display: flex; flex-direction: column; }
+  .hf__item { border-top: 1px solid var(--color-hairline); }
+  .hf__item:last-child { border-bottom: 1px solid var(--color-hairline); }
+  .hf__q {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding: 1.5rem 0;
+    font-family: var(--font-body); font-weight: 500; font-size: clamp(1rem, 1.6vw, 1.2rem);
+    color: var(--color-bone); transition: color 0.3s var(--ease-reveal);
+  }
+  .hf__q::-webkit-details-marker { display: none; }
+  .hf__q:hover { color: var(--color-gold); }
+  .hf__icon { position: relative; flex: none; width: 16px; height: 16px; }
+  .hf__icon::before, .hf__icon::after {
+    content: ""; position: absolute; inset: 50% 0 auto 0; height: 1.5px;
+    background: var(--color-gold); transition: transform 0.3s var(--ease-reveal);
+  }
+  .hf__icon::after { transform: rotate(90deg); }
+  details[open] .hf__icon::after { transform: rotate(0deg); }
+
+  .hf__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s var(--ease-reveal); }
+  details[open] .hf__a { grid-template-rows: 1fr; }
+  .hf__a-in { overflow: hidden; }
+  .hf__a p { padding-bottom: 1.5rem; max-width: 60ch; font-size: 0.98rem; line-height: 1.65; color: var(--color-bone-dim); }
+</style>

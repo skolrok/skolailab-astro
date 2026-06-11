@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const lastUpdated = new Date().toLocaleDateString("sl-SI", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<BaseLayout
+  title="Politika zasebnosti"
+  description="Kako SKOL AI (Rok Skol s.p.) zbira, uporablja in varuje osebne podatke. Vaše pravice po GDPR."
+>
+  <section class="legal">
+    <div class="container-page">
+      <p class="kicker" data-hero>[ Pravno ]</p>
+      <h1 class="legal__title" data-hero>Politika zasebnosti</h1>
+
+      <div class="prose" data-reveal>
+        <h2>Upravljavec podatkov</h2>
+        <p>
+          Rok Skol s.p. (SKOL AI), [naslov], Trebnje, Slovenija. Matična/davčna št.: [vpiši].
+          Kontakt: <a href="mailto:info@skolailab.com" data-dl="mailto_click">info@skolailab.com</a>,
+          <a href="tel:+38631295869" data-dl="tel_click">+386 31 295 869</a>.
+        </p>
+
+        <h2>Katere podatke zbiramo</h2>
+        <ul>
+          <li>Podatki iz kontaktnega obrazca: ime, e-mail, podjetje (neobvezno), vsebina sporočila.</li>
+          <li>Tehnični in analitični podatki: IP naslov, tip naprave in brskalnika, ogledi strani, prek piškotkov (Google Analytics, Google Ads, Meta Pixel).</li>
+        </ul>
+
+        <h2>Namen in pravna podlaga</h2>
+        <ul>
+          <li>Odgovor na povpraševanje in komunikacija (pravna podlaga: privolitev oz. ukrepi pred sklenitvijo pogodbe).</li>
+          <li>Merjenje obiska in učinkovitosti oglasov (pravna podlaga: privolitev prek piškotkov).</li>
+        </ul>
+
+        <h2>Kako dolgo hranimo</h2>
+        <p>
+          Podatke iz povpraševanj hranimo, dokler je potrebno za obravnavo oz. najdlje 24 mesecev.
+          Analitične podatke v skladu z nastavitvami posameznega orodja.
+        </p>
+
+        <h2>Komu podatke posredujemo</h2>
+        <p>
+          Obdelovalci, ki nam pomagajo pri delovanju: Google (Analytics, Ads), Meta (Pixel),
+          gostitelj (Cloudflare), obdelava obrazcev/avtomatizacija (n8n), CookieYes. Z njimi imamo
+          urejene pogodbene podlage. Podatkov ne prodajamo.
+        </p>
+
+        <h2>Vaše pravice</h2>
+        <p>
+          Dostop, popravek, izbris, omejitev obdelave, ugovor in prenosljivost. Privolitev lahko
+          kadar koli prekličete. Zahtevo pošljite na
+          <a href="mailto:info@skolailab.com" data-dl="mailto_click">info@skolailab.com</a>.
+          Pritožbo lahko vložite pri Informacijskem pooblaščencu RS
+          (<a href="https://www.ip-rs.si" target="_blank" rel="noopener noreferrer">ip-rs.si</a>).
+        </p>
+
+        <h2>Spremembe</h2>
+        <p>Politiko lahko posodobimo. Zadnja sprememba: {lastUpdated}.</p>
+
+        <p class="prose-note">
+          To je predloga po običajni GDPR praksi in ne pravni nasvet. Pred objavo preverite, da
+          ustreza orodjem, ki jih dejansko uporabljate.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal { padding-top: clamp(3rem, 9vh, 7rem); padding-bottom: clamp(5rem, 12vh, 9rem); }
+  .legal__title {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 7vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+  }
+</style>

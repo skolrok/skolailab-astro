@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaseTemplate from "../../components/case/CaseTemplate.astro";
+import { cases, caseJsonLd } from "../../data/cases";
+
+const c = cases["solimat"];
+const siteUrl = (Astro.site ?? new URL("https://skolailab.com")).origin;
+const schema = caseJsonLd(c, siteUrl);
+---
+
+<BaseLayout
+  titleExact={c.metaTitle}
+  description={c.metaDescription}
+  ogType="article"
+  jsonLd={schema}
+>
+  <CaseTemplate caseStudy={c} />
+</BaseLayout>

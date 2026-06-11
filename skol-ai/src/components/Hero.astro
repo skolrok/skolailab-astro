@@ -1,0 +1,108 @@
+---
+/* Hero — sekcija 1 (homepage-copy.md). Stopničasto razkritje prek [data-hero]:
+   kicker → naslovni vrstici (line-mask) → sub → CTA → tagi. */
+import Button from "./Button.astro";
+
+const tags = ["Spletne strani", "AI agenti", "Vizualije"];
+---
+
+<section class="hero">
+  <div class="container-page hero__grid">
+    <p class="kicker" data-hero>[ AI Kreativni studio · Trebnje ]</p>
+
+    <h1 class="hero__title">
+      <span class="line"><span class="line__in" data-hero>Estetika kot</span></span>
+      <span class="line"
+        ><span class="line__in" data-hero
+          ><em class="accent">nepravična</em> prednost.</span
+        ></span
+      >
+    </h1>
+
+    <p class="hero__sub" data-hero>
+      Spletne strani, AI agenti in vizualije za znamke, ki nočejo biti kot vse ostale.
+      Z dizajnom in AI vas dvignemo nad povprečje, kjer vas konkurenca ne dohaja.
+    </p>
+
+    <div class="hero__cta" data-hero>
+      <Button href="/kontakt" variant="primary" dl="cta_click">Začnimo ustvarjati</Button>
+      <Button href="/showroom" variant="ghost">Poglej delo →</Button>
+    </div>
+
+    <ul class="hero__tags" data-hero aria-label="Področja">
+      {tags.map((t) => <li class="tag">{t}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: calc(100svh - var(--nav-h));
+    padding-block: clamp(3rem, 10vh, 8rem);
+  }
+  .hero__grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__title {
+    margin-top: 1.75rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(44px, 8.4vw, 128px);
+    line-height: 0.96;
+    letter-spacing: -0.01em;
+    max-width: 14ch;
+  }
+  /* Line-mask: overflow hidden + rahel padding, da italic ne kljuva */
+  .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .line__in { display: block; }
+  .accent {
+    color: var(--color-gold);
+    font-style: italic;
+  }
+
+  .hero__sub {
+    margin-top: 2rem;
+    max-width: 46ch;
+    font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+
+  .hero__cta {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  .hero__tags {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-bone-dim);
+    border: 1px solid var(--color-hairline);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+  }
+</style>

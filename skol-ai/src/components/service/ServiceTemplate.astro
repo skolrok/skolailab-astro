@@ -1,0 +1,330 @@
+---
+/* ServiceTemplate — predloga storitvene podstrani (subpages-copy.md).
+   Sekcije: Hero · PROBLEM→REŠITEV · Kaj dobiš · Paketi · MiniFAQ · CTA.
+   Schema (Service+FAQPage+BreadcrumbList) gradi stran prek BaseLayout.jsonLd. */
+import Button from "../Button.astro";
+import CtaBand from "../CtaBand.astro";
+import type { Service } from "../../data/services";
+
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+---
+
+<!-- ===================== HERO ===================== -->
+<section class="svc-hero">
+  <div class="container-page">
+    <nav class="breadcrumb" aria-label="Drobtinice" data-hero>
+      <a href="/">Domov</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{service.name}</span>
+    </nav>
+
+    <p class="kicker svc-hero__kicker" data-hero>{service.kicker}</p>
+    <h1 class="svc-hero__title" data-hero>{service.h1}</h1>
+    <p class="svc-hero__promise" data-hero>{service.promise}</p>
+    <div class="svc-hero__cta" data-hero>
+      <Button href="/kontakt" variant="primary" dl="cta_click">{service.cta}</Button>
+    </div>
+  </div>
+
+  {Astro.slots.has("media") && (
+    <div class="container-page">
+      <div class="svc-media" data-hero>
+        <slot name="media" />
+      </div>
+    </div>
+  )}
+</section>
+
+<!-- ===================== PROBLEM → REŠITEV ===================== -->
+<section class="ps">
+  <div class="container-page ps__grid">
+    <div class="ps__col" data-reveal>
+      <p class="kicker ps__label ps__label--problem">[ Problem ]</p>
+      <p class="ps__text">{service.problem}</p>
+    </div>
+    <div class="ps__col" data-reveal>
+      <p class="kicker ps__label">[ Rešitev ]</p>
+      <p class="ps__text ps__text--solution">{service.solution}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KAJ DOBIŠ ===================== -->
+<section class="kd">
+  <div class="container-page">
+    <header class="kd__head">
+      <p class="kicker" data-reveal>[ Kaj dobiš ]</p>
+      <h2 class="section-title" data-reveal>Kaj dobiš.</h2>
+    </header>
+    <ul class="kd__list">
+      {service.whatYouGet.map((item) => (
+        <li class="kd__item" data-reveal>
+          <span class="kd__plus" aria-hidden="true">+</span>
+          <span class="kd__text">{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PAKETI ===================== -->
+<section class="pkg">
+  <div class="container-page">
+    <header class="pkg__head">
+      <p class="kicker" data-reveal>[ Paketi ]</p>
+      <h2 class="section-title" data-reveal>Paketi.</h2>
+    </header>
+    <div class="pkg__grid">
+      {service.packages.map((p, i) => (
+        <article class="pkg__card" data-reveal>
+          <span class="pkg__num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="pkg__name">{p.name}</h3>
+          <p class="pkg__price">{p.price}</p>
+        </article>
+      ))}
+    </div>
+    <p class="pkg__note" data-reveal>
+      Točna cena po pogovoru — skupaj določiva obseg in dobiš jasno ponudbo brez skritih presenečenj.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== MINI FAQ (details/summary) ===================== -->
+<section class="faq">
+  <div class="container-page faq__grid">
+    <header class="faq__head">
+      <p class="kicker" data-reveal>[ Vprašanja ]</p>
+      <h2 class="section-title" data-reveal>Jasno in glasno.</h2>
+    </header>
+    <div class="faq__list">
+      {service.faq.map((f) => (
+        <details class="faq__item" data-reveal>
+          <summary class="faq__q">
+            <span>{f.q}</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a"><div class="faq__a-in"><p>{f.a}</p></div></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<CtaBand ctaLabel={service.cta} kicker="[ Naslednji korak ]" />
+
+<style>
+  /* Skupni naslov sekcije */
+  .section-title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(34px, 5.5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- HERO ---------- */
+  .svc-hero {
+    padding-top: clamp(3rem, 9vh, 7rem);
+    padding-bottom: clamp(3rem, 8vh, 6rem);
+  }
+  .breadcrumb {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-bone-dim);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a { color: var(--color-bone-dim); transition: color 0.3s var(--ease-reveal); }
+  .breadcrumb a:hover { color: var(--color-gold); }
+  .breadcrumb [aria-current="page"] { color: var(--color-bone); }
+
+  .svc-hero__kicker { margin-bottom: 1.5rem; }
+  .svc-hero__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 7.2vw, 104px);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    max-width: 18ch;
+  }
+  .svc-hero__promise {
+    margin-top: 2rem;
+    max-width: 50ch;
+    font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+  .svc-hero__cta { margin-top: 2.75rem; }
+
+  /* Hero medij (slot) — sam okvir/razmerje določi stran (brez CLS) */
+  .svc-media { margin-top: clamp(2.5rem, 6vw, 5rem); }
+
+  /* ---------- PROBLEM → REŠITEV ---------- */
+  .ps {
+    padding-block: clamp(4rem, 9vh, 7rem);
+    border-top: 1px solid var(--color-hairline);
+  }
+  .ps__grid {
+    display: grid;
+    gap: 3rem;
+  }
+  @media (min-width: 768px) {
+    .ps__grid { grid-template-columns: 1fr 1fr; gap: clamp(3rem, 6vw, 6rem); }
+  }
+  .ps__label { margin-bottom: 1.25rem; }
+  .ps__label--problem { color: var(--color-bone-dim); }
+  .ps__text {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.4vw, 30px);
+    line-height: 1.4;
+    color: var(--color-bone-dim);
+    max-width: 32ch;
+  }
+  .ps__text--solution { color: var(--color-bone); }
+
+  /* ---------- KAJ DOBIŠ ---------- */
+  .kd { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .kd__head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .kd__list { list-style: none; margin: 0; padding: 0; }
+  .kd__item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-hairline);
+    font-size: clamp(16px, 1.8vw, 22px);
+    line-height: 1.5;
+    color: var(--color-bone);
+  }
+  .kd__item:last-child { border-bottom: 1px solid var(--color-hairline); }
+  .kd__plus {
+    font-family: var(--font-mono);
+    color: var(--color-gold);
+    font-size: 1.1em;
+    flex: none;
+    line-height: 1.4;
+  }
+  .kd__text { max-width: 60ch; }
+
+  /* ---------- PAKETI ---------- */
+  .pkg { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .pkg__head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .pkg__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .pkg__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .pkg__card {
+    background: var(--color-ink-2);
+    border: 1px solid var(--color-hairline);
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    transition: border-color 0.3s var(--ease-reveal), transform 0.3s var(--ease-reveal);
+  }
+  .pkg__card:hover { border-color: rgb(200 169 110 / 0.4); transform: translateY(-4px); }
+  .pkg__num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--color-bone-dim);
+  }
+  .pkg__name {
+    margin-top: auto;
+    padding-top: 2.5rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    line-height: 1.15;
+    color: var(--color-bone);
+  }
+  .pkg__price {
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--color-gold);
+    font-variant-numeric: tabular-nums;
+  }
+  .pkg__note {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--color-bone-dim);
+    max-width: 60ch;
+  }
+
+  /* ---------- FAQ (details/summary, dostopno, brez JS) ---------- */
+  .faq { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .faq__grid { display: grid; gap: 3rem; }
+  @media (min-width: 900px) {
+    .faq__grid { grid-template-columns: 0.8fr 1.2fr; gap: clamp(3rem, 6vw, 6rem); }
+  }
+  .faq__list { display: flex; flex-direction: column; }
+  .faq__item { border-top: 1px solid var(--color-hairline); }
+  .faq__item:last-child { border-bottom: 1px solid var(--color-hairline); }
+
+  .faq__q {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    color: var(--color-bone);
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q:hover { color: var(--color-gold); }
+
+  /* + ikona, ki se ob odprtju zavrti v × */
+  .faq__icon {
+    position: relative;
+    flex: none;
+    width: 16px;
+    height: 16px;
+  }
+  .faq__icon::before,
+  .faq__icon::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 auto 0;
+    height: 1.5px;
+    background: var(--color-gold);
+    transition: transform 0.3s var(--ease-reveal);
+  }
+  .faq__icon::after { transform: rotate(90deg); }
+  details[open] .faq__icon::after { transform: rotate(0deg); }
+
+  /* Animirano odpiranje prek grid-rows (povozi UA display:none) */
+  .faq__a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s var(--ease-reveal);
+  }
+  details[open] .faq__a { grid-template-rows: 1fr; }
+  .faq__a-in { overflow: hidden; }
+  .faq__a p {
+    padding-bottom: 1.5rem;
+    max-width: 60ch;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+</style>

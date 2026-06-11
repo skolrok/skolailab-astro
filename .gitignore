@@ -1,0 +1,19 @@
+# Agentska / urejevalniška orodja (ni del strani)
+.claude/
+
+# Odvisnosti & build (skol-ai/.gitignore pokrije skol-ai/*, to je varovalka)
+node_modules/
+dist/
+.astro/
+
+# Okoljske spremenljivke / skrivnosti
+.env
+.env.*
+!.env.example
+
+# Logi
+*-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

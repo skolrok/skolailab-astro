@@ -1,0 +1,39 @@
+---
+/* CloudinaryVideo — avtoplay loop video (Cloudinary, f_auto -> .mp4).
+   autoplay muted loop playsinline + preload="none"; vir je v data-src in se
+   naloži šele ob približanju viewportu (lazy, IntersectionObserver v motion.js).
+   reduced-motion: ne predvaja (prvi okvir). Dekorativno (aria-hidden).
+
+   src = polni Cloudinary video URL z f_auto (servira mp4). */
+interface Props {
+  src: string;
+  class?: string;
+  poster?: string;
+}
+const { src, class: klass, poster } = Astro.props;
+---
+
+<video
+  class:list={["cvid", klass]}
+  muted
+  loop
+  playsinline
+  autoplay
+  preload="none"
+  poster={poster}
+  data-lazy
+  aria-hidden="true"
+  tabindex="-1"
+>
+  <source data-src={src} type="video/mp4" />
+</video>
+
+<style>
+  .cvid {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--color-ink-2);
+  }
+</style>
