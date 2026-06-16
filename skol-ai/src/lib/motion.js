@@ -259,24 +259,30 @@ function initLazyVideo(reduce) {
 function initCursor() {
   const cursor = document.getElementById("cursor");
   if (!cursor) return;
-
-  document.documentElement.classList.add("has-cursor");
+  const root = document.documentElement;
 
   let mx = window.innerWidth / 2;
   let my = window.innerHeight / 2;
   let cx = mx;
   let cy = my;
-  let visible = false;
+
+  // Nativni kazalec skrijemo ŠELE ko je gold obroč viden (po prvem premiku).
+  // Tako po nalaganju strani / vračanju nazaj vedno vidiš vsaj nativni kazalec.
+  const show = () => {
+    cursor.classList.add("is-visible");
+    root.classList.add("has-cursor");
+  };
+  const hide = () => {
+    cursor.classList.remove("is-visible");
+    root.classList.remove("has-cursor"); // vrni nativni kazalec
+  };
 
   window.addEventListener(
     "mousemove",
     (e) => {
       mx = e.clientX;
       my = e.clientY;
-      if (!visible) {
-        visible = true;
-        cursor.classList.add("is-visible");
-      }
+      if (!cursor.classList.contains("is-visible")) show();
     },
     { passive: true }
   );
@@ -291,7 +297,10 @@ function initCursor() {
     if (e.target instanceof Element && e.target.closest(interactive))
       cursor.classList.remove("is-active");
   });
-  document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
+  // Kazalec zapusti okno -> skrij obroč in vrni nativni kazalec
+  document.addEventListener("mouseleave", hide);
+  // Ob vrnitvi v okno (bfcache / back): pokaži, ko se kazalec spet premakne
+  window.addEventListener("pageshow", hide);
 
   // Lerp sledenje na gsap.ticker (isti loop kot Lenis)
   addTicker(() => {
