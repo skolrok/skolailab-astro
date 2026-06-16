@@ -1,0 +1,9 @@
+{
+  "name": "skolailab-astro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare/CI build proxy — Astro aplikacija je v skol-ai/. Zgradi podmapo in skopira dist v koren, da deluje s privzetimi Cloudflare nastavitvami (build: npm run build, output: dist).",
+  "scripts": {
+    "build": "npm --prefix skol-ai ci && npm --prefix skol-ai run build && node -e \"require('fs').cpSync('skol-ai/dist','dist',{recursive:true,force:true})\""
+  }
+}
