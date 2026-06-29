@@ -1,45 +1,44 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Button from "../components/Button.astro";
 import CtaBand from "../components/CtaBand.astro";
 import CloudinaryVideo from "../components/CloudinaryVideo.astro";
 import { caseList } from "../data/cases";
 
-// Kurirana galerija — AI video kosi (Cloudinary f_auto -> mp4, lazy autoplay).
+// Kompakten vizualni trak — AI video kosi (Cloudinary f_auto -> mp4, lazy autoplay).
 const CLD = "https://res.cloudinary.com/ddl75cyhk/video/upload/f_auto";
 const visuals = [
-  { n: "01", title: "Bartog", cat: "Avtomobilizem", src: `${CLD}/v1772400185/skolai-bartog-avtomobilizem-akcija_rhgjx8.mov` },
-  { n: "02", title: "Vitaproshop", cat: "Šport · Adrenalin", src: `${CLD}/v1772400185/skolai-vitaproshop-sport-adrenalin_z2lkej.mov` },
-  { n: "03", title: "Solimat", cat: "Arhitektura", src: `${CLD}/v1772400185/skolai-solimat-arhitektura-pergola_ukfu8s.mov` },
-  { n: "04", title: "Berryshka", cat: "Tekoče zlato", src: `${CLD}/v1772400185/skolai-berryshka-tekoce-zlato_nsn6we.mov` },
+  { title: "Bartog", cat: "Avtomobilizem", src: `${CLD}/v1772400185/skolai-bartog-avtomobilizem-akcija_rhgjx8.mov` },
+  { title: "Vitaproshop", cat: "Šport · Adrenalin", src: `${CLD}/v1772400185/skolai-vitaproshop-sport-adrenalin_z2lkej.mov` },
+  { title: "Solimat", cat: "Arhitektura", src: `${CLD}/v1772400185/skolai-solimat-arhitektura-pergola_ukfu8s.mov` },
+  { title: "Berryshka", cat: "Tekoče zlato", src: `${CLD}/v1772400185/skolai-berryshka-tekoce-zlato_nsn6we.mov` },
+  { title: "Virtualni model", cat: "AI ambasador", src: `${CLD}/v1773247789/ai-agencija-skol-ai-virtualni-ambasador_jnpxz1.mp4` },
 ];
-const aiModelVideo = `${CLD}/v1773247789/ai-agencija-skol-ai-virtualni-ambasador_jnpxz1.mp4`;
 
 // Solimat (featured) najprej
 const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.featured));
 ---
 
 <BaseLayout
-  title="Showroom"
-  description="Manj, a večje. Pravi projekti, ki smo jih spravili v živo, in vizualije, ki ne obstajajo nikjer drugje. Kjer povprečje umre."
+  title="Reference"
+  description="Pravi projekti, ki smo jih spravili v živo — Solimat in Bar Bazenček — ter kompakten vizualni trak po meri. Kjer povprečje umre."
 >
   <!-- ===================== HERO ===================== -->
   <section class="sr-hero">
     <div class="container-page">
-      <p class="kicker" data-hero>[ Showroom ]</p>
+      <p class="kicker" data-hero>[ Reference ]</p>
       <h1 class="sr-hero__title" data-hero>Kjer povprečje umre.</h1>
       <p class="sr-hero__sub" data-hero>
-        Manj, a večje. Vsak kos je 100 % po meri. Tu so projekti, ki smo jih spravili v živo,
-        in vizualije, ki ne obstajajo nikjer drugje.
+        Manj, a večje. Pravi projekti, ki smo jih spravili v živo — in vizualije po meri,
+        ki ne obstajajo nikjer drugje.
       </p>
     </div>
   </section>
 
-  <!-- ===================== A) PROJEKTI ===================== -->
+  <!-- ===================== A) CASE STUDYJI (glavni dokaz) ===================== -->
   <section class="projects-sec">
     <div class="container-page">
       <header class="sr-head">
-        <p class="kicker" data-reveal>[ Projekti ]</p>
+        <p class="kicker" data-reveal>[ Case studyji ]</p>
         <h2 class="section-title" data-reveal>Spravljeno v živo.</h2>
       </header>
 
@@ -69,55 +68,28 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
     </div>
   </section>
 
-  <!-- ===================== B) STUDIO / VIZUALIJE (Z-depth "vstop v prostor") ===================== -->
+  <!-- ===================== B) VIZUALNO (po meri) — kompakten trak ===================== -->
   <section class="vis" data-dl-view="showroom_view">
     <div class="container-page">
-      <header class="sr-head">
-        <p class="kicker" data-reveal>[ Studio ]</p>
-        <h2 class="section-title" data-reveal>Vstop v prostor.</h2>
+      <header class="sr-head sr-head--vis">
+        <p class="kicker" data-reveal>[ Vizualno (po meri) ]</p>
+        <h2 class="section-title section-title--sm" data-reveal>AI vizualije po meri.</h2>
         <p class="vis__sub" data-reveal>
-          100 % AI, 100 % po meri. Nič stocka, nič ponavljanja. Kurirano, ne natlačeno.
+          100 % AI, 100 % po meri. Nič stocka, nič ponavljanja. Sekundarno k spletu in agentom —
+          a vseeno unikatno.
         </p>
       </header>
-    </div>
 
-    <div class="vis__viewport">
-      <div class="vis__stage" data-depth>
-        <div class="container-page">
-          <div class="vis__grid">
-            {visuals.map((v) => (
-              <figure class="tile" data-cursor tabindex="0">
-                <CloudinaryVideo src={v.src} class="tile__media" />
-                <span class="tile__index" aria-hidden="true">{v.n}</span>
-                <figcaption class="tile__meta">
-                  <span class="tile__cat">{v.cat}</span>
-                  <span class="tile__title">{v.title}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== AI MODEL FEATURE ===================== -->
-  <section class="ai-model">
-    <div class="container-page ai-model__grid">
-      <div class="ai-model__visual" data-reveal>
-        <CloudinaryVideo src={aiModelVideo} class="ai-model__media" />
-        <span class="ai-model__tag" aria-hidden="true">AI model</span>
-      </div>
-      <div class="ai-model__text">
-        <p class="kicker" data-reveal>[ Virtualni model ]</p>
-        <h2 class="ai-model__title" data-reveal>Obraz, ki nikoli ne odpove.</h2>
-        <p class="ai-model__body" data-reveal>
-          En render virtualnega modela kot dokaz zmožnosti. Digitalni ambasador znamke:
-          24/7 prisoten, popolnoma konsistenten, brez dram.
-        </p>
-        <div data-reveal>
-          <Button href="/virtualni-vplivnezi" variant="ghost">Spoznaj virtualne vplivneže →</Button>
-        </div>
+      <div class="vis__grid">
+        {visuals.map((v) => (
+          <figure class="tile" data-cursor tabindex="0">
+            <CloudinaryVideo src={v.src} class="tile__media" />
+            <figcaption class="tile__meta">
+              <span class="tile__cat">{v.cat}</span>
+              <span class="tile__title">{v.title}</span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
@@ -131,7 +103,9 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
     font-family: var(--font-display); font-weight: 500;
     font-size: clamp(34px, 5.5vw, 72px); line-height: 1; letter-spacing: -0.01em;
   }
+  .section-title--sm { font-size: clamp(28px, 4vw, 52px); }
   .sr-head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .sr-head--vis { margin-bottom: clamp(2rem, 4vw, 3rem); }
 
   /* ---------- HERO ---------- */
   .sr-hero { padding-top: clamp(3rem, 9vh, 7rem); padding-bottom: clamp(2.5rem, 6vh, 5rem); }
@@ -145,7 +119,7 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
     line-height: 1.65; color: var(--color-bone-dim);
   }
 
-  /* ---------- PROJEKTI ---------- */
+  /* ---------- CASE STUDYJI ---------- */
   .projects-sec { padding-block: clamp(3rem, 7vh, 6rem); border-top: 1px solid var(--color-hairline); }
   .projects { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
   @media (min-width: 860px) { .projects { grid-template-columns: 1.35fr 1fr; align-items: start; } }
@@ -189,14 +163,12 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
     color: var(--color-gold);
   }
 
-  /* ---------- VIZUALIJE — globinski "vstop v prostor" ---------- */
+  /* ---------- VIZUALNO (po meri) — kompakten trak ---------- */
   .vis { padding-top: clamp(3rem, 7vh, 6rem); padding-bottom: clamp(4rem, 9vh, 8rem); border-top: 1px solid var(--color-hairline); }
-  .vis__sub { margin-top: 1.25rem; max-width: 46ch; color: var(--color-bone-dim); }
-  /* perspektiva = "kamera"; stage se ob skrolu pomakne po Z (initDepth) */
-  .vis__viewport { perspective: 1100px; perspective-origin: 50% 45%; overflow: hidden; }
-  .vis__stage { transform-style: preserve-3d; will-change: transform, opacity; }
-  .vis__grid { display: grid; gap: clamp(1rem, 2.5vw, 2rem); margin-top: 1rem; }
-  @media (min-width: 700px) { .vis__grid { grid-template-columns: repeat(2, 1fr); } }
+  .vis__sub { margin-top: 1.25rem; max-width: 50ch; color: var(--color-bone-dim); }
+  .vis__grid { display: grid; gap: clamp(0.75rem, 1.5vw, 1.25rem); grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 640px) { .vis__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 960px) { .vis__grid { grid-template-columns: repeat(5, 1fr); } }
 
   .tile {
     position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden;
@@ -208,54 +180,19 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
     transition: border-color 0.35s var(--ease-reveal);
   }
   .tile:hover, .tile:focus-visible { border-color: rgb(200 169 110 / 0.5); }
-  /* video zapolni ploščico */
   .tile__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-  .tile__index {
-    position: absolute; top: 1rem; left: 1.1rem; z-index: 1;
-    font-family: var(--font-mono); font-weight: 500; font-size: 0.8rem; letter-spacing: 0.2em;
-    color: rgb(237 232 223 / 0.6); line-height: 1;
-    text-shadow: 0 1px 8px rgb(11 10 9 / 0.6);
-    transition: color 0.35s var(--ease-reveal);
-  }
-  .tile:hover .tile__index, .tile:focus-visible .tile__index { color: var(--color-gold); }
   .tile__meta {
     position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
-    display: flex; flex-direction: column; gap: 0.25rem;
-    padding: 1.25rem;
-    background: linear-gradient(0deg, rgb(11 10 9 / 0.9), transparent);
+    display: flex; flex-direction: column; gap: 0.2rem;
+    padding: 0.9rem;
+    background: linear-gradient(0deg, rgb(11 10 9 / 0.92), transparent);
     transform: translateY(0.5rem); opacity: 0;
     transition: transform 0.35s var(--ease-reveal), opacity 0.35s var(--ease-reveal);
   }
   .tile:hover .tile__meta, .tile:focus-visible .tile__meta { transform: translateY(0); opacity: 1; }
   .tile__cat {
-    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.22em;
+    font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em;
     text-transform: uppercase; color: var(--color-gold);
   }
-  .tile__title { font-family: var(--font-display); font-size: 1.25rem; color: var(--color-bone); }
-
-  /* ---------- AI MODEL FEATURE ---------- */
-  .ai-model { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
-  .ai-model__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-  @media (min-width: 800px) { .ai-model__grid { grid-template-columns: 0.85fr 1fr; } }
-  .ai-model__visual {
-    position: relative; overflow: hidden;
-    aspect-ratio: 3 / 4; border-radius: 14px; border: 1px solid var(--color-hairline);
-    background:
-      radial-gradient(120% 90% at 50% 10%, rgb(200 169 110 / 0.1), transparent 55%),
-      linear-gradient(160deg, #1a1612, var(--color-ink-2));
-    max-width: 460px;
-  }
-  .ai-model__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .ai-model__tag {
-    position: absolute; left: 1.25rem; bottom: 1.25rem; z-index: 1;
-    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--color-bone);
-    text-shadow: 0 1px 8px rgb(11 10 9 / 0.7);
-  }
-  .ai-model__title {
-    margin-top: 1.25rem; font-family: var(--font-display); font-weight: 500;
-    font-size: clamp(30px, 4.5vw, 60px); line-height: 1.02; letter-spacing: -0.01em; max-width: 14ch;
-  }
-  .ai-model__body { margin-top: 1.5rem; max-width: 46ch; color: var(--color-bone-dim); line-height: 1.65; }
-  .ai-model__text > div { margin-top: 2rem; }
+  .tile__title { font-family: var(--font-display); font-size: 1rem; color: var(--color-bone); }
 </style>

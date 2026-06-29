@@ -111,7 +111,7 @@ export function caseJsonLd(cs: CaseStudy, siteUrl: string) {
       "@id": `${url}#breadcrumb`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Domov", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: "Showroom", item: `${siteUrl}/showroom` },
+        { "@type": "ListItem", position: 2, name: "Reference", item: `${siteUrl}/reference` },
         { "@type": "ListItem", position: 3, name: cs.name, item: url },
       ],
     },

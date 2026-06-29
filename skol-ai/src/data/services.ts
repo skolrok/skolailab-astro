@@ -22,6 +22,7 @@ export interface Service {
   problem: string;
   solution: string;
   whatYouGet: string[];
+  proof?: string; // opcijski "Naš dokaz" blok
   packages: ServicePackage[];
   faq: ServiceFaq[];
   cta: string;
@@ -114,128 +115,49 @@ export const services: Record<string, Service> = {
     cta: "Postavite svojega AI agenta →",
   },
 
-  "ai-fotografija": {
-    slug: "ai-fotografija",
-    name: "AI fotografija & stock po meri",
-    metaTitle: "AI fotografija in stock po meri | SKOL AI",
+  geo: {
+    slug: "geo",
+    name: "GEO / AI vidnost",
+    metaTitle: "GEO optimizacija: da vas priporoči ChatGPT, Gemini, Perplexity | SKOL AI",
     metaDescription:
-      "100 % unikatne, hiper-realistične vizualije za vašo znamko. Brez fotografa, brez studia, brez stock klišejev. Za splet, oglase in tisk.",
-    kicker: "[ AI fotografija & stock ]",
-    h1: "Vizualije, ki ne obstajajo nikjer drugje.",
-    promise: "AI fotografija in stock po meri, narejena samo za vašo znamko.",
-    problem:
-      "Vaša stran izgleda enako kot konkurenčna, ker kupujete iste fotografije na istih stock portalih. Vsi vidijo iste obraze, iste pisarne, iste nasmehe.",
-    solution:
-      "Zgeneriramo serijo 100 % unikatnih, hiper-realističnih vizualij po meri vaše znamke. Brez fotografa, brez studia, brez ponavljanja. Osebno, prilagojeno, brez stroškov klasične produkcije.",
-    whatYouGet: [
-      "Brand in produktni shoti po meri.",
-      "Serija unikatnih slik za splet, družbena omrežja in tisk.",
-      "Enoten vizualni koncept, ki ga prepozna vsak, kdor vidi vašo znamko.",
-      "Polna komercialna uporaba.",
-    ],
-    packages: [
-      { name: "Brand & produktni shoti", price: "od €—" },
-      { name: "Stock paket po meri", price: "od €—" },
-      { name: "Vizualni koncept", price: "od €—" },
-    ],
-    faq: [
-      {
-        q: "So slike pravno moje?",
-        a: "Da, v polno komercialno uporabo, brez mesečnih licenčnin.",
-      },
-      {
-        q: "Lahko slike ujamejo moj produkt natančno?",
-        a: "Da, delamo po vaših referencah, dokler ni ujeto.",
-      },
-      {
-        q: "Kje jih lahko uporabim?",
-        a: "Povsod: splet, oglasi, družbena omrežja, tisk.",
-      },
-    ],
-    cta: "Naročite vizualije po meri →",
-  },
-
-  "oglasne-kreative": {
-    slug: "oglasne-kreative",
-    name: "High-performance oglasne kreative",
-    metaTitle: "High-performance oglasne kreative | SKOL AI",
-    metaDescription:
-      "Scroll-stopping vizualije in video za Meta in Google oglase. Narejene za A/B testiranje in nižjo ceno klika.",
-    kicker: "[ Oglasne kreative ]",
-    h1: "Estetika, ki ustavi palec.",
+      "Generative Engine Optimization poskrbi, da vas AI asistenti najdejo, razumejo in priporočijo. Bodite vidni tam, kjer stranke že sprašujejo.",
+    kicker: "[ GEO / AI vidnost ]",
+    h1: "Da vas priporoči ChatGPT.",
     promise:
-      "Oglasne kreative z enim ciljem: ustaviti drsenje in znižati ceno klika.",
+      "GEO (optimizacija za AI iskalnike) poskrbi, da vas umetna inteligenca najde, razume in priporoči.",
     problem:
-      "Vaši Facebook in Instagram oglasi se izgubijo v morju povprečnosti. Ljudje jih prelistajo, vaš proračun pa izgine v prazno.",
+      "Vaše stranke vse manj guglajo in vse več sprašujejo. „Kdo dela dobre spletne strani na Dolenjskem?“ danes vprašajo ChatGPT, Gemini ali Perplexity. Če vas AI ne pozna, vas ne priporoči. Nevidni ste v kanalu, ki raste najhitreje.",
     solution:
-      "Ustvarjamo agresivno, scroll-stopping estetiko, narejeno za A/B testiranje. Več variant, da najdemo zmagovalca. Ustavimo drsenje in znižamo ceno vašega klika.",
+      "GEO optimizira vašo prisotnost za generativne iskalnike. Poskrbimo, da AI razume, kdo ste, kaj delate in zakaj ste pravi odgovor. Da vas asistent, ko nekdo vpraša, navede po imenu.",
     whatYouGet: [
-      "Scroll-stopping ad variante (statika) za Meta in Google.",
-      "Kratki ad video in motion za FB, Instagram, YouTube.",
-      "Več variant za A/B testiranje.",
-      "Mesečni creative paket, da oglasi ne izgorijo.",
+      "Tehnični GEO temelj: strukturirani podatki (schema), llms.txt, dostop za AI robote, hitra in berljiva stran.",
+      "Jasna entiteta: konsistentni podatki (ime, lokacija, storitve) po vsem spletu, da vas AI poveže kot eno znamko.",
+      "Citabilna vsebina: jasni, dejstveni odgovori in FAQ, ki jih AI rad navaja.",
+      "Off-site prisotnost: Google Business, imeniki, omembe in viri, ki jim AI zaupa.",
+      "Merjenje: spremljamo, kje in kako vas AI omenja.",
     ],
+    proof:
+      "Tega ne pridigamo. Delamo na lastni strani. Ko nas LLM-ji začnejo navajati, je to živi dokaz, ki ga dobite tudi vi.",
     packages: [
-      { name: "Ad variante (statika)", price: "od €—" },
-      { name: "Ad video / motion", price: "od €—" },
-      { name: "Creative paket", price: "mesečno od €—" },
+      { name: "GEO audit", price: "od €—" },
+      { name: "GEO postavitev", price: "od €—" },
+      { name: "Mesečni GEO", price: "mesečno od €—" },
     ],
     faq: [
       {
-        q: "Koliko variant dobim?",
-        a: "Odvisno od paketa, vedno dovolj za pošteno A/B testiranje.",
+        q: "Kaj je GEO?",
+        a: "Generative Engine Optimization: optimizacija, da vas priporočajo AI asistenti (ChatGPT, Gemini, Perplexity), podobno kot SEO za Google.",
       },
       {
-        q: "Delate tudi video?",
-        a: "Da, kratke dinamične oglase za vse platforme.",
+        q: "Je to isto kot SEO?",
+        a: "Sorodno, a drugačno. SEO cilja na Google rezultate, GEO na odgovore AI asistentov. Najmočnejše deluje skupaj.",
       },
       {
-        q: "Pomagate pri postavitvi oglasov?",
-        a: "Lahko, ali pa dostavimo kreative, ki jih vaš oglaševalec uporabi.",
+        q: "Kako merite uspeh?",
+        a: "Spremljamo omembe in priporočila v AI odgovorih za vaše ključne poizvedbe.",
       },
     ],
-    cta: "Dvignite svoje oglase →",
-  },
-
-  "virtualni-vplivnezi": {
-    slug: "virtualni-vplivnezi",
-    name: "Virtualni vplivneži & AI modeli",
-    metaTitle: "Virtualni vplivneži in AI modeli za znamke | SKOL AI",
-    metaDescription:
-      "Zgradimo popolnega digitalnega ambasadorja vaše znamke. 24/7 prisoten, popolnoma konsistenten, brez dram.",
-    kicker: "[ Virtualni vplivneži ]",
-    h1: "Obraz vaše znamke, ki nikoli ne odpove.",
-    promise: "Virtualni vplivnež ali AI model, zgrajen samo za vašo znamko.",
-    problem:
-      "Klasični vplivneži so dragi, nezanesljivi in lahko z enim spodrsljajem uničijo vaš ugled. Vaša znamka je talec njihovih muh.",
-    solution:
-      "Zgradimo edinstven digitalni obraz znamke. 100 % vaš, brez tveganja za ugled. Predstavlja točno to, kar želite, kjer želite, brez nehanja.",
-    whatYouGet: [
-      "Edinstven AI persona ali model.",
-      "UGC-stil vsebina brez snemanja.",
-      "Mesečni paket objav z vašim ambasadorjem.",
-      "Popolna konsistentnost in nadzor nad sporočilom.",
-    ],
-    packages: [
-      { name: "AI persona / model", price: "od €—" },
-      { name: "UGC-stil vsebina", price: "od €—" },
-      { name: "Mesečni paket vsebine", price: "mesečno od €—" },
-    ],
-    faq: [
-      {
-        q: "Je videti realistično?",
-        a: "Da, hiper-realistično, prilagojeno tonu vaše znamke.",
-      },
-      {
-        q: "Imam popoln nadzor?",
-        a: "Da, model je vaš in predstavlja točno to, kar določite.",
-      },
-      {
-        q: "Kako pogosto dobim vsebino?",
-        a: "Po mesečnem paketu, z rednim dotokom objav.",
-      },
-    ],
-    cta: "Ustvarite svojega ambasadorja →",
+    cta: "Postanite vidni za AI →",
   },
 };
 

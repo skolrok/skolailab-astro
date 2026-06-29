@@ -70,6 +70,15 @@ const { service } = Astro.props;
   </div>
 </section>
 
+{service.proof && (
+  <section class="proof-block">
+    <div class="container-page">
+      <p class="kicker" data-reveal>[ Naš dokaz ]</p>
+      <p class="proof-block__text" data-reveal>{service.proof}</p>
+    </div>
+  </section>
+)}
+
 <!-- ===================== PAKETI ===================== -->
 <section class="pkg">
   <div class="container-page">
@@ -214,6 +223,23 @@ const { service } = Astro.props;
     line-height: 1.4;
   }
   .kd__text { max-width: 60ch; }
+
+  /* ---------- NAŠ DOKAZ ---------- */
+  .proof-block {
+    padding-block: clamp(3rem, 7vh, 5.5rem);
+    border-top: 1px solid var(--color-hairline);
+  }
+  .proof-block__text {
+    margin-top: 1.25rem;
+    max-width: 30ch;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    color: var(--color-bone);
+    text-wrap: balance;
+  }
 
   /* ---------- PAKETI ---------- */
   .pkg { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }

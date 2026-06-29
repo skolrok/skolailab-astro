@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ServiceTemplate from "../components/service/ServiceTemplate.astro";
 import { services, serviceJsonLd } from "../data/services";
 
-const service = services["oglasne-kreative"];
+const service = services["geo"];
 const siteUrl = (Astro.site ?? new URL("https://skolailab.com")).origin;
 const schema = serviceJsonLd(service, siteUrl);
 ---

@@ -1,20 +1,20 @@
 ---
-/* ServicesOverview — sekcija 3 (homepage-copy.md). 2 diviziji, vse vrstice = povezave. */
-const divisions = [
+/* ServicesOverview — sekcija 3 (homepage-copy.md). 3 glavne storitve flat. */
+const items = [
   {
-    label: "Digitalna infrastruktura",
-    items: [
-      { name: "Premium spletne strani", desc: "Bliskovito hitre strani, ki obiskovalca brez trenja spremenijo v kupca.", href: "/spletne-strani" },
-      { name: "AI agenti & avtomatizacije", desc: "Vaše ročno delo opravi stroj. Klici, rezervacije in follow-up tečejo sami, 24/7.", href: "/ai-agenti" },
-    ],
+    name: "Premium spletne strani",
+    desc: "Bliskovito hitre strani, ki obiskovalca brez trenja spremenijo v kupca.",
+    href: "/spletne-strani",
   },
   {
-    label: "Vizualno",
-    items: [
-      { name: "AI fotografija & stock po meri", desc: "Unikatne vizualije za vašo znamko, ki ne obstajajo nikjer drugje.", href: "/ai-fotografija" },
-      { name: "High-performance oglasne kreative", desc: "Estetika, ki ustavi drsenje in zniža ceno klika.", href: "/oglasne-kreative" },
-      { name: "Virtualni vplivneži & AI modeli", desc: "Digitalni ambasador znamke. 24/7 prisoten, popolnoma konsistenten.", href: "/virtualni-vplivnezi" },
-    ],
+    name: "AI agenti & avtomatizacije",
+    desc: "Vaše ročno delo opravi stroj. Klici, rezervacije in follow-up tečejo sami, 24/7.",
+    href: "/ai-agenti",
+  },
+  {
+    name: "GEO / AI vidnost",
+    desc: "Da vas ChatGPT, Gemini in Perplexity najdejo, razumejo in priporočijo.",
+    href: "/geo",
   },
 ];
 ---
@@ -26,24 +26,21 @@ const divisions = [
       <h2 class="section-title" data-reveal>Kar gradimo.</h2>
     </header>
 
-    <div class="sv-divs">
-      {divisions.map((d) => (
-        <div class="sv-div">
-          <p class="sv-div__label" data-reveal>{d.label}</p>
-          <ul class="sv-list">
-            {d.items.map((it) => (
-              <li data-reveal>
-                <a href={it.href} class="sv-item" data-cursor>
-                  <span class="sv-item__name">{it.name}</span>
-                  <span class="sv-item__desc">{it.desc}</span>
-                  <span class="sv-item__arrow" aria-hidden="true">→</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <ul class="sv-list">
+      {items.map((it) => (
+        <li data-reveal>
+          <a href={it.href} class="sv-item" data-cursor>
+            <span class="sv-item__name">{it.name}</span>
+            <span class="sv-item__desc">{it.desc}</span>
+            <span class="sv-item__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
+
+    <p class="sv-note" data-reveal>
+      Delamo tudi AI vizualije, video in oglasne kreative po meri.
+    </p>
   </div>
 </section>
 
@@ -55,13 +52,7 @@ const divisions = [
   }
   .services { padding-block: clamp(4rem, 10vh, 8rem); }
   .sv-head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
-  .sv-divs { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
-  @media (min-width: 980px) { .sv-divs { grid-template-columns: 1fr 1fr; gap: clamp(3rem, 6vw, 6rem); } }
 
-  .sv-div__label {
-    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--color-gold); margin-bottom: 0.5rem;
-  }
   .sv-list { list-style: none; margin: 0; padding: 0; }
   .sv-item {
     display: grid;
@@ -69,7 +60,7 @@ const divisions = [
     grid-template-areas: "name arrow" "desc arrow";
     gap: 0.4rem 1rem;
     align-items: start;
-    padding: 1.5rem 0;
+    padding: clamp(1.5rem, 3vw, 2.25rem) 0;
     border-top: 1px solid var(--color-hairline);
     transition: padding-left 0.35s var(--ease-reveal);
   }
@@ -78,13 +69,13 @@ const divisions = [
   .sv-item__name {
     grid-area: name;
     font-family: var(--font-display); font-weight: 500;
-    font-size: clamp(1.25rem, 2.2vw, 1.75rem); line-height: 1.1; color: var(--color-bone);
+    font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.1; color: var(--color-bone);
     transition: color 0.3s var(--ease-reveal);
   }
   .sv-item:hover .sv-item__name { color: var(--color-gold); }
   .sv-item__desc {
     grid-area: desc;
-    font-size: 0.92rem; line-height: 1.5; color: var(--color-bone-dim); max-width: 42ch;
+    font-size: 0.95rem; line-height: 1.5; color: var(--color-bone-dim); max-width: 52ch;
   }
   .sv-item__arrow {
     grid-area: arrow; align-self: center;
@@ -93,4 +84,13 @@ const divisions = [
     transition: opacity 0.35s var(--ease-reveal), transform 0.35s var(--ease-reveal);
   }
   .sv-item:hover .sv-item__arrow { opacity: 1; transform: translateX(0); }
+
+  .sv-note {
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--color-bone-dim);
+    opacity: 0.8;
+  }
 </style>

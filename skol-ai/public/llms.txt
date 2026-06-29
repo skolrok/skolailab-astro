@@ -1,0 +1,24 @@
+# SKOL AI
+
+> SKOL AI je slovenski AI kreativni studio iz Trebnjega (Dolenjska). Gradimo bliskovito hitre premium spletne strani, postavljamo AI agente in avtomatizacije ter izvajamo GEO (optimizacijo za AI iskalnike), da podjetja priporočijo ChatGPT, Gemini in Perplexity. Delamo po vsej Sloveniji.
+
+Vodja: Rok Skol. Sedež: Trebnje, Slovenija. Domena: https://skolailab.com
+
+## Storitve
+
+- [Premium spletne strani](https://skolailab.com/spletne-strani): Bliskovito hitre spletne strani po meri na sodobni statični arhitekturi (Astro), ki obiskovalca brez trenja spremenijo v kupca.
+- [AI agenti & avtomatizacije](https://skolailab.com/ai-agenti): AI glasovni in chat agent, ki 24/7 sprejema klice, odgovarja na vprašanja in rezervira termine; avtomatizacije, ki odpravijo ročno delo.
+- [GEO / AI vidnost](https://skolailab.com/geo): Generative Engine Optimization — da vas AI asistenti (ChatGPT, Gemini, Perplexity) najdejo, razumejo in priporočijo. Tehnični GEO temelj, jasna entiteta, citabilna vsebina, off-site prisotnost in merjenje omemb.
+
+Poleg tega po meri izdelujemo AI vizualije, video in oglasne kreative.
+
+## Reference
+
+- [Reference](https://skolailab.com/reference): Pregled projektov v živo in vizualij po meri.
+- [Solimat — celovita digitalna prenova](https://skolailab.com/projekti/solimat): Migracija z WordPressa na čisto statično infrastrukturo, lasten admin, dvojezičnost (SI/EN), tracking in pametni obrazci.
+- [Bar Bazenček — nova spletna prisotnost](https://skolailab.com/projekti/bar-bazencek): Nova spletna prisotnost za lokalni bar.
+
+## Več
+
+- [Manifest](https://skolailab.com/manifest): Naša drža — konec povprečnosti, estetika kot nepravična prednost.
+- [Kontakt](https://skolailab.com/kontakt): Povpraševanje in stik.

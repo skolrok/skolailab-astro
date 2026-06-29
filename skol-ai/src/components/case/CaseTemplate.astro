@@ -17,7 +17,7 @@ const { caseStudy: c } = Astro.props;
     <nav class="breadcrumb" aria-label="Drobtinice" data-hero>
       <a href="/">Domov</a>
       <span aria-hidden="true">/</span>
-      <a href="/showroom">Showroom</a>
+      <a href="/reference">Reference</a>
       <span aria-hidden="true">/</span>
       <span aria-current="page">{c.name}</span>
     </nav>
@@ -106,7 +106,7 @@ const { caseStudy: c } = Astro.props;
       <Button href={c.liveUrl} variant="primary" external dl="cta_click">
         Obišči {c.liveLabel} →
       </Button>
-      <Button href="/showroom" variant="ghost">← Nazaj v showroom</Button>
+      <Button href="/reference" variant="ghost">← Nazaj na reference</Button>
     </div>
     <p class="live-cta__note" data-reveal>
       Želiš podobno za svojo znamko? <a href="/kontakt" data-cursor>Začnimo ustvarjati →</a>
