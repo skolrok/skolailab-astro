@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const fmtDate = (d: Date) =>
+  new Intl.DateTimeFormat("sl-SI", { day: "numeric", month: "long", year: "numeric" }).format(d);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Vpogledi o AI spletnih straneh, agentih in GEO vidnosti. Praktično, brez balasta. SKOL AI, Trebnje."
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="blog-hero">
+    <div class="container-page">
+      <p class="kicker" data-hero>[ Blog ]</p>
+      <h1 class="blog-hero__title" data-hero>Vpogledi, ne hrup.</h1>
+      <p class="blog-hero__sub" data-hero>
+        Praktične misli o AI spletnih straneh, agentih in GEO vidnosti. Kratko, jasno, uporabno.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== SEZNAM ===================== -->
+  <section class="blog-list-sec">
+    <div class="container-page">
+      {posts.length === 0 ? (
+        <p class="blog-empty" data-reveal>Prvi članek je v pripravi. Kmalu.</p>
+      ) : (
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li data-reveal>
+              <a href={`/blog/${post.id}/`} class="post-card" data-cursor>
+                <div class="post-card__meta">
+                  <time datetime={post.data.pubDate.toISOString()}>{fmtDate(post.data.pubDate)}</time>
+                  {post.data.tags[0] && <span class="post-card__tag">{post.data.tags[0]}</span>}
+                </div>
+                <h2 class="post-card__title">{post.data.title}</h2>
+                <p class="post-card__desc">{post.data.description}</p>
+                <span class="post-card__more" aria-hidden="true">Preberi →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- HERO ---------- */
+  .blog-hero { padding-top: clamp(3rem, 9vh, 7rem); padding-bottom: clamp(2rem, 5vh, 4rem); }
+  .blog-hero__title {
+    margin-top: 1.5rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(44px, 8vw, 104px); line-height: 0.98; letter-spacing: -0.01em;
+  }
+  .blog-hero__sub {
+    margin-top: 2rem; max-width: 52ch;
+    font-size: clamp(15px, 1.5vw, 19px); line-height: 1.65; color: var(--color-bone-dim);
+  }
+
+  /* ---------- SEZNAM ---------- */
+  .blog-list-sec { padding-block: clamp(2.5rem, 6vh, 5rem); border-top: 1px solid var(--color-hairline); }
+  .blog-empty { color: var(--color-bone-dim); font-size: 1.05rem; }
+  .blog-list { list-style: none; margin: 0; padding: 0; }
+
+  .post-card {
+    display: block;
+    padding: clamp(1.75rem, 4vw, 2.75rem) 0;
+    border-top: 1px solid var(--color-hairline);
+    transition: padding-left 0.35s var(--ease-reveal);
+  }
+  .blog-list li:first-child .post-card { border-top: none; }
+  .blog-list li:last-child .post-card { border-bottom: 1px solid var(--color-hairline); }
+  .post-card:hover { padding-left: 0.75rem; }
+
+  .post-card__meta {
+    display: flex; align-items: center; gap: 1rem;
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-bone-dim);
+  }
+  .post-card__tag { color: var(--color-gold); }
+  .post-card__title {
+    margin-top: 0.9rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(1.5rem, 3.4vw, 2.5rem); line-height: 1.08; letter-spacing: -0.01em;
+    color: var(--color-bone); max-width: 24ch;
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .post-card:hover .post-card__title { color: var(--color-gold); }
+  .post-card__desc {
+    margin-top: 0.9rem; max-width: 60ch;
+    font-size: 1rem; line-height: 1.6; color: var(--color-bone-dim);
+  }
+  .post-card__more {
+    display: inline-block; margin-top: 1.25rem;
+    font-family: var(--font-body); font-weight: 700; font-size: 0.9rem; color: var(--color-gold);
+  }
+</style>

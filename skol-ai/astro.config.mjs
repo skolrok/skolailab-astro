@@ -15,8 +15,8 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      // 404 ni za indeks; ostalo gre v sitemap.
-      filter: (page) => !/\/404\/?$/.test(page),
+      // 404 in rss.xml nista za indeks; ostalo (vključno z /blog) gre v sitemap.
+      filter: (page) => !/\/404\/?$/.test(page) && !/\/rss\.xml$/.test(page),
     }),
   ],
 });
