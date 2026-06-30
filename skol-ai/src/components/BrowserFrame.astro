@@ -1,0 +1,128 @@
+---
+/* BrowserFrame — enoten "browser" okvir okoli screenshota žive strani.
+   Tanka zgornja vrstica (3 pike + URL polje), zaobljeni robovi, subtilna senca.
+   Slika prek CloudinaryImage (f_auto,q_auto,c_fill, srcset, eksplicitne dimenzije, lazy → brez CLS).
+   Isti okvir povsod = doslednost. */
+import CloudinaryImage from "./CloudinaryImage.astro";
+
+interface Props {
+  src: string; // Cloudinary public id screenshota
+  url: string; // besedilo v naslovni vrstici (npr. "solimat.si")
+  alt: string;
+  width?: number;
+  height?: number;
+  sizes?: string;
+  widths?: number[];
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
+  class?: string;
+}
+
+const {
+  src,
+  url,
+  alt,
+  width = 1200,
+  height = 850, // ≈ izvorno razmerje screenshotov (1227×869), da c_fill ne reže
+  sizes = "(min-width: 960px) 700px, 100vw",
+  widths = [480, 640, 800, 1000, 1200],
+  loading = "lazy",
+  fetchpriority,
+  class: klass,
+} = Astro.props;
+---
+
+<figure class:list={["bframe", klass]}>
+  <div class="bframe__bar">
+    <span class="bframe__dots" aria-hidden="true">
+      <i class="bframe__dot bframe__dot--r"></i>
+      <i class="bframe__dot bframe__dot--y"></i>
+      <i class="bframe__dot bframe__dot--g"></i>
+    </span>
+    <span class="bframe__url">
+      <svg class="bframe__lock" viewBox="0 0 24 24" width="11" height="11" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 1.5a4.5 4.5 0 0 0-4.5 4.5v3H6.75A1.75 1.75 0 0 0 5 10.75v9.5C5 21.216 5.784 22 6.75 22h10.5A1.75 1.75 0 0 0 19 20.25v-9.5A1.75 1.75 0 0 0 17.25 9H16.5V6A4.5 4.5 0 0 0 12 1.5Zm2.5 7.5h-5V6a2.5 2.5 0 0 1 5 0v3Z"
+        ></path>
+      </svg>
+      <span class="bframe__urltext">{url}</span>
+    </span>
+  </div>
+  <div class="bframe__screen">
+    <CloudinaryImage
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      crop="fill"
+      gravity="auto"
+      quality="auto"
+      sizes={sizes}
+      widths={widths}
+      loading={loading}
+      fetchpriority={fetchpriority}
+      class="bframe__img"
+    />
+  </div>
+</figure>
+
+<style>
+  .bframe {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-ink-2);
+    box-shadow:
+      0 28px 64px -24px rgb(0 0 0 / 0.65),
+      0 6px 18px -8px rgb(0 0 0 / 0.5);
+  }
+
+  .bframe__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.65rem 0.9rem;
+    background: linear-gradient(180deg, #1b1814, var(--color-ink-2));
+    border-bottom: 1px solid var(--color-hairline);
+  }
+  .bframe__dots { display: inline-flex; gap: 0.45rem; flex: none; }
+  .bframe__dot { width: 11px; height: 11px; border-radius: 999px; display: block; opacity: 0.9; }
+  .bframe__dot--r { background: #b5635a; }
+  .bframe__dot--y { background: var(--color-gold); }
+  .bframe__dot--g { background: #7fa88a; }
+
+  .bframe__url {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    max-width: 320px;
+    margin-inline: auto;
+    padding: 0.32rem 0.85rem;
+    background: var(--color-ink);
+    border: 1px solid var(--color-hairline);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: var(--color-bone-dim);
+  }
+  .bframe__lock { flex: none; color: var(--color-gold); opacity: 0.8; }
+  .bframe__urltext { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .bframe__screen {
+    aspect-ratio: 1200 / 850;
+    background: var(--color-ink);
+  }
+  .bframe :global(.bframe__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+</style>

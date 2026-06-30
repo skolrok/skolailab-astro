@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CtaBand from "../components/CtaBand.astro";
 import CloudinaryVideo from "../components/CloudinaryVideo.astro";
+import BrowserFrame from "../components/BrowserFrame.astro";
 import { caseList } from "../data/cases";
 
 // Kompakten vizualni trak — AI video kosi (Cloudinary f_auto -> mp4, lazy autoplay).
@@ -50,8 +51,13 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
             data-reveal
             data-cursor
           >
-            <div class="proj__visual" aria-hidden="true">
-              <span class="proj__visual-label">{p.liveLabel}</span>
+            <div class="proj__visual">
+              <BrowserFrame
+                src={p.screenshot!}
+                url={p.liveLabel}
+                alt={`Posnetek žive spletne strani ${p.name} (${p.liveLabel})`}
+                sizes="(min-width: 860px) 620px, 100vw"
+              />
             </div>
             <div class="proj__body">
               <p class="proj__cat">{p.category}</p>
@@ -132,16 +138,11 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
   }
   .proj:hover { border-color: rgb(200 169 110 / 0.4); transform: translateY(-6px); }
   .proj__visual {
-    aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: 1.25rem;
+    padding: clamp(1.1rem, 2.5vw, 1.75rem);
     background:
       radial-gradient(130% 130% at 50% 0%, rgb(200 169 110 / 0.07), transparent 60%),
       linear-gradient(180deg, #181511, var(--color-ink-2));
     border-bottom: 1px solid var(--color-hairline);
-  }
-  .proj--featured .proj__visual { aspect-ratio: 16 / 11; }
-  .proj__visual-label {
-    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--color-bone-dim);
   }
   .proj__body { padding: clamp(1.5rem, 2.5vw, 2.25rem); display: flex; flex-direction: column; gap: 0.75rem; }
   .proj__cat {

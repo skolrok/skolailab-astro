@@ -20,6 +20,7 @@ export interface CaseStudy {
   featured?: boolean;
   image?: string; // Cloudinary public id (pot za /upload/, brez f_auto,q_auto)
   imageAlt?: string;
+  screenshot?: string; // Cloudinary public id screenshota žive strani (za BrowserFrame)
 }
 
 export const cases: Record<string, CaseStudy> = {
@@ -53,6 +54,7 @@ export const cases: Record<string, CaseStudy> = {
     featured: true,
     image: "v1776931870/solimat-mockup-skolai.webp",
     imageAlt: "Mockup prenovljene spletne strani Solimat",
+    screenshot: "v1782824928/solimat.si_.webp",
   },
 
   "bar-bazencek": {
@@ -82,6 +84,7 @@ export const cases: Record<string, CaseStudy> = {
       "Profesionalna spletna prisotnost, ki gostu olajša pot do obiska. Dostavljeno hitro in v dogovorjenem proračunu, brez presenečenj.",
     liveLabel: "barbazencek.si",
     liveUrl: "https://barbazencek.si",
+    screenshot: "v1782824928/barbazencek.si_.webp",
   },
 };
 

@@ -3,6 +3,7 @@
    Sekcije: Hero · Izziv · Pristop · Kaj smo zgradili · Rezultat · LiveCTA. */
 import Button from "../Button.astro";
 import CloudinaryImage from "../CloudinaryImage.astro";
+import BrowserFrame from "../BrowserFrame.astro";
 import type { CaseStudy } from "../../data/cases";
 
 interface Props {
@@ -36,10 +37,22 @@ const { caseStudy: c } = Astro.props;
     </div>
   </div>
 
-  <!-- Glavni mockup projekta (Cloudinary, responsive; sicer placeholder) -->
+  <!-- Glavni screenshot žive strani v enotnem browser okvirju -->
   <div class="container-page">
     <div class="case-mock" data-hero>
-      {c.image ? (
+      {c.screenshot ? (
+        <BrowserFrame
+          src={c.screenshot}
+          url={c.liveLabel}
+          alt={c.imageAlt ?? `Posnetek žive spletne strani ${c.name} (${c.liveLabel})`}
+          width={1600}
+          height={1000}
+          sizes="(min-width: 1280px) 1200px, 100vw"
+          widths={[640, 900, 1200, 1600]}
+          loading="eager"
+          fetchpriority="high"
+        />
+      ) : c.image ? (
         <CloudinaryImage
           src={c.image}
           alt={c.imageAlt ?? `Spletna stran ${c.name}`}
@@ -151,6 +164,10 @@ const { caseStudy: c } = Astro.props;
 
   .case-mock {
     margin-top: clamp(2.5rem, 6vw, 5rem);
+  }
+  /* Fallback (če screenshota ni): mockup slika ali label v box-u */
+  .case-mock:has(.case-mock__img),
+  .case-mock:has(.case-mock__label) {
     aspect-ratio: 16 / 9;
     border-radius: 14px;
     overflow: hidden;
