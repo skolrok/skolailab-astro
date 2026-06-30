@@ -113,18 +113,65 @@ for (const p of ogPages) {
   n++;
 }
 
-// ---- favicon PNG-ji + apple-touch ----
+// ---- favicon.svg (vektorski brand mark) ----
+writeFileSync(join(PUB, "favicon.svg"), faviconSvg(64));
+
+// ---- favicon PNG-ji + apple-touch + PWA (android) ----
 const icons = [
   { name: "favicon-16x16.png", size: 16 },
   { name: "favicon-32x32.png", size: 32 },
   { name: "apple-touch-icon.png", size: 180 },
+  { name: "android-chrome-192x192.png", size: 192 },
+  { name: "android-chrome-512x512.png", size: 512 },
 ];
+const pngBySize = {};
 for (const ic of icons) {
   const png = await sharp(Buffer.from(faviconSvg(64)))
     .resize(ic.size, ic.size)
     .png()
     .toBuffer();
   writeFileSync(join(PUB, ic.name), png);
+  pngBySize[ic.size] = png;
 }
 
-console.log(`OG slik: ${n} · favicon PNG: ${icons.length}  -> public/og/, public/`);
+// ---- favicon.ico (pravi ICO, ki ovije 32×32 brand PNG; nadomesti star Astro default) ----
+function pngToIco(png, size) {
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0); // reserved
+  header.writeUInt16LE(1, 2); // type: 1 = ikona
+  header.writeUInt16LE(1, 4); // št. slik
+  const entry = Buffer.alloc(16);
+  entry.writeUInt8(size >= 256 ? 0 : size, 0); // širina (0 = 256)
+  entry.writeUInt8(size >= 256 ? 0 : size, 1); // višina
+  entry.writeUInt8(0, 2); // barvna paleta
+  entry.writeUInt8(0, 3); // reserved
+  entry.writeUInt16LE(1, 4); // color planes
+  entry.writeUInt16LE(32, 6); // bitov na piksel
+  entry.writeUInt32LE(png.length, 8); // velikost podatkov
+  entry.writeUInt32LE(6 + 16, 12); // odmik do podatkov
+  return Buffer.concat([header, entry, png]);
+}
+writeFileSync(join(PUB, "favicon.ico"), pngToIco(pngBySize[32], 32));
+
+// ---- site.webmanifest (PWA) ----
+const manifest = {
+  name: "SKOL AI — AI Kreativni studio",
+  short_name: "SKOL AI",
+  description: "AI spletne strani, agenti in GEO. Kreativni studio iz Trebnjega.",
+  start_url: "/",
+  display: "standalone",
+  background_color: INK,
+  theme_color: INK,
+  icons: [
+    { src: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    { src: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    { src: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+    { src: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+    { src: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
+  ],
+};
+writeFileSync(join(PUB, "site.webmanifest"), JSON.stringify(manifest, null, 2));
+
+console.log(
+  `OG slik: ${n} · favicon PNG: ${icons.length} · favicon.svg + favicon.ico + site.webmanifest  -> public/og/, public/`,
+);

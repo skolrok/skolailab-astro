@@ -81,7 +81,11 @@ const canonical = new URL(Astro.url.pathname, siteOrigin).href;
 const ogSlug = Astro.url.pathname.replace(/^\/|\/$/g, "").replace(/\//g, "-") || "default";
 const ogImage = new URL(image ?? `/og/${ogSlug}.png`, siteOrigin).href;
 const brandImage = new URL("/og/default.png", siteOrigin).href; // dosleden brand vir za schemo
-const pageTitle = titleExact ?? (title ? `${title} | ${BRAND.name}` : `${BRAND.name} — AI kreativni studio, ${BRAND.city}`);
+const pageTitle =
+  titleExact ??
+  (title
+    ? `${title} | ${BRAND.name}`
+    : "SKOL AI — AI Kreativni studio | Spletne strani, AI agenti, GEO");
 const year = new Date().getFullYear();
 
 /* aktivna pot za nav — sidrne (#) povezave niso "trenutna stran" */
@@ -220,13 +224,13 @@ const schema = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Favicon (placeholder iz Astro scaffolda; zamenjaj s SKOL AI znakom) -->
-    <!-- Favicon / ikone (SKOL AI mark) -->
+    <!-- Favicon / ikone (SKOL AI mark — gold "S" na Ink, generirano s scripts/generate-assets.mjs) -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- JSON-LD: Organization + LocalBusiness + WebSite -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
