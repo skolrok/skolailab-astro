@@ -86,17 +86,21 @@ const { service } = Astro.props;
       <p class="kicker" data-reveal>[ Paketi ]</p>
       <h2 class="section-title" data-reveal>Paketi.</h2>
     </header>
-    <div class="pkg__grid">
+    <div class="pkg__grid" style={`--pkg-cols: ${service.packages.length}`}>
       {service.packages.map((p, i) => (
-        <article class="pkg__card" data-reveal>
+        <article class:list={["pkg__card", { "pkg__card--secondary": p.secondary }]} data-reveal>
           <span class="pkg__num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
           <h3 class="pkg__name">{p.name}</h3>
           <p class="pkg__price">{p.price}</p>
+          {p.note && <p class="pkg__cardnote">{p.note}</p>}
         </article>
       ))}
     </div>
     <p class="pkg__note" data-reveal>
       Točna cena po pogovoru — skupaj določiva obseg in dobiš jasno ponudbo brez skritih presenečenj.
+    </p>
+    <p class="pkg__vat" data-reveal>
+      Cene ne vključujejo DDV. DDV se ne obračuna po 1. odstavku 94. člena ZDDV-1.
     </p>
   </div>
 </section>
@@ -248,8 +252,11 @@ const { service } = Astro.props;
     display: grid;
     gap: 1.25rem;
   }
-  @media (min-width: 768px) {
-    .pkg__grid { grid-template-columns: repeat(3, 1fr); }
+  @media (min-width: 600px) {
+    .pkg__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 920px) {
+    .pkg__grid { grid-template-columns: repeat(var(--pkg-cols, 3), 1fr); }
   }
   .pkg__card {
     background: var(--color-ink-2);
@@ -262,6 +269,19 @@ const { service } = Astro.props;
     transition: border-color 0.3s var(--ease-reveal), transform 0.3s var(--ease-reveal);
   }
   .pkg__card:hover { border-color: rgb(200 169 110 / 0.4); transform: translateY(-4px); }
+
+  /* sekundarni paket (npr. Express) — vizualno lažji, da pravi paketi ostanejo v ospredju */
+  .pkg__card--secondary {
+    background: transparent;
+    border-style: dashed;
+    min-height: 0;
+  }
+  .pkg__card--secondary .pkg__name {
+    padding-top: 1.5rem;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--color-bone-dim);
+  }
+  .pkg__card--secondary .pkg__price { font-size: 0.9rem; opacity: 0.85; }
   .pkg__num {
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -285,10 +305,26 @@ const { service } = Astro.props;
     color: var(--color-gold);
     font-variant-numeric: tabular-nums;
   }
+  .pkg__cardnote {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--color-bone-dim);
+  }
   .pkg__note {
     margin-top: 2rem;
     font-size: 0.9rem;
     color: var(--color-bone-dim);
+    max-width: 60ch;
+  }
+  .pkg__vat {
+    margin-top: 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+    color: var(--color-bone-dim);
+    opacity: 0.7;
     max-width: 60ch;
   }
 

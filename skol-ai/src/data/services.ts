@@ -5,7 +5,9 @@
 
 export interface ServicePackage {
   name: string;
-  price: string; // npr. "od €—" ali "mesečno od €—"
+  price: string; // npr. "od 690 €" ali "od 99 €/mes"
+  note?: string; // drobna pojasnilna vrstica v kartici
+  secondary?: boolean; // vizualno manjši/sekundarni paket (npr. Express)
 }
 export interface ServiceFaq {
   q: string;
@@ -51,9 +53,15 @@ export const services: Record<string, Service> = {
       "Lasten sistem za urejanje vsebine, kjer je smiselno.",
     ],
     packages: [
-      { name: "Predstavitvena", price: "od €—" },
-      { name: "Landing / premium", price: "od €—" },
-      { name: "E-commerce / po meri", price: "od €—" },
+      {
+        name: "Express landing",
+        price: "od 290 €",
+        note: "Ena stran, naša predloga, hitra postavitev — brez custom dizajna.",
+        secondary: true,
+      },
+      { name: "Predstavitvena", price: "od 490 €" },
+      { name: "Landing / premium", price: "od 890 €" },
+      { name: "E-commerce / po meri", price: "od 1.890 €" },
     ],
     faq: [
       {
@@ -94,9 +102,9 @@ export const services: Record<string, Service> = {
       "Email in SMS sekvence.",
     ],
     packages: [
-      { name: "AI agent — setup", price: "od €—" },
-      { name: "AI agent — mesečno", price: "od €—" },
-      { name: "Avtomatizacije", price: "od €—" },
+      { name: "AI agent — setup", price: "od 690 €" },
+      { name: "AI agent — mesečno", price: "od 99 €/mes" },
+      { name: "Avtomatizacija (workflow)", price: "od 290 €" },
     ],
     faq: [
       {
@@ -139,9 +147,9 @@ export const services: Record<string, Service> = {
     proof:
       "Tega ne pridigamo. Delamo na lastni strani. Ko nas LLM-ji začnejo navajati, je to živi dokaz, ki ga dobite tudi vi.",
     packages: [
-      { name: "GEO audit", price: "od €—" },
-      { name: "GEO postavitev", price: "od €—" },
-      { name: "Mesečni GEO", price: "mesečno od €—" },
+      { name: "GEO audit", price: "od 290 €" },
+      { name: "GEO postavitev", price: "od 490 €" },
+      { name: "Mesečni GEO", price: "od 149 €/mes" },
     ],
     faq: [
       {

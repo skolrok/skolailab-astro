@@ -1,18 +1,32 @@
 ---
 /* ContactForm — ime, e-mail, podjetje, izbor storitve, sporočilo.
-   POST na n8n webhook (placeholder). Ob uspehu potrditev na strani.
+   POST (fetch/JSON) na Web3Forms — brez redirecta, ostane na strani.
+   Honeypot (botcheck) proti spamu. Ob uspehu: potrditev + reset + dataLayer form_submit.
    Dostopnost: vidne labele, required oznake, napaka ob polju, loading, aria-live. */
 const services = [
   "Spletna stran",
-  "AI agent",
+  "AI agent / avtomatizacija",
+  "GEO / AI vidnost",
   "Vizualije",
-  "Oglasi",
   "Drugo",
 ];
 ---
 
 <div class="cf">
   <form id="kontakt-form" class="cf__form" novalidate>
+    <!-- Web3Forms: ključ za dostavo + zadeva e-pošte -->
+    <input type="hidden" name="access_key" value="274f2d37-ff0b-46e2-9215-475914fb26b8" />
+    <input type="hidden" name="subject" value="Novo povpraševanje — skolailab.com" />
+    <!-- Honeypot proti spamu: skrit pred ljudmi; izpolnijo ga le boti -->
+    <input
+      type="checkbox"
+      name="botcheck"
+      class="cf__hp"
+      tabindex="-1"
+      autocomplete="off"
+      aria-hidden="true"
+    />
+
     <div class="cf__row">
       <div class="field">
         <label for="cf-ime">Ime <span class="req" aria-hidden="true">*</span></label>
@@ -58,18 +72,17 @@ const services = [
   <!-- Potrditev po uspešni oddaji -->
   <div class="cf__success" id="cf-success" hidden role="status" aria-live="polite">
     <span class="cf__check" aria-hidden="true">✓</span>
-    <h3 class="cf__success-title">Sporočilo je oddano.</h3>
+    <h3 class="cf__success-title">Hvala, javim se v 24 urah.</h3>
     <p class="cf__success-text">
-      Hvala. Odgovorim v 24 urah. Če se mudi, pokliči
+      Sporočilo je oddano. Če se mudi, pokliči
       <a href="tel:+38631295869" data-dl="tel_click" data-cursor>+386 31 295 869</a>.
     </p>
   </div>
 </div>
 
 <script>
-  // TODO: zamenjaj s pravim n8n webhook URL-jem (Faza 6).
-  const WEBHOOK = "https://n8n.example.com/webhook/skolai-kontakt";
-  const isPlaceholder = !WEBHOOK || WEBHOOK.includes("example.com");
+  // Web3Forms endpoint — sprejme JSON, vrne { success: true, ... }
+  const ENDPOINT = "https://api.web3forms.com/submit";
 
   const form = document.getElementById("kontakt-form");
   const statusEl = document.getElementById("cf-status");
@@ -132,25 +145,23 @@ const services = [
     const data = Object.fromEntries(new FormData(form));
 
     try {
-      if (isPlaceholder) {
-        // Demo način: brez pravega webhooka pokažemo potrditveno stanje.
-        console.warn("[kontakt] WEBHOOK je placeholder — simuliram uspeh. Nastavi pravi n8n URL.");
-        await new Promise((r) => setTimeout(r, 600));
-      } else {
-        const res = await fetch(WEBHOOK, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        if (!res.ok) throw new Error("Bad status " + res.status);
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) {
+        throw new Error(json.message || "Bad status " + res.status);
       }
 
-      // dataLayer konverzija (build-package §6)
+      // dataLayer konverzija (build-package §6) — GA4 prek GTM
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: "form_submit" });
       // Meta Pixel standardni konverzijski event (sproži se le, če je pixel naložen)
       if (typeof window.fbq === "function") window.fbq("track", "Lead");
 
+      form.reset();
       form.hidden = true;
       successEl.hidden = false;
       successEl.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -164,6 +175,14 @@ const services = [
 
 <style>
   .cf { width: 100%; }
+  /* Honeypot — skrit pred ljudmi (boti ga izpolnijo) */
+  .cf__hp {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px; height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
   .cf__row { display: grid; gap: 1.5rem; }
   @media (min-width: 640px) { .cf__row { grid-template-columns: 1fr 1fr; } }
   .cf__form { display: flex; flex-direction: column; gap: 1.5rem; }

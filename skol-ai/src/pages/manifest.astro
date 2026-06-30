@@ -50,6 +50,11 @@ const closing =
           width={720}
           height={900}
           sizes="(min-width: 800px) 360px, 80vw"
+          widths={[360, 540, 720, 900, 1080]}
+          crop="fill"
+          gravity="auto"
+          dpr="auto"
+          quality="auto"
           class="mf-portrait__img"
         />
       </figure>
@@ -116,7 +121,7 @@ const closing =
       linear-gradient(160deg, #1a1612, var(--color-ink-2));
     max-width: 360px;
   }
-  .mf-portrait__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mf-portrait :global(.mf-portrait__img) { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   .mf-quote { margin: 0; }
   .mf-quote__text {

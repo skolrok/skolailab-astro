@@ -17,6 +17,9 @@ interface Props {
   loading?: "lazy" | "eager";
   fetchpriority?: "high" | "low" | "auto";
   quality?: string; // Cloudinary q_ vrednost (auto:best, auto:good, 80…)
+  crop?: "limit" | "fill" | "fit"; // c_limit (privzeto, brez crop) | c_fill (crop na razmerje)
+  gravity?: string; // g_ vrednost ob c_fill (npr. "auto" za obrazno-vsebinski crop)
+  dpr?: string; // dpr_ vrednost (npr. "auto" za retina ostrino)
   class?: string;
   cloudName?: string;
 }
@@ -31,12 +34,22 @@ const {
   loading = "lazy",
   fetchpriority,
   quality = "auto:best", // privzeto visoka kvaliteta (q_auto je prekompresiral)
+  crop = "limit",
+  gravity,
+  dpr,
   class: klass,
   cloudName = "ddl75cyhk", // Cloudinary cloud name
 } = Astro.props;
 
 const base = `https://res.cloudinary.com/${cloudName}/image/upload`;
-const url = (w: number) => `${base}/f_auto,q_${quality},c_limit,w_${w}/${src}`;
+const url = (w: number) => {
+  const t = [`f_auto`, `q_${quality}`, `c_${crop}`];
+  if (gravity) t.push(`g_${gravity}`);
+  if (crop === "fill") t.push(`ar_${width}:${height}`); // c_fill na točno razmerje boxa (brez deformacije)
+  t.push(`w_${w}`);
+  if (dpr) t.push(`dpr_${dpr}`);
+  return `${base}/${t.join(",")}/${src}`;
+};
 const srcset = widths.map((w) => `${url(w)} ${w}w`).join(", ");
 ---
 
