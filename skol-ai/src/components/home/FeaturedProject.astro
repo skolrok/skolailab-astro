@@ -1,7 +1,7 @@
 ---
-/* FeaturedProject — sekcija 6 (homepage-copy.md). Solimat, screenshot v browser okvirju. */
+/* FeaturedProject — sekcija 6 (homepage-copy.md). Solimat, mockup + parallax. */
 import Button from "../Button.astro";
-import BrowserFrame from "../BrowserFrame.astro";
+import CloudinaryImage from "../CloudinaryImage.astro";
 import { cases } from "../../data/cases";
 
 const c = cases["solimat"];
@@ -31,12 +31,16 @@ const tags = ["UI/UX dizajn", "Avtomatizacija", "Premium web"];
     </div>
 
     <div class="fp__media" data-reveal>
-      <BrowserFrame
-        src={c.screenshot!}
-        url={c.liveLabel}
-        alt={`Posnetek žive spletne strani ${c.name} (${c.liveLabel})`}
-        sizes="(min-width: 960px) 720px, 100vw"
-      />
+      <div class="fp__parallax" data-parallax="4">
+        <CloudinaryImage
+          src={c.image!}
+          alt={c.imageAlt ?? `Mockup spletne strani ${c.name}`}
+          width={1200}
+          height={900}
+          sizes="(min-width: 960px) 720px, 100vw"
+          class="fp__img"
+        />
+      </div>
     </div>
   </div>
 </section>
@@ -62,5 +66,14 @@ const tags = ["UI/UX dizajn", "Avtomatizacija", "Premium web"];
   .fp__result-val { color: var(--color-bone-dim); font-size: 0.95rem; opacity: 0.75; }
   .fp__cta { margin-top: 2.25rem; }
 
-  .fp__media { position: relative; }
+  .fp__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-ink-2);
+  }
+  .fp__parallax { position: absolute; inset: -7% 0; will-change: transform; }
+  .fp__media :global(.fp__img) { width: 100%; height: 100%; object-fit: cover; display: block; }
 </style>
