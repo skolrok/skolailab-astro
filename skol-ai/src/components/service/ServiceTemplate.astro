@@ -23,7 +23,11 @@ const { service } = Astro.props;
 
     <p class="kicker svc-hero__kicker" data-hero>{service.kicker}</p>
     <h1 class="svc-hero__title" data-hero>{service.h1}</h1>
-    <p class="svc-hero__promise" data-hero>{service.promise}</p>
+    {service.tldr ? (
+      <p class="svc-hero__tldr" data-hero>{service.tldr}</p>
+    ) : (
+      <p class="svc-hero__promise" data-hero>{service.promise}</p>
+    )}
     <div class="svc-hero__cta" data-hero>
       <Button href="/kontakt" variant="primary" dl="cta_click">{service.cta}</Button>
     </div>
@@ -175,6 +179,16 @@ const { service } = Astro.props;
     font-size: clamp(15px, 1.5vw, 19px);
     line-height: 1.65;
     color: var(--color-bone-dim);
+  }
+  /* TL;DR direct-answer (GEO) — vodilni odstavek pod H1, gold akcent */
+  .svc-hero__tldr {
+    margin-top: 2rem;
+    max-width: 58ch;
+    padding-left: 1.25rem;
+    border-left: 2px solid rgb(200 169 110 / 0.45);
+    font-size: clamp(15px, 1.55vw, 19px);
+    line-height: 1.7;
+    color: var(--color-bone);
   }
   .svc-hero__cta { margin-top: 2.75rem; }
 

@@ -21,6 +21,7 @@ export interface Service {
   kicker: string;
   h1: string;
   promise: string;
+  tldr?: string; // direct-answer (GEO): 40–60 besed naravnost pod H1
   problem: string;
   solution: string;
   whatYouGet: string[];
@@ -41,6 +42,8 @@ export const services: Record<string, Service> = {
     h1: "Spletne strani, ki obiskovalca spremenijo v kupca.",
     promise:
       "Premium izdelava spletnih strani za podjetja, ki nočejo še ene počasne, generične vizitke.",
+    tldr:
+      "Izdelujemo premium spletne strani po meri na sodobni statični arhitekturi (Astro): bliskovito hitre, brezhibne na mobilcu in optimizirane za Google in AI iskalnike. Premišljen UX vodi obiskovalca naravnost do dejanja — klic, povpraševanje ali nakup. Brez predlog, brez počasnega nalaganja, brez izgubljenih klikov.",
     problem:
       "Vaša trenutna stran je počasna in izgleda kot konkurenčna. Obiskovalec pride z oglasa, čaka, da se naloži, in odide. Vsak tak odhod je plačan klik v koš.",
     solution:
@@ -90,6 +93,8 @@ export const services: Record<string, Service> = {
     h1: "Asistent, ki nikoli ne spi.",
     promise:
       "AI agenti in avtomatizacije, ki odpravijo ročno delo in ujamejo vsako priložnost.",
+    tldr:
+      "AI agent sprejme klic ali sporočilo, odgovori na pogosta vprašanja in rezervira termin — 24/7, v slovenščini in z vašim tonom. Avtomatizacije povežejo vaša orodja, da prijave, ponudbe in follow-up tečejo sami od sebe. Nič zamujenih klicev, nič ročnega dela in nobena priložnost ne uide.",
     problem:
       "Zamujen klic je zamujena stranka. Medtem ko delate, telefon zvoni v prazno, sporočila čakajo, follow-up se ne zgodi. Ročno delo vas drži pri tleh.",
     solution:
@@ -133,6 +138,8 @@ export const services: Record<string, Service> = {
     h1: "Da vas priporoči ChatGPT.",
     promise:
       "GEO (optimizacija za AI iskalnike) poskrbi, da vas umetna inteligenca najde, razume in priporoči.",
+    tldr:
+      "GEO (Generative Engine Optimization) poskrbi, da vas AI asistenti — ChatGPT, Gemini in Perplexity — najdejo, razumejo in priporočijo po imenu. S strukturiranimi podatki, jasno entiteto in citabilno vsebino postavimo temelj, da postanete odgovor, ko vaša stranka vpraša. Sorodno SEO-ju, a usmerjeno na AI odgovore.",
     problem:
       "Vaše stranke vse manj guglajo in vse več sprašujejo. „Kdo dela dobre spletne strani na Dolenjskem?“ danes vprašajo ChatGPT, Gemini ali Perplexity. Če vas AI ne pozna, vas ne priporoči. Nevidni ste v kanalu, ki raste najhitreje.",
     solution:
