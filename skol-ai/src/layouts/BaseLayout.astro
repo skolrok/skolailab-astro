@@ -259,6 +259,31 @@ const schema = {
 
     <a href="#main" class="skip-link">Preskoči na vsebino</a>
 
+    <!-- ============ Subtilno ozadje: grain + zlati sij (čuti se, ne vidi) ============ -->
+    <div class="bg-fx" aria-hidden="true">
+      <div class="bg-fx__glow"></div>
+      <div class="bg-fx__cursor" id="bg-cursor-glow"></div>
+    </div>
+    <script is:inline>
+      // Kazalcu odziven zlati sij — samo desktop (pointer:fine), brez reduced-motion; rAF-throttled.
+      (function () {
+        var mm = window.matchMedia;
+        if (!mm || mm("(prefers-reduced-motion: reduce)").matches || !mm("(pointer: fine)").matches) return;
+        var el = document.getElementById("bg-cursor-glow");
+        if (!el) return;
+        var x = 0, y = 0, raf = null, shown = false;
+        function apply() {
+          el.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-50%)";
+          raf = null;
+        }
+        window.addEventListener("mousemove", function (e) {
+          x = e.clientX; y = e.clientY;
+          if (!shown) { shown = true; el.style.opacity = "1"; }
+          if (!raf) raf = requestAnimationFrame(apply);
+        }, { passive: true });
+      })();
+    </script>
+
     <!-- ======================= LOADER (00→100 + zavesa) ======================= -->
     <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Nalaganje">
       <div class="loader__inner">
@@ -570,6 +595,61 @@ const schema = {
 
     <style>
       :root { --nav-h: 4.5rem; }
+
+      /* ===== Subtilno ozadje: grain (statičen ~5%) + zlati sij ===== */
+      .bg-fx {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        overflow: hidden;
+        contain: layout paint; /* izolacija; brez vpliva na layout/LCP/CLS */
+      }
+      .bg-fx::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 140px 140px;
+        opacity: 0.05;
+      }
+      .bg-fx__glow {
+        position: absolute;
+        top: -20%;
+        left: 6%;
+        width: min(72vw, 820px);
+        height: min(72vw, 820px);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgb(200 169 110 / 0.10), transparent 62%);
+        will-change: transform;
+        animation: bgGlowDrift 26s ease-in-out infinite alternate;
+      }
+      @keyframes bgGlowDrift {
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(14vw, 10vh, 0); }
+      }
+      .bg-fx__cursor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 460px;
+        height: 460px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgb(200 169 110 / 0.08), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        will-change: transform;
+      }
+      /* Mobilno: samo grain + statičen sij (brez gibanja / kazalca) */
+      @media (max-width: 767px) {
+        .bg-fx__glow { animation: none; }
+        .bg-fx__cursor { display: none; }
+      }
+      /* Reduced motion: vse gibanje izklopljeno; statičen sij + grain ostaneta */
+      @media (prefers-reduced-motion: reduce) {
+        .bg-fx__glow { animation: none; }
+        .bg-fx__cursor { display: none; }
+      }
 
       /* --- Wordmark --- */
       .wordmark {
