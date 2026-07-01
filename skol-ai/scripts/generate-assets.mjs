@@ -69,7 +69,8 @@ function ogSvg({ eyebrow, title }) {
   <rect width="1200" height="630" fill="url(#glow)"/>
   <rect x="20" y="20" width="1160" height="590" rx="20" fill="none" stroke="${GOLD}" stroke-opacity="0.18"/>
 
-  <text x="90" y="118" font-family="${SERIF}" font-weight="600" font-size="40" fill="${BONE}">SKOL<tspan fill="${GOLD}"> AI</tspan></text>
+  <text x="90" y="118" font-family="${SERIF}" font-weight="600" font-size="40" fill="${BONE}">SKOL<tspan fill="${GOLD}"> Aı</tspan></text>
+  <path transform="translate(233 82) scale(0.4)" d="M12 0C12 6.6 6.6 12 0 12C6.6 12 12 17.4 12 24C12 17.4 17.4 12 24 12C17.4 12 12 6.6 12 0Z" fill="${GOLD}"/>
 
   <text x="92" y="${Math.round(eyebrowY)}" font-family="${SANS}" font-weight="600" font-size="22" letter-spacing="6" fill="${GOLD}">${esc("[ " + eyebrow.toUpperCase() + " ]")}</text>
 
@@ -81,12 +82,12 @@ function ogSvg({ eyebrow, title }) {
 </svg>`;
 }
 
-function faviconSvg(size, letter = "S") {
-  const r = Math.round(size * 0.22);
+function faviconSvg(size) {
+  // Znak: zlata iskrica na temni ploščici (povezuje tab, nav in feed).
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="14" fill="${INK}"/>
-  <rect x="0.5" y="0.5" width="63" height="63" rx="13.5" fill="none" stroke="${GOLD}" stroke-opacity="0.25"/>
-  <text x="32" y="45" text-anchor="middle" font-family="${SERIF}" font-weight="600" font-size="40" fill="${GOLD}">${letter}</text>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="13.5" fill="none" stroke="${GOLD}" stroke-opacity="0.22"/>
+  <path d="M32 12C32 23 23 32 12 32C23 32 32 41 32 52C32 41 41 32 52 32C41 32 32 23 32 12Z" fill="${GOLD}"/>
 </svg>`;
 }
 

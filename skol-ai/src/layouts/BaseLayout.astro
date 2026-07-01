@@ -12,6 +12,7 @@ import "../styles/global.css";
    Fraunces 500 = H1/naslovi, Hanken 400 = body. */
 import frauncesDisplay from "@fontsource/fraunces/files/fraunces-latin-500-normal.woff2";
 import hankenBody from "@fontsource/hanken-grotesk/files/hanken-grotesk-latin-400-normal.woff2";
+import Wordmark from "../components/Wordmark.astro";
 
 /* ---------- Brand / kontakt (vir: content/extra-pages-copy.md) ---------- */
 const BRAND = {
@@ -261,7 +262,7 @@ const schema = {
     <!-- ======================= LOADER (00→100 + zavesa) ======================= -->
     <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Nalaganje">
       <div class="loader__inner">
-        <span class="loader__word">SKOL<span class="text-gold"> AI</span></span>
+        <Wordmark signature class="loader__word" />
         <span class="loader__count" id="loader-count">00</span>
       </div>
       <div class="loader__bar" aria-hidden="true"><span id="loader-bar-fill"></span></div>
@@ -270,9 +271,9 @@ const schema = {
     <!-- ======================= NAVIGACIJA ======================= -->
     <header id="site-header" class="site-header">
       <div class="container-page flex items-center justify-between gap-6 h-[var(--nav-h)]">
-        <!-- Wordmark (logo TBD → tipografski placeholder) -->
+        <!-- Wordmark: SKOL Ai z zlato iskrico -->
         <a href="/" class="wordmark" title="Domov">
-          SKOL<span class="text-gold"> AI</span>
+          <Wordmark />
         </a>
 
         <!-- Desktop nav -->
@@ -343,7 +344,7 @@ const schema = {
           <!-- Brand -->
           <div class="md:col-span-5">
             <a href="/" class="wordmark text-2xl" title="Domov">
-              SKOL<span class="text-gold"> AI</span>
+              <Wordmark signature />
             </a>
             <p class="mt-5 max-w-xs text-bone-dim font-display italic text-lg leading-snug">
               {BRAND.tagline}
