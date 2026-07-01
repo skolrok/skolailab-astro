@@ -208,4 +208,40 @@ const schema = [
     background: var(--color-ink-2); border: 1px solid var(--color-hairline);
     border-radius: 6px; padding: 0.1rem 0.4rem;
   }
+
+  /* ---------- Tabele (GFM) — brand grid, gold header, mobilno skrolanje ---------- */
+  .post__body :global(.table-scroll) {
+    margin: 2rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .post__body :global(table) {
+    width: 100%;
+    min-width: 30rem; /* pod tem se skrola namesto zlepi */
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+  .post__body :global(th),
+  .post__body :global(td) {
+    padding: 0.75rem 1rem; /* ~12px 16px */
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid rgb(237 232 223 / 0.12); /* hairline: vert + horiz ločnice */
+    color: var(--color-bone-dim);
+  }
+  .post__body :global(thead th) {
+    color: var(--color-bone);
+    font-weight: 700;
+    border-bottom: 2px solid var(--color-gold); /* poudarjena spodnja črta */
+    white-space: nowrap;
+  }
+  .post__body :global(tbody td:first-child) {
+    color: var(--color-bone); /* prvi stolpec malo poudarjen */
+    font-weight: 500;
+  }
+  .post__body :global(tbody tr:nth-child(even)) {
+    background: rgb(237 232 223 / 0.025); /* subtilna zebra za berljivost */
+  }
 </style>
