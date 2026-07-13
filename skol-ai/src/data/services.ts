@@ -60,7 +60,6 @@ export const services: Record<string, Service> = {
         name: "Express landing",
         price: "od 290 €",
         note: "Ena stran, naša predloga, hitra postavitev — brez custom dizajna.",
-        secondary: true,
       },
       { name: "Predstavitvena", price: "od 490 €" },
       { name: "Landing / premium", price: "od 890 €" },

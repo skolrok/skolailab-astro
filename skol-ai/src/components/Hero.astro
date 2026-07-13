@@ -3,7 +3,7 @@
    kicker → naslovni vrstici (line-mask) → sub → CTA → tagi. */
 import Button from "./Button.astro";
 
-const tags = ["Spletne strani", "AI agenti", "Vizualije"];
+const trust = ["Do 96/100 PageSpeed", "Odgovor v 24 urah", "100% po meri", "Dvojezične strani"];
 ---
 
 <section class="hero">
@@ -20,17 +20,22 @@ const tags = ["Spletne strani", "AI agenti", "Vizualije"];
     </h1>
 
     <p class="hero__sub" data-hero>
-      Spletne strani, AI agenti in vizualije za znamke, ki nočejo biti kot vse ostale.
-      Z dizajnom in AI vas dvignemo nad povprečje, kjer vas konkurenca ne dohaja.
+      Bliskovito hitre spletne strani, AI agenti in AI vidnost za znamke, ki nočejo biti kot vse
+      ostale. Sedež v Trebnjem, gradimo za vso Slovenijo.
     </p>
 
     <div class="hero__cta" data-hero>
       <Button href="/kontakt" variant="primary" dl="cta_click">Začnimo ustvarjati</Button>
-      <Button href="/reference" variant="ghost">Poglej delo →</Button>
+      <Button href="/reference" variant="ghost">Poglej reference →</Button>
     </div>
 
-    <ul class="hero__tags" data-hero aria-label="Področja">
-      {tags.map((t) => <li class="tag">{t}</li>)}
+    <ul class="hero__trust" data-hero aria-label="Zakaj SKOL AI">
+      {trust.map((t, i) => (
+        <>
+          {i > 0 && <li class="hero__trust-sep" aria-hidden="true">·</li>}
+          <li class="hero__trust-item">{t}</li>
+        </>
+      ))}
     </ul>
   </div>
 </section>
@@ -86,23 +91,21 @@ const tags = ["Spletne strani", "AI agenti", "Vizualije"];
     gap: 1rem 1.5rem;
   }
 
-  .hero__tags {
+  /* Trust vrstica — mono, drobno, zlate pike med postavkami */
+  .hero__trust {
     margin-top: 3.5rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 0.5rem 0.9rem;
     list-style: none;
     padding: 0;
-  }
-  .tag {
     font-family: var(--font-mono);
     font-weight: 500;
-    font-size: 0.6875rem;
-    letter-spacing: 0.22em;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-bone-dim);
-    border: 1px solid var(--color-hairline);
-    border-radius: 999px;
-    padding: 0.5rem 1rem;
   }
+  .hero__trust-sep { color: var(--color-gold); }
 </style>
