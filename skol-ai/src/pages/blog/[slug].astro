@@ -28,6 +28,20 @@ const ogOverride = image
   ? `https://res.cloudinary.com/ddl75cyhk/image/upload/f_jpg,q_auto,c_fill,w_1200,h_630/${image}`
   : "/og/default.png";
 
+/* FAQPage se izpelje samodejno iz sekcije "## Pogosta vprašanja".
+   Konvencija v markdownu: **Vprašanje?** v svoji vrstici, odgovor v naslednji. */
+function extractFaq(md: string) {
+  const after = md.split(/^##\s+Pogosta vpra[sš]anja\s*$/im)[1];
+  if (!after) return [] as { q: string; a: string }[];
+  const section = after.split(/^(?:##\s|---\s*$)/m)[0];
+  return section
+    .split(/\n\s*\n/)
+    .map((block) => block.match(/^\s*\*\*(.+?)\*\*\s*\n([\s\S]+)$/))
+    .filter((m): m is RegExpMatchArray => !!m)
+    .map((m) => ({ q: m[1].trim(), a: m[2].trim().replace(/\s+/g, " ") }));
+}
+const faq = extractFaq(post.body ?? "");
+
 const schema = [
   {
     "@context": "https://schema.org",
@@ -57,6 +71,20 @@ const schema = [
       { "@type": "ListItem", position: 3, name: title, item: url },
     ],
   },
+  ...(faq.length
+    ? [
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": `${url}#faq`,
+          mainEntity: faq.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        },
+      ]
+    : []),
 ];
 ---
 
