@@ -22,6 +22,7 @@ const BRAND = {
   phoneDisplay: "+386 31 295 869",
   phoneHref: "tel:+38631295869",
   email: "info@skolailab.com",
+  street: "Rimska cesta 28",
   city: "Trebnje",
   postalCode: "8210",
   country: "SI",
@@ -128,6 +129,7 @@ const schema = {
       founder: { "@type": "Person", name: BRAND.founder },
       address: {
         "@type": "PostalAddress",
+        streetAddress: BRAND.street,
         addressLocality: BRAND.city,
         postalCode: BRAND.postalCode,
         addressCountry: BRAND.country,
