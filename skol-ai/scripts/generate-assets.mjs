@@ -99,6 +99,8 @@ const ogPages = [
   { file: "geo", eyebrow: "GEO / AI vidnost", title: "Da vas priporoči ChatGPT." },
   { file: "reference", eyebrow: "Reference", title: "Kjer povprečje umre." },
   { file: "blog", eyebrow: "Blog", title: "Vpogledi, ne hrup." },
+  { file: "izdelava-spletnih-strani-novo-mesto", eyebrow: "Lokalno · Novo mesto", title: "Izdelava spletnih strani v Novem mestu." },
+  { file: "izdelava-spletnih-strani-trebnje", eyebrow: "Lokalno · Trebnje", title: "Izdelava spletnih strani v Trebnjem." },
   { file: "projekti-solimat", eyebrow: "Projekt", title: "Solimat. Celovita digitalna prenova." },
   { file: "projekti-bar-bazencek", eyebrow: "Projekt", title: "Bar Bazenček. Nova spletna prisotnost." },
   { file: "manifest", eyebrow: "Manifest", title: "Konec povprečnosti." },

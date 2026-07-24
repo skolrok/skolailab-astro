@@ -83,6 +83,19 @@ const { service } = Astro.props;
   </section>
 )}
 
+{service.localLinks && (
+  <section class="svc-local">
+    <div class="container-page">
+      <p class="kicker" data-reveal>[ Lokalno ]</p>
+      <ul class="svc-local__list" data-reveal>
+        {service.localLinks.map((l) => (
+          <li><a href={l.href} class="svc-local__link" data-cursor>{l.label} →</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
 <!-- ===================== PAKETI ===================== -->
 <section class="pkg">
   <div class="container-page">
@@ -258,6 +271,19 @@ const { service } = Astro.props;
     color: var(--color-bone);
     text-wrap: balance;
   }
+
+  /* ---------- LOKALNO (interne povezave na lokalne strani) ---------- */
+  .svc-local { padding-block: clamp(2.5rem, 6vh, 4.5rem); border-top: 1px solid var(--color-hairline); }
+  .svc-local__list {
+    margin-top: 1.25rem; list-style: none; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.75rem 2.5rem;
+  }
+  .svc-local__link {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(1.15rem, 2vw, 1.5rem); color: var(--color-bone);
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .svc-local__link:hover { color: var(--color-gold); }
 
   /* ---------- PAKETI ---------- */
   .pkg { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }

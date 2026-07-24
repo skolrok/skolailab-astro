@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LocalLanding from "../components/LocalLanding.astro";
+import { localPages, localPageJsonLd } from "../data/localPages";
+
+const page = localPages["izdelava-spletnih-strani-trebnje"];
+const siteUrl = (Astro.site ?? new URL("https://skolailab.com")).origin;
+const schema = localPageJsonLd(page, siteUrl);
+---
+
+<BaseLayout
+  titleExact={page.metaTitle}
+  description={page.metaDescription}
+  ogType="article"
+  jsonLd={schema}
+>
+  <LocalLanding page={page} />
+</BaseLayout>

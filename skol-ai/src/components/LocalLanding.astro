@@ -1,0 +1,171 @@
+---
+/* LocalLanding — predloga lokalne pristajalne strani (isti stil kot storitvene:
+   kicker, Fraunces naslovi, direct-answer lead, reveal animacije, CtaBand). */
+import Button from "./Button.astro";
+import CtaBand from "./CtaBand.astro";
+import type { LocalPage } from "../data/localPages";
+
+interface Props {
+  page: LocalPage;
+}
+const { page } = Astro.props;
+---
+
+<!-- ===================== HERO ===================== -->
+<section class="ll-hero">
+  <div class="container-page">
+    <nav class="breadcrumb" aria-label="Drobtinice" data-hero>
+      <a href="/">Domov</a>
+      <span aria-hidden="true">/</span>
+      <a href="/spletne-strani">Spletne strani</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{page.town}</span>
+    </nav>
+
+    <p class="kicker ll-hero__kicker" data-hero>{page.kicker}</p>
+    <h1 class="ll-hero__title" data-hero>{page.h1}</h1>
+    <p class="ll-hero__lead" data-hero>{page.lead}</p>
+    <div class="ll-hero__cta" data-hero>
+      <Button href="/kontakt" variant="primary" dl="cta_click">{page.ctaLabel}</Button>
+      <Button href="/reference" variant="ghost">Poglej reference →</Button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SEKCIJE ===================== -->
+<section class="ll-sections">
+  <div class="container-page ll-sections__grid">
+    {page.sections.map((s) => (
+      <div class="ll-block" data-reveal>
+        <p class="kicker ll-block__kicker">{s.kicker}</p>
+        <h2 class="ll-block__title">{s.title}</h2>
+        <p class="ll-block__body">{s.body}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- ===================== CENE ===================== -->
+<section class="ll-prices">
+  <div class="container-page">
+    <p class="kicker" data-reveal>[ Cene ]</p>
+    <p class="ll-prices__text" data-reveal>{page.prices}</p>
+    <p class="ll-prices__vat" data-reveal>
+      Cene ne vključujejo DDV. DDV se ne obračuna po 1. odstavku 94. člena ZDDV-1.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="ll-faq">
+  <div class="container-page ll-faq__grid">
+    <header class="ll-faq__head">
+      <p class="kicker" data-reveal>[ Vprašanja ]</p>
+      <h2 class="section-title" data-reveal>Jasno in glasno.</h2>
+    </header>
+    <div class="ll-faq__list">
+      {page.faq.map((f) => (
+        <details class="ll-faq__item" data-reveal>
+          <summary class="ll-faq__q">
+            <span>{f.q}</span>
+            <span class="ll-faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="ll-faq__a"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== POVEZANE POVEZAVE ===================== -->
+<section class="ll-related">
+  <div class="container-page">
+    <p class="ll-related__text" data-reveal>
+      Poglej <a href="/reference" data-cursor>reference</a> ali
+      <a href="/kontakt" data-cursor>povej, kaj gradiš</a>. Delam po vsej Dolenjski in Sloveniji.
+    </p>
+  </div>
+</section>
+
+<CtaBand title={page.ctaTitle} sub={page.ctaSub} ctaLabel={page.ctaLabel} kicker="[ Naslednji korak ]" />
+
+<style>
+  .section-title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(34px, 5.5vw, 72px); line-height: 1; letter-spacing: -0.01em;
+  }
+
+  /* ---------- HERO ---------- */
+  .ll-hero { padding-top: clamp(2.5rem, 7vh, 5.5rem); padding-bottom: clamp(2rem, 5vh, 4rem); }
+  .ll-hero__kicker { margin-top: 1.5rem; }
+  .ll-hero__title {
+    margin-top: 1rem;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(36px, 6.5vw, 88px); line-height: 1.0; letter-spacing: -0.01em;
+    max-width: 16ch;
+  }
+  /* Direct-answer lead — gold akcent (kot na blogu / storitvah) */
+  .ll-hero__lead {
+    margin-top: 2rem;
+    max-width: 58ch;
+    padding-left: 1.25rem;
+    border-left: 2px solid rgb(200 169 110 / 0.45);
+    font-size: clamp(15px, 1.55vw, 19px);
+    line-height: 1.7;
+    color: var(--color-bone);
+  }
+  .ll-hero__cta { margin-top: 2.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+
+  /* ---------- SEKCIJE ---------- */
+  .ll-sections { padding-block: clamp(3rem, 7vh, 6rem); border-top: 1px solid var(--color-hairline); }
+  .ll-sections__grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+  @media (min-width: 820px) { .ll-sections__grid { grid-template-columns: repeat(3, 1fr); } }
+  .ll-block__kicker { margin-bottom: 0.75rem; }
+  .ll-block__title {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.1; color: var(--color-bone);
+  }
+  .ll-block__body { margin-top: 1rem; color: var(--color-bone-dim); line-height: 1.7; max-width: 46ch; }
+
+  /* ---------- CENE ---------- */
+  .ll-prices { padding-block: clamp(3rem, 7vh, 5.5rem); border-top: 1px solid var(--color-hairline); }
+  .ll-prices__text {
+    margin-top: 1.25rem; max-width: 60ch;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(1.25rem, 2.4vw, 1.9rem); line-height: 1.4; color: var(--color-bone);
+    text-wrap: balance;
+  }
+  .ll-prices__vat {
+    margin-top: 1.25rem; font-family: var(--font-mono); font-size: 0.72rem;
+    letter-spacing: 0.03em; line-height: 1.5; color: var(--color-bone-dim); opacity: 0.7; max-width: 60ch;
+  }
+
+  /* ---------- FAQ (details/summary) ---------- */
+  .ll-faq { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .ll-faq__grid { display: grid; gap: 3rem; }
+  @media (min-width: 900px) { .ll-faq__grid { grid-template-columns: 0.8fr 1.2fr; gap: clamp(3rem, 6vw, 6rem); } }
+  .ll-faq__list { display: flex; flex-direction: column; }
+  .ll-faq__item { border-top: 1px solid var(--color-hairline); }
+  .ll-faq__item:last-child { border-bottom: 1px solid var(--color-hairline); }
+  .ll-faq__q {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding: 1.4rem 0; cursor: pointer; list-style: none;
+    font-family: var(--font-display); font-weight: 500; font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    color: var(--color-bone);
+  }
+  .ll-faq__q::-webkit-details-marker { display: none; }
+  .ll-faq__icon { position: relative; flex: none; width: 14px; height: 14px; }
+  .ll-faq__icon::before, .ll-faq__icon::after {
+    content: ""; position: absolute; top: 50%; left: 0; width: 14px; height: 2px;
+    background: var(--color-gold); transition: transform 0.3s var(--ease-reveal);
+  }
+  .ll-faq__icon::after { transform: rotate(90deg); }
+  .ll-faq__item[open] .ll-faq__icon::after { transform: rotate(0); }
+  .ll-faq__a { padding: 0 0 1.5rem; color: var(--color-bone-dim); line-height: 1.7; max-width: 60ch; }
+
+  /* ---------- POVEZANE POVEZAVE ---------- */
+  .ll-related { padding-block: clamp(2rem, 5vh, 3.5rem); border-top: 1px solid var(--color-hairline); }
+  .ll-related__text { color: var(--color-bone-dim); font-size: 1.05rem; line-height: 1.6; }
+  .ll-related__text a { color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px; }
+</style>

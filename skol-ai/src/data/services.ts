@@ -29,6 +29,7 @@ export interface Service {
   packages: ServicePackage[];
   faq: ServiceFaq[];
   cta: string;
+  localLinks?: { label: string; href: string }[]; // lokalne pristajalne strani (interno linkanje)
 }
 
 export const services: Record<string, Service> = {
@@ -80,6 +81,10 @@ export const services: Record<string, Service> = {
       },
     ],
     cta: "Naročite premium stran →",
+    localLinks: [
+      { label: "Izdelava spletnih strani Novo mesto", href: "/izdelava-spletnih-strani-novo-mesto" },
+      { label: "Izdelava spletnih strani Trebnje", href: "/izdelava-spletnih-strani-trebnje" },
+    ],
   },
 
   "ai-agenti": {
