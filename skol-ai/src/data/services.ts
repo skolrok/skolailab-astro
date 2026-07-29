@@ -135,7 +135,7 @@ export const services: Record<string, Service> = {
   geo: {
     slug: "geo",
     name: "GEO / AI vidnost",
-    metaTitle: "GEO optimizacija: da vas priporoči ChatGPT, Gemini, Perplexity | SKOL AI",
+    metaTitle: "GEO optimizacija: da vas priporoči ChatGPT | SKOL AI",
     metaDescription:
       "Generative Engine Optimization poskrbi, da vas AI asistenti najdejo, razumejo in priporočijo. Bodite vidni tam, kjer stranke že sprašujejo.",
     kicker: "[ GEO / AI vidnost ]",

@@ -61,7 +61,7 @@ export const cases: Record<string, CaseStudy> = {
     slug: "bar-bazencek",
     name: "Bar Bazenček",
     category: "Nova spletna prisotnost",
-    metaTitle: "Bar Bazenček: nova spletna stran za gostinski lokal | SKOL AI",
+    metaTitle: "Bar Bazenček: spletna stran za gostinski lokal | SKOL AI",
     metaDescription:
       "Kako smo za gostinski lokal zgradili hitro in cenovno ugodno spletno stran z galerijo, jedilnikom in kontaktnim obrazcem. Case study SKOL AI.",
     h1: "Bar Bazenček. Nova spletna prisotnost.",
