@@ -32,7 +32,11 @@ function routeExists(p) {
 }
 
 const broken = new Map(); // link -> [strani]
+const redirects = new Map(); // link, ki bi sprožil 308 (stran brez končne poševnice)
 let totalLinks = 0;
+
+// stran (ne asset): brez pike v zadnjem segmentu
+const isPagePath = (p) => !p.split("/").pop().includes(".");
 
 for (const file of htmlFiles) {
   const html = readFileSync(file, "utf8");
@@ -47,6 +51,12 @@ for (const file of htmlFiles) {
     if (!routeExists(pathOnly)) {
       if (!broken.has(href)) broken.set(href, new Set());
       broken.get(href).add(route);
+      continue;
+    }
+    // trailingSlash: 'always' -> povezava na stran brez / gre prek 308
+    if (isPagePath(pathOnly) && !pathOnly.endsWith("/")) {
+      if (!redirects.has(href)) redirects.set(href, new Set());
+      redirects.get(href).add(route);
     }
   }
 }
@@ -60,4 +70,14 @@ if (broken.size === 0) {
     console.log(`✗ ${href.padEnd(26)} ← ${[...pages].join(", ")}`);
   }
   console.log(`\n${broken.size} unikatnih mrtvih povezav (še nezgrajene poti).`);
+}
+
+if (redirects.size === 0) {
+  console.log("✓ Brez internih 3XX — vse povezave kažejo naravnost na 200 (s poševnico).");
+} else {
+  console.log(`\nInterne preusmeritve (308, manjka končna poševnica):`);
+  for (const [href, pages] of [...redirects.entries()].sort()) {
+    console.log(`→ ${href.padEnd(26)} ← ${[...pages].join(", ")}`);
+  }
+  console.log(`\n${redirects.size} unikatnih povezav prek preusmeritve.`);
 }

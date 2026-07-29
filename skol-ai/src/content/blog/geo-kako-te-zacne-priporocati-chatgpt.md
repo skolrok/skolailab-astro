@@ -1,6 +1,6 @@
 ---
 title: "GEO: kako te začne priporočati ChatGPT"
-description: "GEO (Generative Engine Optimization) poskrbi, da te AI asistenti kot ChatGPT, Perplexity in Gemini najdejo, razumejo in priporočijo. Tukaj je, kako to deluje in kaj narediti."
+description: "GEO (Generative Engine Optimization) poskrbi, da te ChatGPT, Perplexity in Gemini najdejo, razumejo in priporočijo. Kako deluje in kaj narediti po korakih."
 pubDate: 2026-07-01
 updatedDate: 2026-07-01
 author: "Rok Skol"
@@ -67,4 +67,4 @@ Pomaga. Vsebina, ki odgovarja na prava vprašanja z dejstvi, je tisto, kar AI na
 
 ---
 
-GEO je nov in večina ga še ne dela. To je redko okno, kjer zgodnji vstop dejansko šteje. Če želiš, da te AI začne priporočati, [poglej, kako to postaviva](/geo).
+GEO je nov in večina ga še ne dela. To je redko okno, kjer zgodnji vstop dejansko šteje. Če želiš, da te AI začne priporočati, [poglej, kako to postaviva](/geo/).

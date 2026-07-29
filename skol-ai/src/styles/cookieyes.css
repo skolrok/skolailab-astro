@@ -1,0 +1,230 @@
+/* =========================================================================
+   CookieYes — brand override (free paket ne dovoli nastavitev v plošči).
+   Barve: Ink #0B0A09 · Ink-2 #141210 · Bone #EDE8DF · Bone-dim #8A867E
+          Gold #C8A96E · hairline rgba(237,232,223,.12)
+   Imena razredov preverjena v živo na skolailab.com.
+   !important je potreben, ker CookieYes stile vsiljuje inline / prek svojega CSS.
+   ========================================================================= */
+
+.cky-consent-container,
+.cky-modal {
+  --cky-ink: #0b0a09;
+  --cky-ink2: #141210;
+  --cky-bone: #ede8df;
+  --cky-bone-dim: #8a867e;
+  --cky-gold: #c8a96e;
+  --cky-hairline: rgb(237 232 223 / 0.12);
+}
+
+/* ---------------- PASICA ---------------- */
+.cky-consent-container .cky-consent-bar {
+  background: #141210 !important;
+  border-top: 1px solid rgb(237 232 223 / 0.12) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 -12px 40px -12px rgb(0 0 0 / 0.65) !important;
+  font-family: "Hanken Grotesk", system-ui, sans-serif !important;
+}
+
+/* Naslov — Fraunces */
+.cky-consent-container .cky-title {
+  color: #ede8df !important;
+  font-family: "Fraunces", Georgia, serif !important;
+  font-weight: 500 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Besedilo */
+.cky-consent-container .cky-notice-des,
+.cky-consent-container .cky-notice-des *,
+.cky-preference-content-wrapper,
+.cky-preference-content-wrapper p,
+.cky-accordion-header-des,
+.cky-accordion-header-des * {
+  color: #8a867e !important;
+  font-family: "Hanken Grotesk", system-ui, sans-serif !important;
+  font-size: 0.85rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Povezave v pasici */
+.cky-consent-container .cky-notice-des a,
+.cky-preference-content-wrapper a {
+  color: #c8a96e !important;
+  text-decoration: none !important;
+}
+.cky-consent-container .cky-notice-des a:hover,
+.cky-preference-content-wrapper a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+}
+
+/* ---------------- GUMBI ---------------- */
+.cky-btn {
+  font-family: "Hanken Grotesk", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  padding: 0.7rem 1.5rem !important;
+  border-radius: 2px !important;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease !important;
+}
+
+/* Sprejmi vse — gold */
+.cky-btn-accept {
+  background: #c8a96e !important;
+  color: #0b0a09 !important;
+  border: 1px solid #c8a96e !important;
+}
+.cky-btn-accept:hover {
+  background: transparent !important;
+  color: #c8a96e !important;
+  border-color: #c8a96e !important;
+}
+
+/* Zavrni / Prilagodi / Shrani nastavitve — prosojni z robom */
+.cky-btn-reject,
+.cky-btn-customize,
+.cky-btn-preferences {
+  background: transparent !important;
+  color: #ede8df !important;
+  border: 1px solid rgb(237 232 223 / 0.12) !important;
+}
+.cky-btn-reject:hover,
+.cky-btn-customize:hover,
+.cky-btn-preferences:hover {
+  color: #c8a96e !important;
+  border-color: #c8a96e !important;
+  background: transparent !important;
+}
+
+/* Zapri (X) */
+.cky-btn-close {
+  background: transparent !important;
+  border: none !important;
+}
+.cky-btn-close img,
+.cky-btn-close svg {
+  filter: invert(88%) sepia(9%) saturate(220%) hue-rotate(5deg) brightness(95%) !important;
+}
+
+/* ---------------- MODAL / NASTAVITVE ---------------- */
+.cky-modal,
+.cky-preference-center {
+  background: #141210 !important;
+  border: 1px solid rgb(237 232 223 / 0.12) !important;
+  border-radius: 4px !important;
+  color: #ede8df !important;
+  font-family: "Hanken Grotesk", system-ui, sans-serif !important;
+  box-shadow: 0 24px 64px -20px rgb(0 0 0 / 0.7) !important;
+}
+.cky-overlay {
+  background: rgb(11 10 9 / 0.75) !important;
+}
+
+.cky-preference-header .cky-preference-title,
+.cky-preference-title {
+  color: #ede8df !important;
+  font-family: "Fraunces", Georgia, serif !important;
+  font-weight: 500 !important;
+  font-size: 1.15rem !important;
+}
+
+/* Ločnice */
+.cky-preference-header,
+.cky-footer-wrapper,
+.cky-horizontal-separator,
+.cky-accordion-item,
+.cky-accordion {
+  border-color: rgb(237 232 223 / 0.12) !important;
+}
+.cky-horizontal-separator {
+  background: rgb(237 232 223 / 0.12) !important;
+}
+.cky-footer-shadow {
+  display: none !important;
+}
+
+/* Kategorije (accordion) */
+.cky-accordion-btn,
+.cky-accordion-header .cky-accordion-btn {
+  color: #ede8df !important;
+  font-family: "Fraunces", Georgia, serif !important;
+  font-weight: 500 !important;
+  font-size: 0.95rem !important;
+  background: transparent !important;
+}
+.cky-accordion-chevron i::before,
+.cky-chevron-right::before {
+  border-color: #c8a96e !important;
+}
+.cky-always-active {
+  color: #c8a96e !important;
+  font-size: 0.78rem !important;
+}
+.cky-show-desc-btn {
+  color: #c8a96e !important;
+  font-size: 0.8rem !important;
+  background: transparent !important;
+}
+
+/* Tabele s piškotki */
+.cky-cookie-des-table,
+.cky-cookie-des-table li,
+.cky-cookie-des-table li div,
+.cky-audit-table,
+.cky-audit-table * {
+  color: #8a867e !important;
+  font-size: 0.78rem !important;
+  border-color: rgb(237 232 223 / 0.12) !important;
+}
+.cky-audit-table {
+  background: #0b0a09 !important;
+}
+.cky-empty-cookies-text {
+  color: #8a867e !important;
+}
+
+/* ---------------- STIKALA ---------------- */
+/* CookieYes barvo nastavi INLINE prek JS -> !important je nujen. */
+.cky-switch input[type="checkbox"] {
+  background-color: rgb(237 232 223 / 0.18) !important;
+  cursor: pointer !important;
+}
+.cky-switch input[type="checkbox"]:checked {
+  background-color: #c8a96e !important;
+}
+.cky-switch input[type="checkbox"]:checked::before {
+  background-color: #0b0a09 !important;
+}
+
+/* ---------------- REVISIT gumb (plavajoč) ---------------- */
+.cky-btn-revisit-wrapper .cky-btn-revisit {
+  background: #141210 !important;
+  border: 1px solid rgb(237 232 223 / 0.12) !important;
+}
+.cky-btn-revisit-wrapper .cky-btn-revisit img,
+.cky-btn-revisit-wrapper .cky-btn-revisit svg {
+  filter: invert(72%) sepia(35%) saturate(430%) hue-rotate(2deg) brightness(92%) !important;
+}
+
+/* ---------------- MOBILNO ---------------- */
+@media (max-width: 640px) {
+  .cky-consent-container .cky-notice-btn-wrapper,
+  .cky-prefrence-btn-wrapper {
+    flex-direction: column !important;
+    gap: 0.6rem !important;
+    width: 100% !important;
+  }
+  .cky-consent-container .cky-notice-btn-wrapper .cky-btn,
+  .cky-prefrence-btn-wrapper .cky-btn {
+    width: 100% !important;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+  .cky-consent-container .cky-consent-bar {
+    padding: 1rem 1.1rem !important;
+  }
+}

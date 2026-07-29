@@ -129,7 +129,7 @@ export const localPageList: LocalPage[] = Object.values(localPages);
 
 /* JSON-LD: LocalBusiness + Service + FAQPage + BreadcrumbList za lokalno stran. */
 export function localPageJsonLd(page: LocalPage, siteUrl: string) {
-  const url = `${siteUrl}/${page.slug}`;
+  const url = `${siteUrl}/${page.slug}/`;
   const area = page.areaServed.map((name) => ({ "@type": "AdministrativeArea", name }));
   return [
     {
@@ -179,7 +179,7 @@ export function localPageJsonLd(page: LocalPage, siteUrl: string) {
       "@id": `${url}#breadcrumb`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Domov", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: "Spletne strani", item: `${siteUrl}/spletne-strani` },
+        { "@type": "ListItem", position: 2, name: "Spletne strani", item: `${siteUrl}/spletne-strani/` },
         { "@type": "ListItem", position: 3, name: page.town, item: url },
       ],
     },

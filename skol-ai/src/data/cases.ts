@@ -63,7 +63,7 @@ export const cases: Record<string, CaseStudy> = {
     category: "Nova spletna prisotnost",
     metaTitle: "Bar Bazenček: nova spletna stran za gostinski lokal | SKOL AI",
     metaDescription:
-      "Hitra, cenovno ugodna in profesionalna spletna prisotnost za gostinski lokal. Case study SKOL AI.",
+      "Kako smo za gostinski lokal zgradili hitro in cenovno ugodno spletno stran z galerijo, jedilnikom in kontaktnim obrazcem. Case study SKOL AI.",
     h1: "Bar Bazenček. Nova spletna prisotnost.",
     teaser:
       "Hitra, cenovno ugodna in profesionalna spletna prisotnost za gostinski lokal.",
@@ -114,7 +114,7 @@ export function caseJsonLd(cs: CaseStudy, siteUrl: string) {
       "@id": `${url}#breadcrumb`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Domov", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: "Reference", item: `${siteUrl}/reference` },
+        { "@type": "ListItem", position: 2, name: "Reference", item: `${siteUrl}/reference/` },
         { "@type": "ListItem", position: 3, name: cs.name, item: url },
       ],
     },

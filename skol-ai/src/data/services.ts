@@ -82,8 +82,8 @@ export const services: Record<string, Service> = {
     ],
     cta: "Naročite premium stran →",
     localLinks: [
-      { label: "Izdelava spletnih strani Novo mesto", href: "/izdelava-spletnih-strani-novo-mesto" },
-      { label: "Izdelava spletnih strani Trebnje", href: "/izdelava-spletnih-strani-trebnje" },
+      { label: "Izdelava spletnih strani Novo mesto", href: "/izdelava-spletnih-strani-novo-mesto/" },
+      { label: "Izdelava spletnih strani Trebnje", href: "/izdelava-spletnih-strani-trebnje/" },
     ],
   },
 
@@ -182,7 +182,7 @@ export const services: Record<string, Service> = {
 
 /* JSON-LD: Service + FAQPage + BreadcrumbList za posamezno storitev. */
 export function serviceJsonLd(service: Service, siteUrl: string) {
-  const url = `${siteUrl}/${service.slug}`;
+  const url = `${siteUrl}/${service.slug}/`;
   return [
     {
       "@context": "https://schema.org",

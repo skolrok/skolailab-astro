@@ -46,7 +46,7 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
       <div class="projects">
         {projects.map((p) => (
           <a
-            href={`/projekti/${p.slug}`}
+            href={`/projekti/${p.slug}/`}
             class:list={["proj", { "proj--featured": p.featured }]}
             data-reveal
             data-cursor

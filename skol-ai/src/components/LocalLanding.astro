@@ -17,7 +17,7 @@ const { page } = Astro.props;
     <nav class="breadcrumb" aria-label="Drobtinice" data-hero>
       <a href="/">Domov</a>
       <span aria-hidden="true">/</span>
-      <a href="/spletne-strani">Spletne strani</a>
+      <a href="/spletne-strani/">Spletne strani</a>
       <span aria-hidden="true">/</span>
       <span aria-current="page">{page.town}</span>
     </nav>
@@ -26,8 +26,8 @@ const { page } = Astro.props;
     <h1 class="ll-hero__title" data-hero>{page.h1}</h1>
     <p class="ll-hero__lead" data-hero>{page.lead}</p>
     <div class="ll-hero__cta" data-hero>
-      <Button href="/kontakt" variant="primary" dl="cta_click">{page.ctaLabel}</Button>
-      <Button href="/reference" variant="ghost">Poglej reference →</Button>
+      <Button href="/kontakt/" variant="primary" dl="cta_click">{page.ctaLabel}</Button>
+      <Button href="/reference/" variant="ghost">Poglej reference →</Button>
     </div>
   </div>
 </section>
@@ -81,8 +81,8 @@ const { page } = Astro.props;
 <section class="ll-related">
   <div class="container-page">
     <p class="ll-related__text" data-reveal>
-      Poglej <a href="/reference" data-cursor>reference</a> ali
-      <a href="/kontakt" data-cursor>povej, kaj gradiš</a>. Delam po vsej Dolenjski in Sloveniji.
+      Poglej <a href="/reference/" data-cursor>reference</a> ali
+      <a href="/kontakt/" data-cursor>povej, kaj gradiš</a>. Delam po vsej Dolenjski in Sloveniji.
     </p>
   </div>
 </section>

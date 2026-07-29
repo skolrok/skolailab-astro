@@ -33,6 +33,9 @@ export default defineConfig({
   // Produkcijska domena (Cloudflare Pages). Rabi jo sitemap + kanonični URL-ji.
   site: 'https://skolailab.com',
 
+  // Kanonične poti s poševnico; notranje povezave kažejo naravnost na 200 (brez 308).
+  trailingSlash: 'always',
+
   markdown: {
     rehypePlugins: [rehypeTableWrap],
   },

@@ -59,4 +59,4 @@ Ker se razlikuje produkt. Predloga in stran po meri sta dva različna svetova, �
 
 ---
 
-Če razmišljaš o novi strani in te zanima, kaj bi realno stalo v tvojem primeru, [povej, kaj gradiš](/kontakt). Dobiš jasno oceno brez skritih presenečenj.
+Če razmišljaš o novi strani in te zanima, kaj bi realno stalo v tvojem primeru, [povej, kaj gradiš](/kontakt/). Dobiš jasno oceno brez skritih presenečenj.
