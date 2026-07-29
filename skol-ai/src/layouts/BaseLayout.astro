@@ -30,6 +30,7 @@ const BRAND = {
   founder: "Rok Skol",
   instagram: "https://www.instagram.com/skolailab/",
   facebook: "https://www.facebook.com/profile.php?id=61586836539363",
+  googleBusiness: "https://maps.app.goo.gl/UXPZsTYb6zhRPxZY6", // Google Business Profile
 };
 
 /* ---------- Tracking (vir: build-package.md §6) ------------
@@ -115,7 +116,7 @@ const schema = {
       email: BRAND.email,
       telephone: BRAND.phoneHref.replace("tel:", ""),
       founder: { "@type": "Person", name: BRAND.founder },
-      sameAs: [BRAND.instagram, BRAND.facebook],
+      sameAs: [BRAND.instagram, BRAND.facebook, BRAND.googleBusiness],
     },
     {
       "@type": ["LocalBusiness", "ProfessionalService"],
@@ -137,7 +138,7 @@ const schema = {
       },
       areaServed: { "@type": "Country", name: "Slovenija" },
       knowsLanguage: ["sl", "en"],
-      sameAs: [BRAND.instagram, BRAND.facebook],
+      sameAs: [BRAND.instagram, BRAND.facebook, BRAND.googleBusiness],
     },
     {
       "@type": "WebSite",
