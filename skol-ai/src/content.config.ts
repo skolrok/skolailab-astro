@@ -9,6 +9,7 @@ const blog = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
+    metaTitle: z.string().optional(), // krajši <title> (30–60 zn.), če je naslov predolg; H1 ostane title
     description: z.string(), // meta + uvodni povzetek
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(), // pomembno za GEO svežino (dateModified)
