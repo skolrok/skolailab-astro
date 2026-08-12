@@ -2,23 +2,36 @@
 
 > SKOL AI je slovenski AI kreativni studio iz Trebnjega (Dolenjska). Gradimo bliskovito hitre premium spletne strani, postavljamo AI agente in avtomatizacije ter izvajamo GEO (optimizacijo za AI iskalnike), da podjetja priporočijo ChatGPT, Gemini in Perplexity. Delamo po vsej Sloveniji.
 
-Vodja: Rok Skol. Sedež: Trebnje, Slovenija. Domena: https://skolailab.com
+Vodja: Rok Skol. Sedež: Rimska cesta 28, 8210 Trebnje, Slovenija. Telefon: +386 31 295 869. Domena: https://skolailab.com
 
 ## Storitve
 
-- [Premium spletne strani](https://skolailab.com/spletne-strani/): Bliskovito hitre spletne strani po meri na sodobni statični arhitekturi (Astro), ki obiskovalca brez trenja spremenijo v kupca.
-- [AI agenti & avtomatizacije](https://skolailab.com/ai-agenti/): AI glasovni in chat agent, ki 24/7 sprejema klice, odgovarja na vprašanja in rezervira termine; avtomatizacije, ki odpravijo ročno delo.
-- [GEO / AI vidnost](https://skolailab.com/geo/): Generative Engine Optimization — da vas AI asistenti (ChatGPT, Gemini, Perplexity) najdejo, razumejo in priporočijo. Tehnični GEO temelj, jasna entiteta, citabilna vsebina, off-site prisotnost in merjenje omemb.
+- [Premium spletne strani](https://skolailab.com/spletne-strani/): Bliskovito hitre spletne strani po meri na sodobni statični arhitekturi (Astro), ki obiskovalca brez trenja spremenijo v kupca. Paketi: Express landing od 290 €, predstavitvena od 690 €, premium landing od 890 €, e-commerce od 1.890 €.
+- [AI agenti & avtomatizacije](https://skolailab.com/ai-agenti/): AI glasovni in chat agent, ki 24/7 sprejema klice, odgovarja na vprašanja in rezervira termine; avtomatizacije, ki odpravijo ročno delo. Setup od 690 €, mesečno od 99 €, avtomatizacija od 290 €.
+- [GEO / AI vidnost](https://skolailab.com/geo/): Generative Engine Optimization — da vas AI asistenti (ChatGPT, Gemini, Perplexity) najdejo, razumejo in priporočijo. Tehnični GEO temelj, jasna entiteta, citabilna vsebina, off-site prisotnost in merjenje omemb. Audit od 290 €, postavitev od 490 €, mesečno od 149 €.
 
 Poleg tega po meri izdelujemo AI vizualije, video in oglasne kreative.
 
+## Lokalno
+
+- [Izdelava spletnih strani Novo mesto](https://skolailab.com/izdelava-spletnih-strani-novo-mesto/): Spletne strani po meri za podjetja v Novem mestu in okolici. Zakaj se lokalno izplača, kaj dobiš, reference z Dolenjske, cene in odgovori na pogosta vprašanja.
+- [Izdelava spletnih strani Trebnje](https://skolailab.com/izdelava-spletnih-strani-trebnje/): Domači studio v Trebnjem. Spletne strani, AI agenti, avtomatizacije in GEO za lokalna podjetja; kako poteka sodelovanje, cene in pogosta vprašanja.
+
 ## Reference
 
-- [Reference](https://skolailab.com/reference/): Pregled projektov v živo in vizualij po meri.
-- [Solimat — celovita digitalna prenova](https://skolailab.com/projekti/solimat/): Migracija z WordPressa na čisto statično infrastrukturo, lasten admin, dvojezičnost (SI/EN), tracking in pametni obrazci.
-- [Bar Bazenček — nova spletna prisotnost](https://skolailab.com/projekti/bar-bazencek/): Nova spletna prisotnost za lokalni bar.
+- [Reference](https://skolailab.com/reference/): Pregled projektov v živo (Solimat, Bar Bazenček) in vizualij po meri.
+- [Solimat — celovita digitalna prenova](https://skolailab.com/projekti/solimat/): Migracija z WordPressa na čisto statično infrastrukturo, lasten admin, dvojezičnost (SI/EN), tracking in pametni obrazci. Rezultat: 96/100 PageSpeed.
+- [Bar Bazenček — nova spletna prisotnost](https://skolailab.com/projekti/bar-bazencek/): Hitra in cenovno ugodna spletna stran za gostinski lokal: galerija, jedilnik, kontaktni obrazec.
+
+## Blog
+
+- [Blog](https://skolailab.com/blog/): Vpogledi o AI spletnih straneh, agentih in GEO vidnosti. Praktični nasveti za mala podjetja.
+- [GEO: kako te začne priporočati ChatGPT](https://skolailab.com/blog/geo-kako-te-zacne-priporocati-chatgpt/): Kaj je GEO, v čem se loči od SEO (primerjalna tabela), pet korakov, da te AI začne navajati, koliko časa traja in kako meriš omembe.
+- [Koliko stane spletna stran v Sloveniji leta 2026](https://skolailab.com/blog/koliko-stane-spletna-stran-slovenija-2026/): Realni cenovni razponi po tipu strani (vizitka, predstavitvena, po meri, trgovina), od česa je cena odvisna, tekoči stroški in zakaj je najcenejša ponudba pogosto najdražja.
+- [AI agenti za podjetja: katere vrste obstajajo in kaj dejansko delajo](https://skolailab.com/blog/ai-agenti-za-podjetja-vrste/): Razlika med chatbotom, avtomatizacijo in agentom; sedem vrst agentov za malo podjetje (telefonski, chat, rezervacijski, povpraševanja, podpora, administrativni, follow-up), s katerim začeti in koliko stane.
+- [Koliko stane SEO optimizacija in kaj malo podjetje res potrebuje](https://skolailab.com/blog/koliko-stane-seo-optimizacija/): Realne cene SEO v Sloveniji, od česa so odvisne, česa malo podjetje ne potrebuje, koliko časa traja in kako se SEO povezuje z GEO.
 
 ## Več
 
 - [Manifest](https://skolailab.com/manifest/): Naša drža — konec povprečnosti, estetika kot nepravična prednost.
-- [Kontakt](https://skolailab.com/kontakt/): Povpraševanje in stik.
+- [Kontakt](https://skolailab.com/kontakt/): Povpraševanje in stik. Odgovorimo v 24 urah.
