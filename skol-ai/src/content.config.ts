@@ -15,7 +15,8 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(), // pomembno za GEO svežino (dateModified)
     author: z.string().default("Rok Skol"),
     tags: z.array(z.string()).default([]),
-    image: z.string().optional(), // Cloudinary public id (npr. "v123/clanek-cover.webp")
+    image: z.string().optional(), // Cloudinary public id naslovne slike (priporočeno 1200×630)
+    imageAlt: z.string().optional(), // opisen alt v slovenščini; obvezen, kadar je image nastavljen
     draft: z.boolean().default(false),
   }),
 });

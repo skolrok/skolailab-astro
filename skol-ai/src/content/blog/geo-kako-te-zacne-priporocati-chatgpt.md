@@ -5,7 +5,8 @@ pubDate: 2026-07-01
 updatedDate: 2026-07-01
 author: "Rok Skol"
 tags: ["GEO", "AI", "spletne strani"]
-image: ""
+image: "v1772532610/rok-skol-ai-kreativni-studio-direktor_z5inpr.png"
+imageAlt: "Rok Skol, ustanovitelj studia SKOL AI, pred zasloni s podatkovnimi grafi"
 draft: false
 ---
 
