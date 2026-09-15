@@ -69,7 +69,7 @@ interface Props {
 const {
   title,
   titleExact,
-  description = "AI spletne strani, agenti in vizualije za znamke, ki nočejo biti kot vse ostale. Kreativni studio iz Trebnjega, delamo po vsej Sloveniji.",
+  description = "Bliskovito hitre spletne strani, AI agenti in AI vidnost za znamke, ki nočejo biti kot vse ostale. Kreativni studio iz Trebnjega.",
   image, // opcijsko: ročno povozi OG sliko; sicer izpeljemo iz poti
   noindex = false,
   ogType = "website",
@@ -292,7 +292,8 @@ const schema = {
     <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Nalaganje">
       <div class="loader__inner">
         <Wordmark signature class="loader__word" />
-        <span class="loader__count" id="loader-count">00</span>
+        <span class="loader__count" id="loader-count">100</span>
+        <script is:inline>document.getElementById("loader-count").textContent = "00";</script>
       </div>
       <div class="loader__bar" aria-hidden="true"><span id="loader-bar-fill"></span></div>
     </div>
@@ -301,7 +302,7 @@ const schema = {
     <header id="site-header" class="site-header">
       <div class="container-page flex items-center justify-between gap-6 h-[var(--nav-h)]">
         <!-- Wordmark: SKOL Ai z zlato iskrico -->
-        <a href="/" class="wordmark" title="Domov">
+        <a href="/" class="wordmark" title="Domov" aria-label="SKOL AI">
           <Wordmark />
         </a>
 
@@ -372,7 +373,7 @@ const schema = {
         <div class="grid gap-12 md:grid-cols-12">
           <!-- Brand -->
           <div class="md:col-span-5">
-            <a href="/" class="wordmark text-2xl" title="Domov">
+            <a href="/" class="wordmark text-2xl" title="Domov" aria-label="SKOL AI">
               <Wordmark signature />
             </a>
             <p class="mt-5 max-w-xs text-bone-dim font-display italic text-lg leading-snug">

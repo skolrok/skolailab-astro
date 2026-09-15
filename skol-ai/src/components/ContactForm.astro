@@ -67,6 +67,10 @@ const services = [
       </button>
       <p class="cf__status" id="cf-status" role="alert" aria-live="assertive"></p>
     </div>
+    <p class="cf__consent">
+      Z oddajo se strinjaš z obdelavo podatkov za namen odgovora na povpraševanje.
+      Več v <a href="/zasebnost/" data-cursor>politiki zasebnosti</a>.
+    </p>
   </form>
 
   <!-- Potrditev po uspešni oddaji -->
@@ -239,6 +243,16 @@ const services = [
   .cf__submit:hover { background: transparent; color: var(--color-gold); }
   .cf__submit:disabled { opacity: 0.55; cursor: progress; }
   .cf__status { margin: 0; font-size: 0.85rem; color: var(--color-error); }
+  /* Opomba o obdelavi podatkov pod gumbom */
+  .cf__consent {
+    margin: -0.5rem 0 0;
+    max-width: 52ch;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: var(--color-bone-dim);
+  }
+  .cf__consent a { color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .cf__consent a:hover { color: var(--color-bone); }
 
   /* Potrditev */
   .cf__success {

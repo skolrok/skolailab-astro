@@ -29,10 +29,8 @@ const steps = [
     <ol class="protokol__steps">
       {steps.map((s) => (
         <li class="step" data-reveal>
-          <span class="step__num" data-count={s.n} data-count-pad="2" aria-hidden="true">00</span>
-          <h3 class="step__title">
-            <span class="sr-only">{String(s.n).padStart(2, "0")} · </span>{s.title}
-          </h3>
+          <span class="step__num" data-count={s.n} data-count-pad="2">{String(s.n).padStart(2, "0")}</span>
+          <h3 class="step__title">{s.title}</h3>
           <p class="step__body">{s.body}</p>
         </li>
       ))}

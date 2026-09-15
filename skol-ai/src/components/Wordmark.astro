@@ -2,7 +2,12 @@
 /* Wordmark — "SKOL Ai" (velika A, mala dotless ı) z zlato iskrico kot piko nad i.
    Varianta 2 (statična) povsod; signature=true doda utripajoč kazalec (loader/footer).
    Velikost se deduje iz konteksta (font-size na wrapperju); iskrica + kazalec sta v em.
-   Dostopnost: vidni glifi so aria-hidden, pravo ime pove sr-only "SKOL Ai". */
+
+   Berljivost za crawlerje in bralnike zaslona:
+   - vidni glifi (SKOL, A, ı) se izrišejo prek CSS content: attr(data-g) -> NISO besedilo v DOM,
+     zato jih crawler ne prebere; celoten vidni del je še aria-hidden.
+   - edino pravo besedilo je vizualno skrit "SKOL AI" -> ime se v HTML pojavi SAMO ENKRAT.
+   - povezava logotipa (nav/footer) nosi še aria-label="SKOL AI". */
 interface Props {
   signature?: boolean;
   class?: string;
@@ -12,8 +17,8 @@ const { signature = false, class: klass } = Astro.props;
 
 <span class:list={["wm", klass]}>
   <span class="wm__vis" aria-hidden="true"
-    ><span class="wm__skol">SKOL</span><span class="wm__ai">A<span class="wm__i"><span class="wm__stem">ı</span><span class="wm__tit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12 6.6 6.6 12 0 12C6.6 12 12 17.4 12 24C12 17.4 17.4 12 24 12C17.4 12 12 6.6 12 0Z"/></svg></span></span></span>{signature && <span class="wm__cursor"></span>}</span
-  ><span class="sr-only">SKOL Ai</span>
+    ><span class="wm__skol" data-g="SKOL"></span><span class="wm__ai"><span class="wm__a" data-g="A"></span><span class="wm__i"><span class="wm__stem" data-g="ı"></span><span class="wm__tit"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 0C12 6.6 6.6 12 0 12C6.6 12 12 17.4 12 24C12 17.4 17.4 12 24 12C17.4 12 12 6.6 12 0Z"/></svg></span></span></span>{signature && <span class="wm__cursor"></span>}</span
+  ><span class="wm__name">SKOL AI</span>
 </span>
 
 <style>
@@ -26,6 +31,8 @@ const { signature = false, class: klass } = Astro.props;
     white-space: nowrap;
   }
   .wm__vis { display: inline-flex; align-items: baseline; }
+  /* Glifi iz atributa — vizualno enako kot prej, a ni besedilo v DOM */
+  [data-g]::before { content: attr(data-g); }
   .wm__ai { color: var(--color-gold); margin-left: 0.28em; display: inline-flex; align-items: baseline; }
   .wm__i { position: relative; display: inline-block; }
   .wm__stem { display: inline-block; }
@@ -34,6 +41,17 @@ const { signature = false, class: klass } = Astro.props;
     transform: translateX(-50%); line-height: 0;
   }
   .wm__tit svg { width: 0.42em; height: 0.42em; display: block; fill: var(--color-gold); }
+
+  /* Edino pravo besedilo imena — vizualno skrito, berljivo za crawlerje in bralnike */
+  .wm__name {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 
   .wm__cursor {
     display: inline-block; align-self: center;
