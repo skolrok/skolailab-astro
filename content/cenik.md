@@ -9,7 +9,7 @@
 ## Meta
 
 **Title:** Cenik izdelave spletnih strani in AI agentov | SKOL AI
-**Meta description:** Jasne cene za spletne strani, AI agente in AI vidnost. Od 290 EUR za landing stran do 2.490 EUR za spletno trgovino. Brez skritih postavk.
+**Meta description:** Jasne cene za spletne strani, AI agente in AI vidnost. Od 290 EUR za landing stran do 1.890 EUR za spletno trgovino. Brez skritih postavk.
 
 ---
 
@@ -19,7 +19,7 @@ Cenik
 
 ## Lead (direct answer, takoj pod H1)
 
-Spletna stran pri nas stane od 290 evrov za preprosto landing stran do 2.490 evrov za spletno trgovino. AI agent se začne pri 690 evrih postavitve in 99 evrih mesečno. Spodaj je celoten cenik, brez zvezdic in brez skritih postavk. Končna cena je odvisna od obsega, ki ga določiva v pogovoru.
+Spletna stran pri nas stane od 290 evrov za preprosto landing stran do 1.890 evrov za spletno trgovino. AI agent se začne pri 690 evrih postavitve in 99 evrih mesečno. Spodaj je celoten cenik, brez zvezdic in brez skritih postavk. Končna cena je odvisna od obsega, ki ga določiva v pogovoru.
 
 ---
 
@@ -28,9 +28,9 @@ Spletna stran pri nas stane od 290 evrov za preprosto landing stran do 2.490 evr
 | Paket | Cena | Za koga |
 |---|---|---|
 | Express landing | od 290 € | Ena stran po naši predlogi. Za tiste, ki rabijo eno dobro stran brez velikega proračuna. |
-| Predstavitvena | od 690 € | Do približno pet sekcij, kontaktni obrazec, osnove SEO. Klasična stran podjetja. |
-| Landing / premium | od 1.290 € | Dizajn po meri, animacije, prodajni copy. Za oglasni promet in resne kampanje. |
-| Spletna trgovina | od 2.490 € | Plačila, dostava, integracije. Odvisno od števila izdelkov. |
+| Predstavitvena | od 490 € | Do približno pet sekcij, kontaktni obrazec, osnove SEO. Klasična stran podjetja. |
+| Landing / premium | od 890 € | Dizajn po meri, animacije, prodajni copy. Za oglasni promet in resne kampanje. |
+| Spletna trgovina | od 1.890 € | Plačila, dostava, integracije. Odvisno od števila izdelkov. |
 | Vzdrževanje | od 39 € / mesec | Posodobitve, varnost, manjše spremembe. Ni obvezno. |
 
 ## AI agenti in avtomatizacije

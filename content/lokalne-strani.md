@@ -26,7 +26,7 @@ Dizajn po meri, ne predloga, ki jo uporablja še sto drugih. Bliskovita hitrost 
 Solimat, celovita prenova in migracija na hitro statično infrastrukturo, dvojezično. Bar Bazenček, nova spletna prisotnost za gostinski lokal. Obe sta živi in ju lahko pogledaš.
 
 **Cene**
-Express landing od 290 €, predstavitvena stran od 690 €, premium landing od 1.290 €, spletna trgovina od 2.490 €. Brez DDV. Končna cena po obsegu, ki ga določiva v pogovoru.
+Express landing od 290 €, predstavitvena stran od 490 €, premium landing od 890 €, spletna trgovina od 1.890 €. Brez DDV. Končna cena po obsegu, ki ga določiva v pogovoru.
 
 **Vprašanja**
 - *Se lahko dobiva v živo v Novem mestu?* Da. Trebnje je blizu in za resne projekte se rad usedem s stranko osebno.
@@ -57,7 +57,7 @@ Spletne strani, hitre in po meri, ne predloge. AI agente, ki sprejmejo klic in r
 Najprej se pogovoriva, v živo ali po telefonu, in ugotoviva, kaj sploh rabiš. Potem dobiš jasno ponudbo brez skritih postavk. Nato gradim, ti sproti vidiš napredek, in stran gre v živo. Predstavitvena stran je običajno gotova v tednu ali dveh.
 
 **Cene**
-Express landing od 290 €, predstavitvena od 690 €, premium landing od 1.290 €, trgovina od 2.490 €. Brez DDV.
+Express landing od 290 €, predstavitvena od 490 €, premium landing od 890 €, trgovina od 1.890 €. Brez DDV.
 
 **Vprašanja**
 - *Kje si točno?* Rimska cesta 28, Trebnje.

@@ -58,7 +58,7 @@ export const localPages: Record<string, LocalPage> = {
       },
     ],
     prices:
-      "Express landing od 290 €, predstavitvena stran od 690 €, premium landing od 1.290 €, spletna trgovina od 2.490 €. Brez DDV. Končna cena po obsegu, ki ga določiva v pogovoru.",
+      "Express landing od 290 €, predstavitvena stran od 490 €, premium landing od 890 €, spletna trgovina od 1.890 €. Brez DDV. Končna cena po obsegu, ki ga določiva v pogovoru.",
     faq: [
       {
         q: "Se lahko dobiva v živo v Novem mestu?",
@@ -106,7 +106,7 @@ export const localPages: Record<string, LocalPage> = {
       },
     ],
     prices:
-      "Express landing od 290 €, predstavitvena od 690 €, premium landing od 1.290 €, trgovina od 2.490 €. Brez DDV.",
+      "Express landing od 290 €, predstavitvena od 490 €, premium landing od 890 €, trgovina od 1.890 €. Brez DDV.",
     faq: [
       { q: "Kje si točno?", a: "Rimska cesta 28, Trebnje." },
       {
