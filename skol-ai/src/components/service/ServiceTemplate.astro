@@ -116,6 +116,9 @@ const { service } = Astro.props;
     <p class="pkg__note" data-reveal>
       Točna cena po pogovoru — skupaj določiva obseg in dobiš jasno ponudbo brez skritih presenečenj.
     </p>
+    <p class="pkg__cenik" data-reveal>
+      <a href="/cenik/" class="pkg__cenik-link" data-cursor>Celoten cenik vseh storitev →</a>
+    </p>
     <p class="pkg__vat" data-reveal>
       Cene ne vključujejo DDV. DDV se ne obračuna po 1. odstavku 94. člena ZDDV-1.
     </p>
@@ -357,6 +360,16 @@ const { service } = Astro.props;
     color: var(--color-bone-dim);
     max-width: 60ch;
   }
+  .pkg__cenik { margin-top: 1.25rem; }
+  .pkg__cenik-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    transition: opacity 0.3s var(--ease-reveal);
+  }
+  .pkg__cenik-link:hover { opacity: 0.7; }
   .pkg__vat {
     margin-top: 0.85rem;
     font-family: var(--font-mono);

@@ -1,0 +1,704 @@
+---
+/* Cenik (/cenik/) — vir vsebine: content/cenik.md.
+   Odprt cenik je razlikovalna prednost (večina slovenskih ponudnikov cene skriva).
+   `groups` je EN vir resnice za tabele IN za Offer schemo, da se nikoli ne razideta. */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import CtaBand from "../components/CtaBand.astro";
+
+const siteOrigin = Astro.site ?? new URL("https://skolailab.com");
+const siteUrl = siteOrigin.origin;
+const url = `${siteUrl}/cenik/`;
+
+interface Row {
+  name: string;
+  price: string;     // kar vidi obiskovalec
+  setup?: number;    // enkratna spodnja meja (za schemo)
+  monthly?: number;  // mesečna spodnja meja (za schemo)
+  what: string;
+}
+interface Group {
+  id: string;
+  title: string;
+  href: string;      // pripadajoča storitvena stran
+  linkLabel: string;
+  head: [string, string, string];
+  rows: Row[];
+}
+
+const groups: Group[] = [
+  {
+    id: "spletne-strani",
+    title: "Spletne strani",
+    href: "/spletne-strani/",
+    linkLabel: "Več o spletnih straneh",
+    head: ["Paket", "Cena", "Za koga"],
+    rows: [
+      {
+        name: "Express landing",
+        price: "od 290 €",
+        setup: 290,
+        what: "Ena stran po naši predlogi. Za tiste, ki rabijo eno dobro stran brez velikega proračuna.",
+      },
+      {
+        name: "Predstavitvena",
+        price: "od 690 €",
+        setup: 690,
+        what: "Do približno pet sekcij, kontaktni obrazec, osnove SEO. Klasična stran podjetja.",
+      },
+      {
+        name: "Landing / premium",
+        price: "od 1.290 €",
+        setup: 1290,
+        what: "Dizajn po meri, animacije, prodajni copy. Za oglasni promet in resne kampanje.",
+      },
+      {
+        name: "Spletna trgovina",
+        price: "od 2.490 €",
+        setup: 2490,
+        what: "Plačila, dostava, integracije. Odvisno od števila izdelkov.",
+      },
+      {
+        name: "Vzdrževanje",
+        price: "od 39 € / mesec",
+        monthly: 39,
+        what: "Posodobitve, varnost, manjše spremembe. Ni obvezno.",
+      },
+    ],
+  },
+  {
+    id: "ai-agenti",
+    title: "AI agenti in avtomatizacije",
+    href: "/ai-agenti/",
+    linkLabel: "Več o AI agentih",
+    head: ["Storitev", "Cena", "Kaj dobiš"],
+    rows: [
+      {
+        name: "AI glasovni ali chat agent",
+        price: "postavitev od 690 € + od 99 € / mesec",
+        setup: 690,
+        monthly: 99,
+        what: "Agent, ki sprejme klic ali sporočilo, odgovarja in rezervira termine. Mesečni del pokriva porabo, gostovanje in izboljšave.",
+      },
+      {
+        name: "Avtomatizacija procesa",
+        price: "od 290 €",
+        setup: 290,
+        what: "Povezava tvojih orodij, da procesi tečejo sami. Cena na proces.",
+      },
+    ],
+  },
+  {
+    id: "geo",
+    title: "GEO in AI vidnost",
+    href: "/geo/",
+    linkLabel: "Več o GEO",
+    head: ["Storitev", "Cena", "Kaj dobiš"],
+    rows: [
+      {
+        name: "GEO audit",
+        price: "od 290 €",
+        setup: 290,
+        what: "Pregled, kako te vidijo AI iskalniki, in konkreten seznam popravkov.",
+      },
+      {
+        name: "GEO postavitev",
+        price: "od 490 €",
+        setup: 490,
+        what: "Tehnični temelj in vsebinska struktura za AI vidnost.",
+      },
+      {
+        name: "Mesečni GEO",
+        price: "od 149 € / mesec",
+        monthly: 149,
+        what: "Vsebina, zunanja prisotnost in merjenje omemb.",
+      },
+    ],
+  },
+];
+
+/* Od česa je odvisna cena */
+const drivers = [
+  { lead: "Obseg.", body: "Ena stran ali dvajset podstrani. Več vsebine pomeni več dela." },
+  {
+    lead: "Koliko je po meri.",
+    body: "Predloga je hitrejša in cenejša. Dizajn po meri stane več, a te loči od konkurence.",
+  },
+  {
+    lead: "Funkcionalnosti.",
+    body: "Kontaktni obrazec je osnova. Trgovina, rezervacije, dvojezičnost ali povezave z drugimi orodji so bistveno več dela.",
+  },
+  {
+    lead: "Vsebina.",
+    body: "Če besedila in slike priskrbiš sam, prihraniš. Če jih naredim jaz, je cena višja, pogosto pa tudi rezultat boljši.",
+  },
+];
+
+const faq = [
+  {
+    q: "Zakaj so cene navedene z „od“?",
+    a: "Ker je vsak projekt drugačen. Spodnja meja velja za jasno določen obseg. Ko se pogovoriva o tem, kaj rabiš, dobiš fiksno ponudbo brez naknadnih postavk.",
+  },
+  {
+    q: "Ali lahko plačam v obrokih?",
+    a: "Običajno delam v dveh delih: del ob naročilu, preostanek ob predaji. Pri večjih projektih se lahko dogovoriva drugače.",
+  },
+  {
+    q: "Koliko časa traja izdelava?",
+    a: "Express landing nekaj dni, predstavitvena stran teden ali dva, večji projekti in trgovine dlje.",
+  },
+  {
+    q: "Ali so v ceni tudi besedila in slike?",
+    a: "Odvisno od dogovora. Lahko jih priskrbiš sam ali jih naredim jaz, kar se pozna v ceni.",
+  },
+  {
+    q: "Kaj pa domena in gostovanje?",
+    a: "Nista v ceni, sta pa poceni. Domena je okoli 15 evrov na leto, gostovanje pri statični strani pogosto brezplačno.",
+  },
+];
+
+/* ---------- Schema: Service (+ Offer z EUR spodnjo mejo) + FAQPage + BreadcrumbList ---------- */
+const priceSpecs = (r: Row) => [
+  ...(r.setup
+    ? [
+        {
+          "@type": "PriceSpecification",
+          priceCurrency: "EUR",
+          minPrice: r.setup,
+          valueAddedTaxIncluded: false,
+        },
+      ]
+    : []),
+  ...(r.monthly
+    ? [
+        {
+          "@type": "UnitPriceSpecification",
+          priceCurrency: "EUR",
+          minPrice: r.monthly,
+          valueAddedTaxIncluded: false,
+          referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" },
+        },
+      ]
+    : []),
+];
+
+const setupPrices = groups
+  .flatMap((g) => g.rows.map((r) => r.setup))
+  .filter((n): n is number => typeof n === "number");
+const offerCount = groups.reduce((n, g) => n + g.rows.length, 0);
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: "Izdelava spletnih strani, AI agenti in GEO",
+    serviceType: "Izdelava spletnih strani, AI agenti in GEO",
+    url,
+    description:
+      "Odprt cenik SKOL AI: spletne strani od 290 €, AI agenti od 690 € postavitve in 99 € mesečno, GEO od 290 €. Cene brez DDV, brez skritih postavk.",
+    provider: { "@id": `${siteUrl}/#organization` },
+    areaServed: { "@type": "Country", name: "Slovenija" },
+    audience: { "@type": "BusinessAudience", audienceType: "Mala in srednja podjetja" },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "EUR",
+      lowPrice: Math.min(...setupPrices),
+      highPrice: Math.max(...setupPrices),
+      offerCount,
+      url,
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Cenik SKOL AI",
+      itemListElement: groups.map((g) => ({
+        "@type": "OfferCatalog",
+        name: g.title,
+        itemListElement: g.rows.map((r) => ({
+          "@type": "Offer",
+          name: r.name,
+          description: r.what,
+          priceCurrency: "EUR",
+          priceSpecification: priceSpecs(r),
+          availability: "https://schema.org/InStock",
+          url,
+          itemOffered: {
+            "@type": "Service",
+            name: r.name,
+            provider: { "@id": `${siteUrl}/#organization` },
+          },
+        })),
+      })),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    mainEntity: faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${url}#breadcrumb`,
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Domov", item: `${siteUrl}/` },
+      { "@type": "ListItem", position: 2, name: "Cenik", item: url },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  titleExact="Cenik izdelave spletnih strani in AI agentov | SKOL AI"
+  description="Jasne cene za spletne strani, AI agente in AI vidnost. Od 290 EUR za landing stran do 2.490 EUR za spletno trgovino. Brez skritih postavk."
+  ogType="article"
+  jsonLd={schema}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="cen-hero">
+    <div class="container-page">
+      <nav class="breadcrumb" aria-label="Drobtinice" data-hero>
+        <a href="/">Domov</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Cenik</span>
+      </nav>
+
+      <p class="kicker cen-hero__kicker" data-hero>[ Cenik ]</p>
+      <h1 class="cen-hero__title" data-hero>Cenik</h1>
+      <p class="cen-hero__lead" data-hero>
+        Spletna stran pri nas stane od 290 evrov za preprosto landing stran do 2.490 evrov za
+        spletno trgovino. AI agent se začne pri 690 evrih postavitve in 99 evrih mesečno. Spodaj je
+        celoten cenik, brez zvezdic in brez skritih postavk. Končna cena je odvisna od obsega, ki ga
+        določiva v pogovoru.
+      </p>
+      <div class="cen-hero__cta" data-hero>
+        <Button href="/kontakt/" variant="primary" dl="cta_click">Povej, kaj gradiš →</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CENOVNE TABELE ===================== -->
+  <section class="tables">
+    <div class="container-page">
+      {groups.map((g) => (
+        <div class="tgroup" id={g.id}>
+          <div class="tgroup__head" data-reveal>
+            <h2 class="tgroup__title">{g.title}</h2>
+            <a href={g.href} class="tgroup__link" data-cursor>{g.linkLabel} →</a>
+          </div>
+
+          <div class="table-scroll" data-reveal>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">{g.head[0]}</th>
+                  <th scope="col">{g.head[1]}</th>
+                  <th scope="col">{g.head[2]}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {g.rows.map((r) => (
+                  <tr>
+                    <th scope="row">{r.name}</th>
+                    <td class="cell-price">{r.price}</td>
+                    <td>{r.what}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+
+      <p class="vat" data-reveal>
+        Cene ne vključujejo DDV. DDV se ne obračuna po 1. odstavku 94. člena ZDDV-1.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== OD ČESA JE ODVISNA CENA ===================== -->
+  <section class="drivers">
+    <div class="container-page">
+      <header class="sec-head">
+        <p class="kicker" data-reveal>[ Kaj premika ceno ]</p>
+        <h2 class="section-title" data-reveal>Od česa je odvisna cena.</h2>
+        <p class="sec-lead" data-reveal>Cena ni ugibanje. Premikajo jo štiri stvari.</p>
+      </header>
+
+      <ul class="drivers__list">
+        {drivers.map((d, i) => (
+          <li class="driver" data-reveal>
+            <span class="driver__num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="driver__lead">{d.lead}</h3>
+            <p class="driver__body">{d.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== KAJ JE V CENI ===================== -->
+  <section class="incl">
+    <div class="container-page">
+      <header class="sec-head">
+        <p class="kicker" data-reveal>[ Kaj je v ceni ]</p>
+        <h2 class="section-title" data-reveal>Kaj je v ceni.</h2>
+      </header>
+
+      <div class="incl__grid">
+        <div class="incl__col" data-reveal>
+          <p class="kicker incl__label">[ Vključeno ]</p>
+          <p class="incl__text">
+            Vsaka stran vključuje dizajn po meri brez kupljenih predlog, brezhibno delovanje na
+            telefonu, osnove SEO in strukturirane podatke, postavitev v živo in osnovno merjenje
+            obiska.
+          </p>
+        </div>
+        <div class="incl__col" data-reveal>
+          <p class="kicker incl__label incl__label--dim">[ Po dogovoru ]</p>
+          <p class="incl__text incl__text--dim">
+            Domena in gostovanje, če ju še nimaš, fotografiranje, licence za posebne pisave ali
+            orodja, in vzdrževanje po predaji.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== KDAJ ME NE RABIŠ ===================== -->
+  <section class="nope">
+    <div class="container-page">
+      <p class="kicker" data-reveal>[ Iskreno ]</p>
+      <h2 class="nope__title" data-reveal>Kdaj me ne rabiš.</h2>
+      <p class="nope__text" data-reveal>Ne bom ti prodajal stvari, ki je ne potrebuješ.</p>
+      <p class="nope__text" data-reveal>
+        Če rabiš samo eno stran z informacijami in imaš doma nekoga, ki to zna, prihrani denar. Če
+        imaš stran, ki dela dobro in je hitra, je prenova morda nepotrebna in je smiselneje vlagati
+        v <a href="/geo/" data-cursor>vidnost</a>. In če ti nekdo ponuja stran za sto evrov in ti to
+        zadošča, je to povsem legitimna odločitev.
+      </p>
+      <p class="nope__text nope__text--strong" data-reveal>
+        Pokliči me takrat, ko hočeš, da stran nekaj prinese, ne samo obstaja.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="faq">
+    <div class="container-page faq__grid">
+      <header class="faq__head">
+        <p class="kicker" data-reveal>[ Vprašanja ]</p>
+        <h2 class="section-title" data-reveal>Pogosta vprašanja.</h2>
+      </header>
+      <div class="faq__list">
+        {faq.map((f) => (
+          <details class="faq__item" data-reveal>
+            <summary class="faq__q">
+              <span>{f.q}</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </summary>
+            <div class="faq__a"><div class="faq__a-in"><p>{f.a}</p></div></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    kicker="[ Naslednji korak ]"
+    title="Povej, kaj gradiš."
+    sub="Opiši projekt in dobiš jasno ceno v 24 urah. Brez obveznosti."
+    ctaLabel="Povej, kaj gradiš →"
+  />
+</BaseLayout>
+
+<style>
+  .section-title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(34px, 5.5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .sec-head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .sec-lead {
+    margin-top: 1.5rem;
+    max-width: 46ch;
+    font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+
+  /* ---------- HERO ---------- */
+  .cen-hero {
+    padding-top: clamp(3rem, 9vh, 7rem);
+    padding-bottom: clamp(3rem, 8vh, 6rem);
+  }
+  .breadcrumb {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-bone-dim);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a { color: var(--color-bone-dim); transition: color 0.3s var(--ease-reveal); }
+  .breadcrumb a:hover { color: var(--color-gold); }
+  .breadcrumb [aria-current="page"] { color: var(--color-bone); }
+
+  .cen-hero__kicker { margin-bottom: 1.5rem; }
+  .cen-hero__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 7.2vw, 104px);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+  }
+  /* Direct-answer blok (GEO) — isti jezik kot TL;DR na storitvenih straneh */
+  .cen-hero__lead {
+    margin-top: 2rem;
+    max-width: 62ch;
+    padding-left: 1.25rem;
+    border-left: 2px solid rgb(200 169 110 / 0.45);
+    font-size: clamp(15px, 1.55vw, 19px);
+    line-height: 1.7;
+    color: var(--color-bone);
+  }
+  .cen-hero__cta { margin-top: 2.75rem; }
+
+  /* ---------- TABELE ---------- */
+  .tables { padding-block: clamp(3rem, 8vh, 6rem); border-top: 1px solid var(--color-hairline); }
+  .tgroup + .tgroup { margin-top: clamp(3rem, 7vw, 5rem); }
+  .tgroup__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .tgroup__title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+    line-height: 1.1;
+    color: var(--color-bone);
+  }
+  .tgroup__link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    transition: opacity 0.3s var(--ease-reveal);
+  }
+  .tgroup__link:hover { opacity: 0.7; }
+
+  /* Ovoj skrola vodoravno na ozkih zaslonih (isti vzorec kot tabele na blogu) */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table {
+    width: 100%;
+    min-width: 34rem; /* pod tem se skrola, namesto da se stolpci zlepijo */
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  th,
+  td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid rgb(237 232 223 / 0.12);
+    color: var(--color-bone-dim);
+    font-weight: 400;
+  }
+  thead th {
+    color: var(--color-bone);
+    font-weight: 700;
+    border-bottom: 2px solid var(--color-gold);
+    white-space: nowrap;
+  }
+  tbody th[scope="row"] {
+    color: var(--color-bone);
+    font-weight: 500;
+  }
+  tbody tr:nth-child(even) { background: rgb(237 232 223 / 0.025); }
+  .cell-price {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    letter-spacing: 0.02em;
+    color: var(--color-gold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .vat {
+    margin-top: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+    color: var(--color-bone-dim);
+    opacity: 0.7;
+    max-width: 60ch;
+  }
+
+  /* ---------- OD ČESA JE ODVISNA CENA ---------- */
+  .drivers { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .drivers__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  @media (min-width: 768px) {
+    .drivers__list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1100px) {
+    .drivers__list { grid-template-columns: repeat(4, 1fr); }
+  }
+  .driver {
+    padding: 2rem 0;
+    border-top: 1px solid var(--color-hairline);
+  }
+  @media (min-width: 768px) {
+    .driver { padding: 2rem clamp(1.25rem, 2.5vw, 2rem); }
+    .driver { border-left: 1px solid var(--color-hairline); }
+    .driver:nth-child(odd) { border-left: 0; padding-left: 0; }
+  }
+  @media (min-width: 1100px) {
+    /* v 4-stolpčnem gridu dobi levo črto in odmik vsak stolpec razen prvega */
+    .driver:nth-child(odd) {
+      border-left: 1px solid var(--color-hairline);
+      padding-left: clamp(1.25rem, 2.5vw, 2rem);
+    }
+    .driver:first-child { border-left: 0; padding-left: 0; }
+    .driver:last-child { padding-right: 0; }
+  }
+  .driver__num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--color-gold);
+  }
+  .driver__lead {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    line-height: 1.15;
+    color: var(--color-bone);
+  }
+  .driver__body {
+    margin-top: 0.85rem;
+    max-width: 40ch;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+
+  /* ---------- KAJ JE V CENI ---------- */
+  .incl { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .incl__grid { display: grid; gap: 3rem; }
+  @media (min-width: 768px) {
+    .incl__grid { grid-template-columns: 1fr 1fr; gap: clamp(3rem, 6vw, 6rem); }
+  }
+  .incl__label { margin-bottom: 1.25rem; }
+  .incl__label--dim { color: var(--color-bone-dim); }
+  .incl__text {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.1vw, 26px);
+    line-height: 1.45;
+    color: var(--color-bone);
+    max-width: 34ch;
+  }
+  .incl__text--dim { color: var(--color-bone-dim); }
+
+  /* ---------- KDAJ ME NE RABIŠ ---------- */
+  .nope { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .nope__title {
+    margin-top: 1.25rem;
+    margin-bottom: 2rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(34px, 5.5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .nope__text {
+    max-width: 62ch;
+    margin-top: 1.25rem;
+    font-size: clamp(15px, 1.5vw, 18px);
+    line-height: 1.7;
+    color: var(--color-bone-dim);
+  }
+  .nope__text a { color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .nope__text--strong {
+    margin-top: 2rem;
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.4vw, 30px);
+    line-height: 1.35;
+    color: var(--color-bone);
+    max-width: 34ch;
+  }
+
+  /* ---------- FAQ (details/summary, brez JS) ---------- */
+  .faq { padding-block: clamp(4rem, 9vh, 7rem); border-top: 1px solid var(--color-hairline); }
+  .faq__grid { display: grid; gap: 3rem; }
+  @media (min-width: 900px) {
+    .faq__grid { grid-template-columns: 0.8fr 1.2fr; gap: clamp(3rem, 6vw, 6rem); }
+  }
+  .faq__list { display: flex; flex-direction: column; }
+  .faq__item { border-top: 1px solid var(--color-hairline); }
+  .faq__item:last-child { border-bottom: 1px solid var(--color-hairline); }
+  .faq__q {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    color: var(--color-bone);
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q:hover { color: var(--color-gold); }
+  .faq__icon { position: relative; flex: none; width: 16px; height: 16px; }
+  .faq__icon::before,
+  .faq__icon::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 auto 0;
+    height: 1.5px;
+    background: var(--color-gold);
+    transition: transform 0.3s var(--ease-reveal);
+  }
+  .faq__icon::after { transform: rotate(90deg); }
+  details[open] .faq__icon::after { transform: rotate(0deg); }
+  .faq__a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s var(--ease-reveal);
+  }
+  details[open] .faq__a { grid-template-rows: 1fr; }
+  .faq__a-in { overflow: hidden; }
+  .faq__a p {
+    padding-bottom: 1.5rem;
+    max-width: 60ch;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--color-bone-dim);
+  }
+</style>

@@ -9,6 +9,7 @@ Vodja: Rok Skol. Sedež: Rimska cesta 28, 8210 Trebnje, Slovenija. Telefon: +386
 - [Premium spletne strani](https://skolailab.com/spletne-strani/): Bliskovito hitre spletne strani po meri na sodobni statični arhitekturi (Astro), ki obiskovalca brez trenja spremenijo v kupca. Paketi: Express landing od 290 €, predstavitvena od 690 €, premium landing od 890 €, e-commerce od 1.890 €.
 - [AI agenti & avtomatizacije](https://skolailab.com/ai-agenti/): AI glasovni in chat agent, ki 24/7 sprejema klice, odgovarja na vprašanja in rezervira termine; avtomatizacije, ki odpravijo ročno delo. Setup od 690 €, mesečno od 99 €, avtomatizacija od 290 €.
 - [GEO / AI vidnost](https://skolailab.com/geo/): Generative Engine Optimization — da vas AI asistenti (ChatGPT, Gemini, Perplexity) najdejo, razumejo in priporočijo. Tehnični GEO temelj, jasna entiteta, citabilna vsebina, off-site prisotnost in merjenje omemb. Audit od 290 €, postavitev od 490 €, mesečno od 149 €.
+- [Cenik](https://skolailab.com/cenik/): Odprt cenik vseh storitev s spodnjimi mejami cen (spletne strani od 290 €, AI agenti od 690 € postavitve in 99 € mesečno, GEO od 290 €); od česa je cena odvisna, kaj je vključeno in kaj se dogovori posebej, ter pogosta vprašanja o plačilu, rokih, besedilih, domeni in gostovanju. Cene ne vključujejo DDV.
 
 Poleg tega po meri izdelujemo AI vizualije, video in oglasne kreative.
 
