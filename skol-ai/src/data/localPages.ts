@@ -1,7 +1,8 @@
 /* =========================================================================
    SKOL AI — Lokalne pristajalne strani (Novo mesto + Trebnje).
    Vir: content/lokalne-strani.md. Vsaka ima SVOJO vsebino (ne kopija).
-   Schema na vsaki: LocalBusiness + Service + FAQPage + BreadcrumbList.
+   Schema na vsaki: Service + FAQPage + BreadcrumbList. Podjetje je eno samo
+   (sitewide #localbusiness iz BaseLayout), lokalni strani se nanj le sklicujeta.
    ========================================================================= */
 
 export interface LocalFaq {
@@ -11,7 +12,7 @@ export interface LocalFaq {
 export interface LocalSection {
   kicker: string;
   title: string;
-  body: string;
+  body: string; // podpira notranje povezave v obliki [besedilo](/pot/)
 }
 export interface LocalPage {
   slug: string;
@@ -22,9 +23,9 @@ export interface LocalPage {
   h1: string;
   lead: string; // direct-answer
   sections: LocalSection[];
+  projects?: { slug: string; note: string }[]; // blok "Zadnji projekti" (case studyji iz cases.ts)
   prices: string;
   faq: LocalFaq[];
-  areaServed: string[];
   ctaTitle: string;
   ctaSub: string;
   ctaLabel: string;
@@ -49,16 +50,16 @@ export const localPages: Record<string, LocalPage> = {
       {
         kicker: "[ Kaj dobiš ]",
         title: "Kaj dobiš",
-        body: "Dizajn po meri, ne predloga, ki jo uporablja še sto drugih. Bliskovita hitrost (zadnji projekt je dosegel 96/100 na PageSpeed). Brezhibno na telefonu, kjer te stranke dejansko gledajo. Osnove SEO, da te najdejo. Pametni obrazci, ki povpraševanje pripeljejo naravnost do tebe.",
+        body: "Dizajn po meri, ne predloga, ki jo uporablja še sto drugih. Bliskovita hitrost (zadnji projekt je dosegel 96/100 na PageSpeed). Narejena najprej za telefon, kjer te stranke dejansko gledajo. Osnove SEO, da te najdejo. Pametni obrazci, ki povpraševanje pripeljejo naravnost do tebe.",
       },
       {
         kicker: "[ Reference z območja ]",
         title: "Reference z območja",
-        body: "Solimat, celovita prenova in migracija na hitro statično infrastrukturo, dvojezično. Bar Bazenček, nova spletna prisotnost za gostinski lokal. Obe sta živi in ju lahko pogledaš.",
+        body: "[Solimat](/projekti/solimat/), celovita prenova in migracija na hitro statično infrastrukturo, dvojezično. [Bar Bazenček](/projekti/bar-bazencek/), nova spletna prisotnost za gostinski lokal. Obe sta živi in ju lahko pogledaš.",
       },
     ],
     prices:
-      "Express landing od 290 €, predstavitvena stran od 490 €, premium landing od 890 €, spletna trgovina od 1.890 €. Brez DDV. Končna cena po obsegu, ki ga določiva v pogovoru.",
+      "Express landing od 290 €, predstavitvena stran od 490 €, premium landing od 890 €, spletna trgovina od 1.890 €. Končna cena po obsegu, ki ga določiva v pogovoru.",
     faq: [
       {
         q: "Se lahko dobiva v živo v Novem mestu?",
@@ -73,9 +74,8 @@ export const localPages: Record<string, LocalPage> = {
         a: "Predstavitvena stran običajno teden ali dva, večji projekti dlje.",
       },
     ],
-    areaServed: ["Novo mesto", "Dolenjska", "Slovenija"],
     ctaTitle: "Povej, kaj gradiš.",
-    ctaSub: "Iz Novega mesta ali okolice? Povej, kaj rabiš — odgovorim v 24 urah.",
+    ctaSub: "Iz Novega mesta ali okolice? Povej, kaj rabiš. Odgovorim v 24 urah.",
     ctaLabel: "Povej, kaj gradiš →",
   },
 
@@ -105,8 +105,12 @@ export const localPages: Record<string, LocalPage> = {
         body: "Najprej se pogovoriva, v živo ali po telefonu, in ugotoviva, kaj sploh rabiš. Potem dobiš jasno ponudbo brez skritih postavk. Nato gradim, ti sproti vidiš napredek, in stran gre v živo. Predstavitvena stran je običajno gotova v tednu ali dveh.",
       },
     ],
+    projects: [
+      { slug: "solimat", note: "Celovita prenova, dvojezična stran, 96/100 na PageSpeed." },
+      { slug: "bar-bazencek", note: "Nova spletna stran za gostinski lokal." },
+    ],
     prices:
-      "Express landing od 290 €, predstavitvena od 490 €, premium landing od 890 €, trgovina od 1.890 €. Brez DDV.",
+      "Express landing od 290 €, predstavitvena od 490 €, premium landing od 890 €, trgovina od 1.890 €.",
     faq: [
       { q: "Kje si točno?", a: "Rimska cesta 28, Trebnje." },
       {
@@ -118,40 +122,24 @@ export const localPages: Record<string, LocalPage> = {
         a: "Da. Express paket je narejen ravno za tiste, ki rabijo eno dobro stran brez velikega proračuna.",
       },
     ],
-    areaServed: ["Trebnje", "Dolenjska", "Slovenija"],
     ctaTitle: "Pokliči ali piši.",
-    ctaSub: "Soseda iz Trebnjega? Pokliči ali piši — dobiva se, kadar ti paše.",
+    ctaSub: "Soseda iz Trebnjega? Pokliči ali piši. Dobiva se, kadar ti paše.",
     ctaLabel: "Pokliči ali piši →",
   },
 };
 
 export const localPageList: LocalPage[] = Object.values(localPages);
 
-/* JSON-LD: LocalBusiness + Service + FAQPage + BreadcrumbList za lokalno stran. */
+/* JSON-LD: Service + FAQPage + BreadcrumbList za lokalno stran.
+   Ponudnik je sitewide #localbusiness (en @id čez vse strani, ne nova entiteta). */
 export function localPageJsonLd(page: LocalPage, siteUrl: string) {
   const url = `${siteUrl}/${page.slug}/`;
-  const area = page.areaServed.map((name) => ({ "@type": "AdministrativeArea", name }));
+  const area = [
+    { "@type": "City", name: page.town },
+    { "@type": "AdministrativeArea", name: "Dolenjska" },
+    { "@type": "Country", name: "Slovenija" },
+  ];
   return [
-    {
-      "@context": "https://schema.org",
-      "@type": ["LocalBusiness", "ProfessionalService"],
-      "@id": `${url}#localbusiness`,
-      name: "SKOL AI",
-      url,
-      telephone: "+38631295869",
-      email: "info@skolailab.com",
-      priceRange: "€€",
-      parentOrganization: { "@id": `${siteUrl}/#organization` },
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Rimska cesta 28",
-        postalCode: "8210",
-        addressLocality: "Trebnje",
-        addressCountry: "SI",
-      },
-      areaServed: area,
-      knowsLanguage: ["sl", "en"],
-    },
     {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -160,7 +148,7 @@ export function localPageJsonLd(page: LocalPage, siteUrl: string) {
       serviceType: "Izdelava spletnih strani",
       url,
       description: page.metaDescription,
-      provider: { "@id": `${siteUrl}/#organization` },
+      provider: { "@id": `${siteUrl}/#localbusiness` },
       areaServed: area,
     },
     {

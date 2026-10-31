@@ -1,6 +1,7 @@
 ---
 /* HomeFaq — sekcija 8 (homepage-copy.md). Dostopen akordeon (details/summary). */
 import { homeFaq } from "../../data/homeFaq";
+import { linkify } from "../../lib/inlineLinks";
 ---
 
 <section class="hf">
@@ -16,7 +17,11 @@ import { homeFaq } from "../../data/homeFaq";
             <span>{f.q}</span>
             <span class="hf__icon" aria-hidden="true"></span>
           </summary>
-          <div class="hf__a"><div class="hf__a-in"><p>{f.a}</p></div></div>
+          <div class="hf__a"><div class="hf__a-in"><p>
+            {linkify(f.a).map((p) =>
+              typeof p === "string" ? p : <a href={p.href} data-cursor>{p.text}</a>
+            )}
+          </p></div></div>
         </details>
       ))}
     </div>
@@ -57,4 +62,6 @@ import { homeFaq } from "../../data/homeFaq";
   details[open] .hf__a { grid-template-rows: 1fr; }
   .hf__a-in { overflow: hidden; }
   .hf__a p { padding-bottom: 1.5rem; max-width: 60ch; font-size: 0.98rem; line-height: 1.65; color: var(--color-bone-dim); }
+  .hf__a a { color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .hf__a a:hover { color: var(--color-bone); }
 </style>

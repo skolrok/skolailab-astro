@@ -11,6 +11,7 @@ const blog = defineCollection({
     title: z.string(),
     metaTitle: z.string().optional(), // krajši <title> (30–60 zn.), če je naslov predolg; H1 ostane title
     description: z.string(), // meta + uvodni povzetek
+    llms: z.string().optional(), // opis za llms.txt (bere ga AI); če manjka, se uporabi description
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(), // pomembno za GEO svežino (dateModified)
     author: z.string().default("Rok Skol"),

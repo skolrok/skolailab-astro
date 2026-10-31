@@ -31,6 +31,7 @@ const BRAND = {
   instagram: "https://www.instagram.com/skolailab/",
   facebook: "https://www.facebook.com/profile.php?id=61586836539363",
   googleBusiness: "https://maps.app.goo.gl/UXPZsTYb6zhRPxZY6", // Google Business Profile
+  founderLinkedin: "https://www.linkedin.com/in/skolai/", // OSEBNI profil -> samo Person.sameAs
 };
 
 /* ---------- Tracking (vir: build-package.md §6) ------------
@@ -116,8 +117,16 @@ const schema = {
       logo: brandImage,
       email: BRAND.email,
       telephone: BRAND.phoneHref.replace("tel:", ""),
-      founder: { "@type": "Person", name: BRAND.founder },
+      founder: { "@id": `${siteUrl}/#rok-skol` },
       sameAs: [BRAND.instagram, BRAND.facebook, BRAND.googleBusiness],
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#rok-skol`,
+      name: BRAND.founder,
+      jobTitle: "Ustanovitelj in kreativni vodja",
+      sameAs: [BRAND.founderLinkedin],
+      worksFor: { "@id": `${siteUrl}/#organization` },
     },
     {
       "@type": ["LocalBusiness", "ProfessionalService"],
@@ -129,7 +138,7 @@ const schema = {
       email: BRAND.email,
       priceRange: "€€",
       parentOrganization: { "@id": `${siteUrl}/#organization` },
-      founder: { "@type": "Person", name: BRAND.founder },
+      founder: { "@id": `${siteUrl}/#rok-skol` },
       address: {
         "@type": "PostalAddress",
         streetAddress: BRAND.street,
@@ -137,7 +146,11 @@ const schema = {
         postalCode: BRAND.postalCode,
         addressCountry: BRAND.country,
       },
-      areaServed: { "@type": "Country", name: "Slovenija" },
+      hasMap: BRAND.googleBusiness,
+      areaServed: [
+        { "@type": "AdministrativeArea", name: "Dolenjska" },
+        { "@type": "Country", name: "Slovenija" },
+      ],
       knowsLanguage: ["sl", "en"],
       sameAs: [BRAND.instagram, BRAND.facebook, BRAND.googleBusiness],
     },

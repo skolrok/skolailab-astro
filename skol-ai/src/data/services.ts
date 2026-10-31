@@ -25,11 +25,12 @@ export interface Service {
   problem: string;
   solution: string;
   whatYouGet: string[];
-  proof?: string; // opcijski "Naš dokaz" blok
+  proof?: string; // opcijski blok "Kako merim" (zdaj le GEO)
   packages: ServicePackage[];
   faq: ServiceFaq[];
   cta: string;
   localLinks?: { label: string; href: string }[]; // lokalne pristajalne strani (interno linkanje)
+  examples?: { slug: string; caption: string }[]; // case studyji iz cases.ts (blok "Primeri")
 }
 
 export const services: Record<string, Service> = {
@@ -38,20 +39,20 @@ export const services: Record<string, Service> = {
     name: "Premium spletne strani",
     metaTitle: "Izdelava premium spletnih strani | SKOL AI, Dolenjska",
     metaDescription:
-      "Bliskovito hitre spletne strani po meri, ki obiskovalca spremenijo v kupca. Premium dizajn, AI in vibecoding. Sedež Trebnje, gradimo po vsej Sloveniji.",
+      "Spletne strani po meri od 490 € (landing od 290 €). Zadnji projekt 96/100 na PageSpeed. Studio iz Trebnjega, odgovor v 24 urah.",
     kicker: "[ Spletne strani ]",
     h1: "Spletne strani, ki obiskovalca spremenijo v kupca.",
     promise:
       "Premium izdelava spletnih strani za podjetja, ki nočejo še ene počasne, generične vizitke.",
     tldr:
-      "Izdelujemo premium spletne strani po meri na sodobni statični arhitekturi (Astro): bliskovito hitre, brezhibne na mobilcu in optimizirane za Google in AI iskalnike. Premišljen UX vodi obiskovalca naravnost do dejanja — klic, povpraševanje ali nakup. Brez predlog, brez počasnega nalaganja, brez izgubljenih klikov.",
+      "Izdelujem premium spletne strani po meri na sodobni statični arhitekturi (Astro): bliskovito hitre, narejene najprej za telefon in optimizirane za Google in AI iskalnike. Premišljen UX vodi obiskovalca naravnost do dejanja: klica, povpraševanja ali nakupa. Brez predlog, brez počasnega nalaganja, brez izgubljenih klikov.",
     problem:
       "Vaša trenutna stran je počasna in izgleda kot konkurenčna. Obiskovalec pride z oglasa, čaka, da se naloži, in odide. Vsak tak odhod je plačan klik v koš.",
     solution:
-      "Gradimo bliskovito hitre strani na sodobni statični arhitekturi. Premišljen UX vodi obiskovalca naravnost do dejanja: klic, povpraševanje, nakup. Brez trenja, brez čakanja.",
+      "Gradim bliskovito hitre strani na sodobni statični arhitekturi. Premišljen UX vodi obiskovalca naravnost do dejanja: klic, povpraševanje, nakup. Brez trenja, brez čakanja.",
     whatYouGet: [
       "Dizajn po meri, usklajen z znamko (nič predlog).",
-      "Bliskovita hitrost in brezhibnost na mobilcu.",
+      "Bliskovita hitrost, tudi na telefonu.",
       "Osnovni SEO in schema, da vas najdejo Google in AI asistenti.",
       "Pametni obrazci, ki povpraševanje pripeljejo naravnost do vas.",
       "Lasten sistem za urejanje vsebine, kjer je smiselno.",
@@ -60,7 +61,7 @@ export const services: Record<string, Service> = {
       {
         name: "Express landing",
         price: "od 290 €",
-        note: "Ena stran, naša predloga, hitra postavitev — brez custom dizajna.",
+        note: "Ena stran, moja predloga, hitra postavitev. Brez dizajna po meri.",
       },
       { name: "Predstavitvena", price: "od 490 €" },
       { name: "Landing / premium", price: "od 890 €" },
@@ -81,6 +82,16 @@ export const services: Record<string, Service> = {
       },
     ],
     cta: "Naročite premium stran →",
+    examples: [
+      {
+        slug: "solimat",
+        caption: "Celovita prenova: tehnični SEO, dvojezičnost (SI/EN) in 96/100 na PageSpeed.",
+      },
+      {
+        slug: "bar-bazencek",
+        caption: "Nova spletna stran za gostinski lokal: galerija, jedilnik in obrazec za rezervacije.",
+      },
+    ],
     localLinks: [
       { label: "Izdelava spletnih strani Novo mesto", href: "/izdelava-spletnih-strani-novo-mesto/" },
       { label: "Izdelava spletnih strani Trebnje", href: "/izdelava-spletnih-strani-trebnje/" },
@@ -92,13 +103,13 @@ export const services: Record<string, Service> = {
     name: "AI agenti & avtomatizacije",
     metaTitle: "AI agenti in avtomatizacije za podjetja | SKOL AI",
     metaDescription:
-      "AI glasovni in chat agent, ki sprejema klice, rezervira termine in odgovarja 24/7. Avtomatizacije, ki odpravijo ročno delo. Trebnje, Slovenija.",
+      "AI glasovni in chat agenti za mala podjetja: sprejem klicev, rezervacije, follow-up. Postavitev od 690 €. Studio iz Trebnjega.",
     kicker: "[ AI agenti & avtomatizacije ]",
-    h1: "Asistent, ki nikoli ne spi.",
+    h1: "AI agenti za podjetja: asistent, ki nikoli ne spi.",
     promise:
       "AI agenti in avtomatizacije, ki odpravijo ročno delo in ujamejo vsako priložnost.",
     tldr:
-      "AI agent sprejme klic ali sporočilo, odgovori na pogosta vprašanja in rezervira termin — 24/7, v slovenščini in z vašim tonom. Avtomatizacije povežejo vaša orodja, da prijave, ponudbe in follow-up tečejo sami od sebe. Nič zamujenih klicev, nič ročnega dela in nobena priložnost ne uide.",
+      "AI agent sprejme klic ali sporočilo, odgovori na pogosta vprašanja in rezervira termin. Dela 24/7, v slovenščini in z vašim tonom. Avtomatizacije povežejo vaša orodja, da prijave, ponudbe in follow-up tečejo sami od sebe. Nič zamujenih klicev, nič ročnega dela in nobena priložnost ne uide.",
     problem:
       "Zamujen klic je zamujena stranka. Medtem ko delate, telefon zvoni v prazno, sporočila čakajo, follow-up se ne zgodi. Ročno delo vas drži pri tleh.",
     solution:
@@ -106,14 +117,14 @@ export const services: Record<string, Service> = {
     whatYouGet: [
       "AI glasovni in chat agent z vašim tonom in informacijami o vašem poslu.",
       "Sprejem klicev, odgovore na pogosta vprašanja, rezervacije.",
-      "Workflowi: prijava do CRM do samodejnega follow-upa.",
+      "Avtomatizirani procesi: od prijave prek CRM-ja do samodejnega follow-upa.",
       "Avtomatski računi, ponudbe in prošnje za Google ocene po storitvi.",
       "Email in SMS sekvence.",
     ],
     packages: [
-      { name: "AI agent — setup", price: "od 690 €" },
+      { name: "AI agent — postavitev", price: "od 690 €" },
       { name: "AI agent — mesečno", price: "od 99 €/mes" },
-      { name: "Avtomatizacija (workflow)", price: "od 290 €" },
+      { name: "Avtomatizacija", price: "od 290 €" },
     ],
     faq: [
       {
@@ -122,7 +133,7 @@ export const services: Record<string, Service> = {
       },
       {
         q: "Se poveže z mojim koledarjem ali sistemom?",
-        a: "Da, prek avtomatizacij ga povežemo z orodji, ki jih že uporabljate.",
+        a: "Da, prek avtomatizacij ga povežem z orodji, ki jih že uporabljate.",
       },
       {
         q: "Kaj če agent ne zna odgovoriti?",
@@ -137,26 +148,26 @@ export const services: Record<string, Service> = {
     name: "GEO / AI vidnost",
     metaTitle: "GEO optimizacija: da vas priporoči ChatGPT | SKOL AI",
     metaDescription:
-      "Generative Engine Optimization poskrbi, da vas AI asistenti najdejo, razumejo in priporočijo. Bodite vidni tam, kjer stranke že sprašujejo.",
+      "GEO optimizacija: da vas ChatGPT, Gemini in Perplexity najdejo in priporočijo. Audit od 290 €. Studio iz Trebnjega, Dolenjska.",
     kicker: "[ GEO / AI vidnost ]",
-    h1: "Da vas priporoči ChatGPT.",
+    h1: "GEO optimizacija: da vas priporoči ChatGPT.",
     promise:
       "GEO (optimizacija za AI iskalnike) poskrbi, da vas umetna inteligenca najde, razume in priporoči.",
     tldr:
-      "GEO (Generative Engine Optimization) poskrbi, da vas AI asistenti — ChatGPT, Gemini in Perplexity — najdejo, razumejo in priporočijo po imenu. S strukturiranimi podatki, jasno entiteto in citabilno vsebino postavimo temelj, da postanete odgovor, ko vaša stranka vpraša. Sorodno SEO-ju, a usmerjeno na AI odgovore.",
+      "GEO (Generative Engine Optimization) poskrbi, da vas AI asistenti, kot so ChatGPT, Gemini in Perplexity, najdejo, razumejo in priporočijo po imenu. S strukturiranimi podatki, jasno entiteto in citabilno vsebino postavim temelj, da postanete odgovor, ko vaša stranka vpraša. Sorodno SEO-ju, a usmerjeno na AI odgovore.",
     problem:
       "Vaše stranke vse manj guglajo in vse več sprašujejo. „Kdo dela dobre spletne strani na Dolenjskem?“ danes vprašajo ChatGPT, Gemini ali Perplexity. Če vas AI ne pozna, vas ne priporoči. Nevidni ste v kanalu, ki raste najhitreje.",
     solution:
-      "GEO optimizira vašo prisotnost za generativne iskalnike. Poskrbimo, da AI razume, kdo ste, kaj delate in zakaj ste pravi odgovor. Da vas asistent, ko nekdo vpraša, navede po imenu.",
+      "GEO optimizira vašo prisotnost za generativne iskalnike. Poskrbim, da AI razume, kdo ste, kaj delate in zakaj ste pravi odgovor. Da vas asistent, ko nekdo vpraša, navede po imenu.",
     whatYouGet: [
       "Tehnični GEO temelj: strukturirani podatki (schema), llms.txt, dostop za AI robote, hitra in berljiva stran.",
       "Jasna entiteta: konsistentni podatki (ime, lokacija, storitve) po vsem spletu, da vas AI poveže kot eno znamko.",
       "Citabilna vsebina: jasni, dejstveni odgovori in FAQ, ki jih AI rad navaja.",
       "Off-site prisotnost: Google Business, imeniki, omembe in viri, ki jim AI zaupa.",
-      "Merjenje: spremljamo, kje in kako vas AI omenja.",
+      "Merjenje: spremljam, kje in kako vas AI omenja.",
     ],
     proof:
-      "Tega ne pridigamo. Delamo na lastni strani. Ko nas LLM-ji začnejo navajati, je to živi dokaz, ki ga dobite tudi vi.",
+      "Na lastni strani to merim vsak mesec. Rezultate objavljam sproti.",
     packages: [
       { name: "GEO audit", price: "od 290 €" },
       { name: "GEO postavitev", price: "od 490 €" },
@@ -173,7 +184,7 @@ export const services: Record<string, Service> = {
       },
       {
         q: "Kako merite uspeh?",
-        a: "Spremljamo omembe in priporočila v AI odgovorih za vaše ključne poizvedbe.",
+        a: "Spremljam omembe in priporočila v AI odgovorih za vaše ključne poizvedbe.",
       },
     ],
     cta: "Postanite vidni za AI →",

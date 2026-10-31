@@ -38,7 +38,7 @@ const groups: Group[] = [
         name: "Express landing",
         price: "od 290 €",
         setup: 290,
-        what: "Ena stran po naši predlogi. Za tiste, ki rabijo eno dobro stran brez velikega proračuna.",
+        what: "Ena stran po moji predlogi. Za tiste, ki rabijo eno dobro stran brez velikega proračuna.",
       },
       {
         name: "Predstavitvena",
@@ -196,7 +196,7 @@ const schema = [
     serviceType: "Izdelava spletnih strani, AI agenti in GEO",
     url,
     description:
-      "Odprt cenik SKOL AI: spletne strani od 290 €, AI agenti od 690 € postavitve in 99 € mesečno, GEO od 290 €. Cene brez DDV, brez skritih postavk.",
+      "Odprt cenik SKOL AI: spletne strani od 290 €, AI agenti od 690 € postavitve in 99 € mesečno, GEO od 290 €. Brez skritih postavk.",
     provider: { "@id": `${siteUrl}/#organization` },
     areaServed: { "@type": "Country", name: "Slovenija" },
     audience: { "@type": "BusinessAudience", audienceType: "Mala in srednja podjetja" },
@@ -269,9 +269,9 @@ const schema = [
       </nav>
 
       <p class="kicker cen-hero__kicker" data-hero>[ Cenik ]</p>
-      <h1 class="cen-hero__title" data-hero>Cenik</h1>
+      <h1 class="cen-hero__title" data-hero>Cenik izdelave spletnih strani in AI agentov</h1>
       <p class="cen-hero__lead" data-hero>
-        Spletna stran pri nas stane od 290 evrov za preprosto landing stran do 1.890 evrov za
+        Spletna stran pri meni stane od 290 evrov za preprosto landing stran do 1.890 evrov za
         spletno trgovino. AI agent se začne pri 690 evrih postavitve in 99 evrih mesečno. Spodaj je
         celoten cenik, brez zvezdic in brez skritih postavk. Končna cena je odvisna od obsega, ki ga
         določiva v pogovoru.
@@ -315,9 +315,6 @@ const schema = [
         </div>
       ))}
 
-      <p class="vat" data-reveal>
-        Cene ne vključujejo DDV. DDV se ne obračuna po 1. odstavku 94. člena ZDDV-1.
-      </p>
     </div>
   </section>
 
@@ -354,7 +351,7 @@ const schema = [
         <div class="incl__col" data-reveal>
           <p class="kicker incl__label">[ Vključeno ]</p>
           <p class="incl__text">
-            Vsaka stran vključuje dizajn po meri brez kupljenih predlog, brezhibno delovanje na
+            Vsaka stran vključuje dizajn po meri brez kupljenih predlog, delovanje na
             telefonu, osnove SEO in strukturirane podatke, postavitev v živo in osnovno merjenje
             obiska.
           </p>
@@ -462,6 +459,7 @@ const schema = [
     font-size: clamp(40px, 7.2vw, 104px);
     line-height: 0.98;
     letter-spacing: -0.01em;
+    max-width: 18ch;
   }
   /* Direct-answer blok (GEO) — isti jezik kot TL;DR na storitvenih straneh */
   .cen-hero__lead {
@@ -543,17 +541,6 @@ const schema = [
     letter-spacing: 0.02em;
     color: var(--color-gold);
     font-variant-numeric: tabular-nums;
-  }
-
-  .vat {
-    margin-top: 2rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.03em;
-    line-height: 1.5;
-    color: var(--color-bone-dim);
-    opacity: 0.7;
-    max-width: 60ch;
   }
 
   /* ---------- OD ČESA JE ODVISNA CENA ---------- */

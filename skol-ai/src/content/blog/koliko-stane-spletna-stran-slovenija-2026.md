@@ -1,6 +1,7 @@
 ---
 title: "Koliko stane spletna stran v Sloveniji leta 2026"
 description: "Realni razponi cen za izdelavo spletne strani v Sloveniji: od enostavne vizitke do trgovine. Od česa je odvisna cena in kje se skrivajo stroški."
+llms: "Realni cenovni razponi po tipu strani (vizitka, predstavitvena, po meri, trgovina), od česa je cena odvisna, tekoči stroški in zakaj je najcenejša ponudba pogosto najdražja."
 pubDate: 2026-07-18
 updatedDate: 2026-07-18
 author: "Rok Skol"
@@ -23,6 +24,8 @@ Tole so tipični razponi na slovenskem trgu. Vsak ponudnik in vsak projekt je dr
 | Spletna trgovina | od 2.000 € navzgor |
 
 Poleg enkratne izdelave računaj še na tekoče stroške: domena okoli 10 do 20 evrov na leto, gostovanje od nekaj evrov na mesec (pri sodobnih statičnih straneh je lahko celo zastonj), in vzdrževanje, če ga želiš, običajno 20 do 100 evrov mesečno.
+
+To so tržni razponi. Moje cene so objavljene v celoti. [Cenik izdelave spletnih strani](/cenik/) ima vse pakete s spodnjimi mejami, od landing strani do trgovine. Kaj dobiš v posameznem paketu in kako poteka delo, piše na strani [izdelava spletnih strani po meri](/spletne-strani/).
 
 ## Od česa je cena odvisna
 

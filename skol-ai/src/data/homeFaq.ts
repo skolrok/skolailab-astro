@@ -1,4 +1,7 @@
-/* Domača FAQ (homepage-copy.md §8) — vir za render + FAQPage schema. */
+/* Domača FAQ (homepage-copy.md §8) — vir za render + FAQPage schema.
+   Odgovor lahko vsebuje [besedilo](/pot/): na strani je povezava, v schemi čisto besedilo. */
+import { stripLinks } from "../lib/inlineLinks";
+
 export interface Faq {
   q: string;
   a: string;
@@ -7,23 +10,23 @@ export interface Faq {
 export const homeFaq: Faq[] = [
   {
     q: "Koliko časa traja izdelava strani?",
-    a: "Odvisno od obsega. Predstavitvena je običajno gotova v enem do dveh tednih, večji projekti dlje. Z AI in vibecodingom gradimo hitreje kot klasična agencija, brez padca kvalitete.",
+    a: "Odvisno od obsega. Predstavitvena je običajno gotova v enem do dveh tednih, večji projekti dlje. Z AI in vibecodingom gradim hitreje kot klasična agencija, brez padca kvalitete.",
   },
   {
     q: "Smem AI vizualije uporabljati komercialno?",
-    a: "Da. Vse, kar zate ustvarimo, dobiš v polno komercialno uporabo. Brez mesečnih licenčnin za fotografije. Asseti so tvoji, za splet, družbena omrežja in tisk.",
+    a: "Da. Vse, kar zate ustvarim, dobiš v polno komercialno uporabo. Brez mesečnih licenčnin za fotografije. Asseti so tvoji, za splet, družbena omrežja in tisk.",
   },
   {
     q: "Kaj če nimam besedil ali fotografij?",
-    a: "Točno zato sva tu. Besedila napišemo, vizualije zgeneriramo. Od tebe rabimo samo pogovor in vpogled v tvoj posel.",
+    a: "Točno zato sem tu. Besedila napišem, vizualije zgeneriram. Od tebe rabim samo pogovor in vpogled v tvoj posel.",
   },
   {
     q: "Koliko stane?",
-    a: "Cena je odvisna od obsega. Skupaj določiva, kaj rabiš, in dobiš jasno ponudbo brez skritih presenečenj.",
+    a: "Spletne strani od 290 €, AI agenti od 690 € postavitve, GEO audit od 290 €. Celoten cenik je na strani [Cenik](/cenik/).",
   },
   {
     q: "Delate samo za podjetja iz Dolenjske?",
-    a: "Sedež imamo v Trebnjem in radi delamo lokalno, a gradimo na daljavo za stranke po vsej Sloveniji in regiji.",
+    a: "Sedež imam v Trebnjem in rad delam lokalno, a gradim na daljavo za stranke po vsej Sloveniji in regiji.",
   },
 ];
 
@@ -36,7 +39,7 @@ export function homeFaqJsonLd(siteUrl: string) {
     mainEntity: homeFaq.map((f) => ({
       "@type": "Question",
       name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
+      acceptedAnswer: { "@type": "Answer", text: stripLinks(f.a) },
     })),
   };
 }

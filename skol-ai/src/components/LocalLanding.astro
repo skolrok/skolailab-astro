@@ -4,6 +4,8 @@
 import Button from "./Button.astro";
 import CtaBand from "./CtaBand.astro";
 import type { LocalPage } from "../data/localPages";
+import { cases } from "../data/cases";
+import { linkify } from "../lib/inlineLinks";
 
 interface Props {
   page: LocalPage;
@@ -39,20 +41,38 @@ const { page } = Astro.props;
       <div class="ll-block" data-reveal>
         <p class="kicker ll-block__kicker">{s.kicker}</p>
         <h2 class="ll-block__title">{s.title}</h2>
-        <p class="ll-block__body">{s.body}</p>
+        <p class="ll-block__body">
+          {linkify(s.body).map((p) =>
+            typeof p === "string" ? p : <a href={p.href} data-cursor>{p.text}</a>
+          )}
+        </p>
       </div>
     ))}
   </div>
 </section>
+
+{page.projects && (
+  <section class="ll-projects">
+    <div class="container-page">
+      <p class="kicker ll-block__kicker" data-reveal>[ Zadnji projekti ]</p>
+      <h2 class="ll-block__title" data-reveal>Zadnji projekti</h2>
+      <ul class="ll-projects__list" data-reveal>
+        {page.projects.map((p) => (
+          <li class="ll-projects__item">
+            <a href={`/projekti/${p.slug}/`} class="ll-projects__link" data-cursor>{cases[p.slug].name} →</a>
+            <span class="ll-projects__note">{p.note}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
 
 <!-- ===================== CENE ===================== -->
 <section class="ll-prices">
   <div class="container-page">
     <p class="kicker" data-reveal>[ Cene ]</p>
     <p class="ll-prices__text" data-reveal>{page.prices}</p>
-    <p class="ll-prices__vat" data-reveal>
-      Cene ne vključujejo DDV. DDV se ne obračuna po 1. odstavku 94. člena ZDDV-1.
-    </p>
   </div>
 </section>
 
@@ -127,6 +147,24 @@ const { page } = Astro.props;
     font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.1; color: var(--color-bone);
   }
   .ll-block__body { margin-top: 1rem; color: var(--color-bone-dim); line-height: 1.7; max-width: 46ch; }
+  .ll-block__body a { color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .ll-block__body a:hover { color: var(--color-bone); }
+
+  /* ---------- ZADNJI PROJEKTI ---------- */
+  .ll-projects { padding-block: clamp(3rem, 7vh, 5.5rem); border-top: 1px solid var(--color-hairline); }
+  .ll-projects__list {
+    margin-top: 1.75rem; list-style: none; padding: 0;
+    display: grid; gap: 1.5rem 3rem;
+  }
+  @media (min-width: 820px) { .ll-projects__list { grid-template-columns: repeat(2, 1fr); } }
+  .ll-projects__item { display: flex; flex-direction: column; gap: 0.4rem; }
+  .ll-projects__link {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem); color: var(--color-bone);
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .ll-projects__link:hover { color: var(--color-gold); }
+  .ll-projects__note { color: var(--color-bone-dim); line-height: 1.6; }
 
   /* ---------- CENE ---------- */
   .ll-prices { padding-block: clamp(3rem, 7vh, 5.5rem); border-top: 1px solid var(--color-hairline); }
@@ -135,10 +173,6 @@ const { page } = Astro.props;
     font-family: var(--font-display); font-weight: 500;
     font-size: clamp(1.25rem, 2.4vw, 1.9rem); line-height: 1.4; color: var(--color-bone);
     text-wrap: balance;
-  }
-  .ll-prices__vat {
-    margin-top: 1.25rem; font-family: var(--font-mono); font-size: 0.72rem;
-    letter-spacing: 0.03em; line-height: 1.5; color: var(--color-bone-dim); opacity: 0.7; max-width: 60ch;
   }
 
   /* ---------- FAQ (details/summary) ---------- */

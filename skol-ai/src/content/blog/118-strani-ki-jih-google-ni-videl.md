@@ -1,6 +1,7 @@
 ---
 title: "118 strani, ki jih Google ni videl"
 description: "Pri prenovi ene spletne strani sem našel 118 podstrani, ki jih Google ni indeksiral. Trije vzroki, ki jih ima marsikatera stran, in kako jih preveriš sam."
+llms: "Primer iz prakse: pri prevzemu strani s 73 podstranmi Google ni indeksiral 118 naslovov. Trije vzroki (poševnica na koncu naslova, pokvarjene notranje povezave, napačne dvojezične oznake), kako stran preveriš sam v Search Console in kaj se je spremenilo po popravku (96/100 PageSpeed)."
 pubDate: 2026-09-02
 updatedDate: 2026-09-02
 author: "Rok Skol"
@@ -55,7 +56,7 @@ Zanimivo pri tem je, da lastnik ni dobil nobene nove vsebine. Isti teksti, iste 
 
 ## Nauk, ki ga vzemi s sabo
 
-Preden vlagaš v novo vsebino ali oglase, preveri, ali iskalnik sploh vidi tisto, kar že imaš. Pogosto je najcenejši dvig vidnosti ravno v popravljanju stvari, ki so že napisane.
+Preden vlagaš v novo vsebino ali oglase, preveri, ali iskalnik sploh vidi tisto, kar že imaš. Pogosto je najcenejši dvig vidnosti ravno v popravljanju stvari, ki so že napisane. Če pa je osnova prestara za popravke, je na vrsti [prenova spletne strani](/spletne-strani/).
 
 ## Pogosta vprašanja
 

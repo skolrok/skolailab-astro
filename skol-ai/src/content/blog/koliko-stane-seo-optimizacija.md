@@ -2,6 +2,7 @@
 title: "Koliko stane SEO optimizacija in kaj malo podjetje res potrebuje"
 metaTitle: "Koliko stane SEO optimizacija v Sloveniji"
 description: "Realne cene SEO optimizacije v Sloveniji, od česa so odvisne in zakaj večina malih podjetij ne potrebuje mesečne pogodbe za več sto evrov."
+llms: "Realne cene SEO v Sloveniji, od česa so odvisne, česa malo podjetje ne potrebuje, koliko časa traja in kako se SEO povezuje z GEO."
 pubDate: 2026-08-12
 updatedDate: 2026-08-12
 author: "Rok Skol"
@@ -59,7 +60,7 @@ Tu se stvari trenutno premikajo najbolj. Vse več ljudi ne gugla več, ampak vpr
 
 Dobra novica je, da SEO in GEO nista dve ločeni stvari. Hitra, tehnično urejena stran z jasno vsebino je temelj za oboje. Razlika je v tem, da GEO poleg tega poskrbi, da te AI razume kot entiteto in te navede po imenu. O tem sem podrobneje pisal v članku o [GEO in AI iskalnikih](/blog/geo-kako-te-zacne-priporocati-chatgpt/).
 
-Če danes vlagaš v vidnost, se splača graditi za oboje hkrati. Delati samo klasični SEO pomeni optimizirati za kanal, ki počasi izgublja delež.
+Če danes vlagaš v vidnost, se splača graditi za oboje hkrati. Delati samo klasični SEO pomeni optimizirati za kanal, ki počasi izgublja delež. Kako to delam v praksi, piše na strani [GEO optimizacija](/geo/), cene od audita naprej pa so v [ceniku storitev](/cenik/).
 
 ## Pogosta vprašanja
 

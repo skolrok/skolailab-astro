@@ -30,7 +30,7 @@ export const cases: Record<string, CaseStudy> = {
     category: "Celovita digitalna prenova",
     metaTitle: "Solimat: celovita prenova spletne strani | SKOL AI",
     metaDescription:
-      "Kako smo počasno, polovično delujočo stran spremenili v hitro, zanesljivo in dvojezično prodajno orodje. Case study SKOL AI.",
+      "Kako sem počasno, polovično delujočo stran spremenil v hitro, zanesljivo in dvojezično prodajno orodje. Case study SKOL AI.",
     h1: "Solimat. Celovita digitalna prenova.",
     teaser:
       "Migracija s počasne strani na čisto, statično in bliskovito hitro dvojezično prodajno orodje.",
@@ -38,7 +38,7 @@ export const cases: Record<string, CaseStudy> = {
     challenge:
       "Stara stran je bila počasna in marsikaj na njej ni delalo. Zastarela osnova, ki je obiskovalca ovirala namesto vodila do povpraševanja.",
     approach:
-      "Namesto krpanja smo zgradili od tal. Migracija na čisto, statično in bliskovito hitro arhitekturo, z lastnim sistemom za vsebino.",
+      "Namesto krpanja sem zgradil od tal. Migracija na čisto, statično in bliskovito hitro arhitekturo, z lastnim sistemom za vsebino.",
     built: [
       "Hitra statična stran.",
       "Lasten admin za produkte in vsebino, brez WordPress kompleksnosti.",
@@ -63,7 +63,7 @@ export const cases: Record<string, CaseStudy> = {
     category: "Nova spletna prisotnost",
     metaTitle: "Bar Bazenček: spletna stran za gostinski lokal | SKOL AI",
     metaDescription:
-      "Kako smo za gostinski lokal zgradili hitro in cenovno ugodno spletno stran z galerijo, jedilnikom in kontaktnim obrazcem. Case study SKOL AI.",
+      "Kako sem za gostinski lokal zgradil hitro in cenovno ugodno spletno stran z galerijo, jedilnikom in kontaktnim obrazcem. Case study SKOL AI.",
     h1: "Bar Bazenček. Nova spletna prisotnost.",
     teaser:
       "Hitra, cenovno ugodna in profesionalna spletna prisotnost za gostinski lokal.",
@@ -71,7 +71,7 @@ export const cases: Record<string, CaseStudy> = {
     challenge:
       "Lokal je potreboval pravo spletno stran, hitro in cenovno ugodno. Profesionalno prisotnost, kjer gost takoj najde, kar išče.",
     approach:
-      "Fokusirano in učinkovito. Brez pretiravanja, brez nepotrebnih stroškov. Stran, ki opravi delo in deluje brezhibno na telefonu, kjer gostje dejansko gledajo.",
+      "Fokusirano in učinkovito. Brez pretiravanja, brez nepotrebnih stroškov. Stran, ki opravi delo in dobro deluje na telefonu, kjer gostje dejansko gledajo.",
     built: [
       "Pregledna predstavitev lokala.",
       "Galerija.",

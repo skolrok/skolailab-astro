@@ -2,6 +2,7 @@
 title: "AI agenti za podjetja: katere vrste obstajajo in kaj dejansko delajo"
 metaTitle: "AI agenti za podjetja: 7 vrst in kaj delajo"
 description: "Sedem vrst AI agentov, ki jih malo podjetje realno lahko uporabi. V čem se agent razlikuje od chatbota, s katerim začeti in koliko stane."
+llms: "Razlika med chatbotom, avtomatizacijo in agentom; sedem vrst agentov za malo podjetje (telefonski, chat, rezervacijski, povpraševanja, podpora, administrativni, follow-up), s katerim začeti in koliko stane."
 pubDate: 2026-08-02
 updatedDate: 2026-08-02
 author: "Rok Skol"
@@ -22,7 +23,7 @@ Trije izrazi, ki se v pogovorih mešajo, čeprav pomenijo tri različne stvari.
 | Avtomatizacija | izvede vnaprej določene korake | obrazec gre v CRM |
 | AI agent | razume, presodi in opravi nalogo | sprejme klic, preveri koledar, rezervira termin |
 
-Razlika je v presoji. Chatbot pozna odgovore. Avtomatizacija pozna korake. Agent pa se odloči, kaj je v danem primeru pravilno, in to izpelje. V praksi jih pogosto kombiniramo: agent vodi pogovor, v ozadju pa sproži avtomatizacijo.
+Razlika je v presoji. Chatbot pozna odgovore. Avtomatizacija pozna korake. Agent pa se odloči, kaj je v danem primeru pravilno, in to izpelje. V praksi jih pogosto kombiniram: agent vodi pogovor, v ozadju pa sproži avtomatizacijo.
 
 ## Sedem vrst agentov za malo podjetje
 
@@ -57,7 +58,7 @@ Postavi enega agenta okoli ene jasne naloge, preveri, ali dejansko deluje, in ga
 
 ## Koliko stane in koliko traja
 
-Postavitev agenta se pri nas začne pri 690 evrih, mesečno vzdrževanje pri 99 evrih. Mesečni del pokriva porabo, gostovanje in izboljšave, saj agent ni stvar, ki jo postaviš in pozabiš. Celoten razrez paketov je na strani [AI agenti in avtomatizacije](/ai-agenti/).
+Postavitev agenta se pri meni začne pri 690 evrih, mesečno vzdrževanje pri 99 evrih. Mesečni del pokriva porabo, gostovanje in izboljšave, saj agent ni stvar, ki jo postaviš in pozabiš. Celoten razrez paketov je na strani [AI agenti in avtomatizacije](/ai-agenti/).
 
 Za primerjavo: delno zaposlena oseba, ki bi sprejemala klice, stane precej več kot tisoč evrov mesečno. Agent seveda ne nadomesti človeka v vsem, prevzame pa tisti del, ki se ponavlja.
 
