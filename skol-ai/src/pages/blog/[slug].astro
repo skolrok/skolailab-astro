@@ -55,7 +55,8 @@ const schema = [
     mainEntityOfPage: url,
     datePublished: pubDate.toISOString(),
     dateModified: (updatedDate ?? pubDate).toISOString(),
-    author: { "@type": "Person", name: author },
+    // Rok Skol je sitewide Person (#rok-skol v BaseLayout) -> sklic; drug avtor ostane z imenom
+    author: author === "Rok Skol" ? { "@id": `${siteUrl}/#rok-skol` } : { "@type": "Person", name: author },
     publisher: { "@id": `${siteUrl}/#organization` },
     inLanguage: "sl-SI",
     keywords: tags.join(", "),
