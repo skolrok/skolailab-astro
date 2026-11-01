@@ -2,8 +2,8 @@
 title: "WordPress ali spletna stran po meri: kaj izbrati"
 metaTitle: "WordPress ali spletna stran po meri? | SKOL AI"
 description: "Gradim oboje, zato brez navijanja: kdaj je WordPress pametna izbira, kdaj se splača stran po meri, in kaj vpliva na hitrost, ceno in vzdrževanje."
-pubDate: 2026-11-02
-updatedDate: 2026-11-02
+pubDate: 2026-11-01
+updatedDate: 2026-11-01
 author: "Rok Skol"
 tags: ["spletne strani", "WordPress", "vodič"]
 image: ""

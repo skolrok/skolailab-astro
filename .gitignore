@@ -21,3 +21,7 @@ Thumbs.db
 # Diagnostika in delovne slike v KORENU (slike strani so v skol-ai/public/, teh to ne zajame)
 /_diag/
 /*.png
+
+# Interni paketi in zapiski v content/ (repo je javen; osnutki člankov ostanejo sledeni)
+content/paket-*.md
+content/*-interno.md
