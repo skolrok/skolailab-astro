@@ -16,6 +16,7 @@ interface Row {
   setup?: number;    // enkratna spodnja meja (za schemo)
   monthly?: number;  // mesečna spodnja meja (za schemo)
   what: string;
+  href?: string;     // podrobnejša stran (ime v vrstici postane povezava)
 }
 interface Group {
   id: string;
@@ -56,6 +57,7 @@ const groups: Group[] = [
         name: "Spletna trgovina",
         price: "od 1.890 €",
         setup: 1890,
+        href: "/spletne-trgovine/",
         what: "Plačila, dostava, integracije. Odvisno od števila izdelkov.",
       },
       {
@@ -304,7 +306,9 @@ const schema = [
               <tbody>
                 {g.rows.map((r) => (
                   <tr>
-                    <th scope="row">{r.name}</th>
+                    <th scope="row">
+                      {r.href ? <a href={r.href} class="row-link" data-cursor>{r.name}</a> : r.name}
+                    </th>
                     <td class="cell-price">{r.price}</td>
                     <td>{r.what}</td>
                   </tr>
@@ -535,6 +539,14 @@ const schema = [
     font-weight: 500;
   }
   tbody tr:nth-child(even) { background: rgb(237 232 223 / 0.025); }
+  .row-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: rgb(200 169 110 / 0.5);
+    text-underline-offset: 3px;
+    transition: color 0.3s var(--ease-reveal);
+  }
+  .row-link:hover { color: var(--color-gold); }
   .cell-price {
     font-family: var(--font-mono);
     font-size: 0.88rem;

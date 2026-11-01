@@ -22,6 +22,7 @@ Vodja: Rok Skol. Sedež: Rimska cesta 28, 8210 Trebnje, Slovenija. Telefon: +386
 ## Storitve
 
 - [Premium spletne strani](${site}/spletne-strani/): Bliskovito hitre spletne strani po meri na sodobni statični arhitekturi (Astro), ki obiskovalca brez trenja spremenijo v kupca. Paketi: Express landing od 290 €, predstavitvena od 490 €, premium landing od 890 €, e-commerce od 1.890 €.
+- [Spletne trgovine](${site}/spletne-trgovine/): Spletne trgovine na WooCommerce ali po meri: spletna plačila, izbira dostave, pregled naročil in zalog, urejanje izdelkov brez izdelovalca, osnove SEO in merjenje prodaje. Od 1.890 €, vzdrževanje od 39 € na mesec.
 - [AI agenti & avtomatizacije](${site}/ai-agenti/): AI glasovni in chat agent, ki 24/7 sprejema klice, odgovarja na vprašanja in rezervira termine; avtomatizacije, ki odpravijo ročno delo. Postavitev od 690 €, mesečno od 99 €, avtomatizacija od 290 €.
 - [GEO / AI vidnost](${site}/geo/): Generative Engine Optimization: da vas AI asistenti (ChatGPT, Gemini, Perplexity) najdejo, razumejo in priporočijo. Tehnični GEO temelj, jasna entiteta, citabilna vsebina, off-site prisotnost in merjenje omemb. Audit od 290 €, postavitev od 490 €, mesečno od 149 €.
 - [Cenik](${site}/cenik/): Odprt cenik vseh storitev s spodnjimi mejami cen (spletne strani od 290 €, AI agenti od 690 € postavitve in 99 € mesečno, GEO od 290 €); od česa je cena odvisna, kaj je vključeno in kaj se dogovori posebej, ter pogosta vprašanja o plačilu, rokih, besedilih, domeni in gostovanju.

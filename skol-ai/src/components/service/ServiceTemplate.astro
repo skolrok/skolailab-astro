@@ -146,6 +146,7 @@ const { service } = Astro.props;
           <h3 class="pkg__name">{p.name}</h3>
           <p class="pkg__price">{p.price}</p>
           {p.note && <p class="pkg__cardnote">{p.note}</p>}
+          {p.link && <a href={p.link.href} class="pkg__more" data-cursor>{p.link.label}</a>}
         </article>
       ))}
     </div>
@@ -424,6 +425,16 @@ const { service } = Astro.props;
     color: var(--color-bone-dim);
     max-width: 60ch;
   }
+  .pkg__more {
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    transition: opacity 0.3s var(--ease-reveal);
+  }
+  .pkg__more:hover { opacity: 0.7; }
   .pkg__cenik { margin-top: 1.25rem; }
   .pkg__cenik-link {
     font-family: var(--font-mono);

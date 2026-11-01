@@ -112,6 +112,10 @@ export const localPages: Record<string, LocalPage> = {
     prices:
       "Express landing od 290 €, predstavitvena od 490 €, premium landing od 890 €, trgovina od 1.890 €.",
     faq: [
+      {
+        q: "Kdo izdeluje spletne strani v Trebnjem?",
+        a: "SKOL AI je kreativni studio Roka Skola s sedežem v Trebnjem. Izdelujem spletne strani in spletne trgovine, postavljam AI agente in skrbim za vidnost v Googlu in AI iskalnikih, za podjetja na Dolenjskem in po Sloveniji.",
+      },
       { q: "Kje si točno?", a: "Rimska cesta 28, Trebnje." },
       {
         q: "Lahko prideš k meni v podjetje?",

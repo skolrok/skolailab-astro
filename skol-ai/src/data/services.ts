@@ -8,6 +8,7 @@ export interface ServicePackage {
   price: string; // npr. "od 690 €" ali "od 99 €/mes"
   note?: string; // drobna pojasnilna vrstica v kartici
   secondary?: boolean; // vizualno manjši/sekundarni paket (npr. Express)
+  link?: { href: string; label: string }; // podrobnejša stran za ta paket
 }
 export interface ServiceFaq {
   q: string;
@@ -20,7 +21,7 @@ export interface Service {
   metaDescription: string;
   kicker: string;
   h1: string;
-  promise: string;
+  promise?: string; // prikaže se le, če stran nima tldr
   tldr?: string; // direct-answer (GEO): 40–60 besed naravnost pod H1
   problem: string;
   solution: string;
@@ -65,7 +66,11 @@ export const services: Record<string, Service> = {
       },
       { name: "Predstavitvena", price: "od 490 €" },
       { name: "Landing / premium", price: "od 890 €" },
-      { name: "E-commerce / po meri", price: "od 1.890 €" },
+      {
+        name: "E-commerce / po meri",
+        price: "od 1.890 €",
+        link: { href: "/spletne-trgovine/", label: "Več o spletnih trgovinah →" },
+      },
     ],
     faq: [
       {
@@ -96,6 +101,53 @@ export const services: Record<string, Service> = {
       { label: "Izdelava spletnih strani Novo mesto", href: "/izdelava-spletnih-strani-novo-mesto/" },
       { label: "Izdelava spletnih strani Trebnje", href: "/izdelava-spletnih-strani-trebnje/" },
     ],
+  },
+
+  "spletne-trgovine": {
+    slug: "spletne-trgovine",
+    name: "Spletne trgovine",
+    metaTitle: "Izdelava spletnih trgovin | SKOL AI, Dolenjska",
+    metaDescription:
+      "Spletne trgovine na WooCommerce ali po meri: plačila, dostava in povezave na tvoja orodja. Od 1.890 €. Studio iz Trebnjega, odgovor v 24 urah.",
+    kicker: "[ Spletne trgovine ]",
+    h1: "Izdelava spletnih trgovin, ki prodajajo tudi ponoči.",
+    tldr:
+      "Izdelam spletno trgovino s plačili, dostavo in pregledom naročil, v kateri izdelke dodajaš sam. Večino trgovin postavim na WooCommerce, ker je preverjen in ga zlahka urejaš. Cena se začne pri 1.890 €, končna je odvisna od števila izdelkov in povezav.",
+    problem:
+      "Prodaja prek telefona, e-pošte in sporočil na Facebooku pomeni, da vsako naročilo zapisuješ ročno. Stranka, ki ob desetih zvečer hoče kupiti, ne more. In vsako zamujeno sporočilo je izgubljen nakup.",
+    solution:
+      "Trgovina, ki sprejema naročila in plačila sama, ob vsaki uri. Ti dobiš obvestilo in pregled, stranka potrditev. Ročnega dela je manj, napak tudi.",
+    whatYouGet: [
+      "Trgovino, prilagojeno tvoji znamki, narejeno najprej za telefon.",
+      "Spletna plačila in izbiro dostave.",
+      "Pregled naročil in zalog.",
+      "Urejanje izdelkov brez klica meni.",
+      "Osnove SEO, da te najdejo, in merjenje prodaje.",
+      "Povezave na orodja, ki jih že uporabljaš, kjer je smiselno.",
+    ],
+    packages: [
+      { name: "Spletna trgovina", price: "od 1.890 €" },
+      { name: "Vzdrževanje", price: "od 39 €/mes" },
+    ],
+    faq: [
+      {
+        q: "Ali lahko izdelke dodajam sam?",
+        a: "Da. Izdelke, cene in zalogo urejaš sam v preglednem vmesniku.",
+      },
+      {
+        q: "Koliko izdelkov lahko ima trgovina?",
+        a: "Od nekaj do več tisoč. Število vpliva na pripravo, ne na delovanje.",
+      },
+      {
+        q: "Koliko časa traja izdelava?",
+        a: "Odvisno od števila izdelkov in povezav. Manjša trgovina je običajno gotova v nekaj tednih.",
+      },
+      {
+        q: "Lahko prenovim obstoječo trgovino?",
+        a: "Da. Pogosto je smiselno obdržati podatke o izdelkih in naročilih ter prenoviti videz in hitrost.",
+      },
+    ],
+    cta: "Povej, kaj prodajaš →",
   },
 
   "ai-agenti": {
@@ -192,7 +244,13 @@ export const services: Record<string, Service> = {
 };
 
 /* JSON-LD: Service + FAQPage + BreadcrumbList za posamezno storitev. */
-export function serviceJsonLd(service: Service, siteUrl: string) {
+/* opts.provider: katera sitewide entiteta ponuja storitev (privzeto #organization);
+   opts.lowPrice: spodnja meja cene v EUR -> offers (AggregateOffer). */
+export function serviceJsonLd(
+  service: Service,
+  siteUrl: string,
+  opts: { provider?: "organization" | "localbusiness"; lowPrice?: number } = {},
+) {
   const url = `${siteUrl}/${service.slug}/`;
   return [
     {
@@ -203,9 +261,12 @@ export function serviceJsonLd(service: Service, siteUrl: string) {
       serviceType: service.name,
       url,
       description: service.metaDescription,
-      provider: { "@id": `${siteUrl}/#organization` },
+      provider: { "@id": `${siteUrl}/#${opts.provider ?? "organization"}` },
       areaServed: { "@type": "Country", name: "Slovenija" },
       audience: { "@type": "BusinessAudience", audienceType: "Mala in srednja podjetja" },
+      ...(opts.lowPrice && {
+        offers: { "@type": "AggregateOffer", priceCurrency: "EUR", lowPrice: opts.lowPrice, url },
+      }),
     },
     {
       "@context": "https://schema.org",

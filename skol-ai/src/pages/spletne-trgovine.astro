@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceTemplate from "../components/service/ServiceTemplate.astro";
+import { services, serviceJsonLd } from "../data/services";
+
+const service = services["spletne-trgovine"];
+const siteUrl = (Astro.site ?? new URL("https://skolailab.com")).origin;
+// ponudnik = sitewide #localbusiness, spodnja meja cene v schemi (AggregateOffer)
+const schema = serviceJsonLd(service, siteUrl, { provider: "localbusiness", lowPrice: 1890 });
+---
+
+<BaseLayout
+  titleExact={service.metaTitle}
+  description={service.metaDescription}
+  ogType="article"
+  jsonLd={schema}
+>
+  <ServiceTemplate service={service} />
+</BaseLayout>

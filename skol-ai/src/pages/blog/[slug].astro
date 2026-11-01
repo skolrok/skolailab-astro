@@ -21,6 +21,10 @@ const fmtDate = (d: Date) =>
   new Intl.DateTimeFormat("sl-SI", { day: "numeric", month: "long", year: "numeric" }).format(d);
 const isUpdated = updatedDate && updatedDate.getTime() !== pubDate.getTime();
 
+// <title>: pripona "| SKOL AI" samo enkrat, tudi če jo metaTitle v frontmatterju že ima
+const baseTitle = metaTitle ?? title;
+const pageTitle = /\|\s*SKOL AI\s*$/.test(baseTitle) ? baseTitle : `${baseTitle} | SKOL AI`;
+
 // TOC: h2/h3, samo za daljše članke (>= 3 naslovi)
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const showToc = toc.length >= 3;
@@ -91,7 +95,7 @@ const schema = [
 ];
 ---
 
-<BaseLayout titleExact={`${metaTitle ?? title} | SKOL AI`} description={description} ogType="article" image={ogOverride} jsonLd={schema}>
+<BaseLayout titleExact={pageTitle} description={description} ogType="article" image={ogOverride} jsonLd={schema}>
   <article class="post">
     <header class="post__head">
       <div class="container-page">

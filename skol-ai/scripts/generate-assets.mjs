@@ -97,6 +97,8 @@ const ogPages = [
   { file: "spletne-strani", eyebrow: "Storitev", title: "Spletne strani, ki obiskovalca spremenijo v kupca." },
   { file: "ai-agenti", eyebrow: "Storitev", title: "Asistent, ki nikoli ne spi." },
   { file: "geo", eyebrow: "GEO / AI vidnost", title: "Da vas priporoči ChatGPT." },
+  { file: "spletne-trgovine", eyebrow: "Storitev", title: "Izdelava spletnih trgovin, ki prodajajo tudi ponoči." },
+  { file: "cenik", eyebrow: "Cenik", title: "Cenik izdelave spletnih strani in AI agentov." },
   { file: "reference", eyebrow: "Reference", title: "Kjer povprečje umre." },
   { file: "blog", eyebrow: "Blog", title: "Vpogledi, ne hrup." },
   { file: "izdelava-spletnih-strani-novo-mesto", eyebrow: "Lokalno · Novo mesto", title: "Izdelava spletnih strani v Novem mestu." },
