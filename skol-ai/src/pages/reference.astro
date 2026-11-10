@@ -56,7 +56,7 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
                 src={p.screenshot!}
                 url={p.liveLabel}
                 alt={`Posnetek žive spletne strani ${p.name} (${p.liveLabel})`}
-                sizes="(min-width: 860px) 620px, 100vw"
+                sizes={p.featured ? "(min-width: 860px) 680px, 100vw" : "(min-width: 860px) 560px, 100vw"}
               />
             </div>
             <div class="proj__body">
@@ -128,7 +128,14 @@ const projects = [...caseList].sort((a, b) => Number(b.featured) - Number(a.feat
   /* ---------- CASE STUDYJI ---------- */
   .projects-sec { padding-block: clamp(3rem, 7vh, 6rem); border-top: 1px solid var(--color-hairline); }
   .projects { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
-  @media (min-width: 860px) { .projects { grid-template-columns: 1.35fr 1fr; align-items: start; } }
+  /* Izpostavljen projekt (featured) čez celo širino, ostali v dveh enakih stolpcih; na telefonu en stolpec.
+     Deluje za poljubno število projektov. */
+  @media (min-width: 860px) {
+    .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .proj.proj--featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.35fr 1fr; }
+    .proj--featured .proj__visual { border-bottom: 0; border-right: 1px solid var(--color-hairline); }
+    .proj--featured .proj__body { justify-content: center; }
+  }
 
   .proj {
     display: flex; flex-direction: column;
