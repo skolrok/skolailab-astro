@@ -119,7 +119,7 @@ export const services: Record<string, Service> = {
       "Trgovina, ki sprejema naročila in plačila sama, ob vsaki uri. Ti dobiš obvestilo in pregled, stranka potrditev. Ročnega dela je manj, napak tudi.",
     whatYouGet: [
       "Trgovino, prilagojeno tvoji znamki, narejeno najprej za telefon.",
-      "Spletna plačila in izbiro dostave.",
+      "Spletna plačila, tudi s Flikom, in izbiro dostave.",
       "Pregled naročil in zalog.",
       "Urejanje izdelkov brez klica meni.",
       "Osnove SEO, da te najdejo, in merjenje prodaje.",
@@ -148,6 +148,12 @@ export const services: Record<string, Service> = {
       },
     ],
     cta: "Povej, kaj prodajaš →",
+    examples: [
+      {
+        slug: "minime",
+        caption: "WooCommerce trgovina s plačili s kartico in Flik prek slovenske banke.",
+      },
+    ],
   },
 
   "ai-agenti": {

@@ -86,6 +86,35 @@ export const cases: Record<string, CaseStudy> = {
     liveUrl: "https://barbazencek.si",
     screenshot: "v1782824928/barbazencek.si_.webp",
   },
+
+  minime: {
+    slug: "minime",
+    name: "MiniMe",
+    category: "Spletna trgovina",
+    metaTitle: "MiniMe: spletna trgovina na WooCommerce | SKOL AI",
+    metaDescription:
+      "Spletna trgovina za MiniMe in otroške reči: WooCommerce, plačila s kartico in Flik prek slovenske banke, merjenje in izhodišče za GEO. Case study SKOL AI.",
+    h1: "MiniMe. Spletna trgovina za otroške reči.",
+    teaser: "WooCommerce trgovina s plačili s kartico in Flik prek slovenske banke.",
+    tags: ["WooCommerce", "Plačila Flik", "Izhodišče za GEO"],
+    challenge:
+      "Petra je za MiniMe potrebovala trgovino, v kateri sama dodaja izdelke, kupci pa lahko plačajo tako, kot so navajeni v Sloveniji: s kartico ali s Flikom.",
+    approach:
+      "WooCommerce kot osnova, ker je preverjen in ga Petra ureja sama. Največ dela je bilo v plačilih: povezava z bančnim plačilnim sistemom za kartice in Flik, skupaj z vračili, preizkušena v produkciji.",
+    built: [
+      "Spletno trgovino na WooCommerce, prilagojeno znamki.",
+      "Plačila s kartico in Flik prek NLB in Bankarta, z omogočenimi vračili.",
+      "Dostop za upravljanje, da Petra izdelke, cene in zalogo ureja sama.",
+      "Merjenje prek Google Tag Managerja s privolitvijo za piškotke (Consent Mode v2).",
+      "Search Console in sitemap, da Google trgovino najde.",
+      "Izhodiščno meritev vidnosti v Googlu in AI asistentih.",
+    ],
+    result:
+      "Trgovina je v živo od novembra 2026, plačila s kartico in Flikom delujejo v produkciji, Petra trgovino upravlja sama. Kako se vidnost v Googlu in AI asistentih spreminja od odprtja, bom dodal tukaj, ko bodo na voljo prve meritve.",
+    liveLabel: "minime-reci.si",
+    liveUrl: "https://minime-reci.si/",
+    screenshot: "v1794343235/minime-trgovina-skolai.png.png",
+  },
 };
 
 export const caseList: CaseStudy[] = Object.values(cases);

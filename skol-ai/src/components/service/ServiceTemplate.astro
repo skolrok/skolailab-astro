@@ -89,8 +89,8 @@ const { service } = Astro.props;
   <section class="ex">
     <div class="container-page">
       <header class="ex__head">
-        <p class="kicker" data-reveal>[ Primeri ]</p>
-        <h2 class="section-title" data-reveal>Primeri.</h2>
+        <p class="kicker" data-reveal>[ {service.examples.length === 1 ? "Primer" : "Primeri"} ]</p>
+        <h2 class="section-title" data-reveal>{service.examples.length === 1 ? "Primer." : "Primeri."}</h2>
       </header>
       <div class="ex__grid">
         {service.examples.map((e) => {

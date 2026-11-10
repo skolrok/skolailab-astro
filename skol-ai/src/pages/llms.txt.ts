@@ -36,9 +36,10 @@ Poleg tega po meri izdeluje AI vizualije, video in oglasne kreative.
 
 ## Reference
 
-- [Reference](${site}/reference/): Pregled projektov v živo (Solimat, Bar Bazenček) in vizualij po meri.
+- [Reference](${site}/reference/): Pregled projektov v živo (Solimat, Bar Bazenček, MiniMe) in vizualij po meri.
 - [Solimat — celovita digitalna prenova](${site}/projekti/solimat/): Migracija z WordPressa na čisto statično infrastrukturo, lasten admin, dvojezičnost (SI/EN), tracking in pametni obrazci. Rezultat: 96/100 PageSpeed.
 - [Bar Bazenček — nova spletna prisotnost](${site}/projekti/bar-bazencek/): Hitra in cenovno ugodna spletna stran za gostinski lokal: galerija, jedilnik, kontaktni obrazec.
+- [MiniMe: spletna trgovina za otroške reči](${site}/projekti/minime/): Spletna trgovina na WooCommerce s plačili s kartico in Flik prek NLB in Bankarta (z vračili), urejanjem izdelkov in zalog brez izdelovalca, merjenjem prek Google Tag Managerja s Consent Mode v2 in izhodiščno meritvijo vidnosti v Googlu in AI asistentih. V živo od novembra 2026.
 
 ## Blog
 

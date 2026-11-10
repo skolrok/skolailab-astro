@@ -105,6 +105,7 @@ const ogPages = [
   { file: "izdelava-spletnih-strani-trebnje", eyebrow: "Lokalno · Trebnje", title: "Izdelava spletnih strani v Trebnjem." },
   { file: "projekti-solimat", eyebrow: "Projekt", title: "Solimat. Celovita digitalna prenova." },
   { file: "projekti-bar-bazencek", eyebrow: "Projekt", title: "Bar Bazenček. Nova spletna prisotnost." },
+  { file: "projekti-minime", eyebrow: "Projekt", title: "MiniMe. Spletna trgovina za otroške reči." },
   { file: "manifest", eyebrow: "Manifest", title: "Konec povprečnosti." },
   { file: "kontakt", eyebrow: "Kontakt", title: "Povej, kaj gradiš." },
   { file: "zasebnost", eyebrow: "Pravno", title: "Politika zasebnosti." },
