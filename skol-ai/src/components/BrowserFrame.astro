@@ -2,6 +2,8 @@
 /* BrowserFrame — enoten "browser" okvir okoli screenshota žive strani.
    Tanka zgornja vrstica (3 pike + URL polje), zaobljeni robovi, subtilna senca.
    Slika prek CloudinaryImage (f_auto,q_auto,c_fill, srcset, eksplicitne dimenzije, lazy → brez CLS).
+   c_fill z g_north: posnetek strani se nikoli ne obreže zgoraj ali ob straneh, kvečjemu spodaj.
+   Razmerje okvirja = width/height (isto kot Cloudinary ar_), zato CSS ne obreže še enkrat.
    Isti okvir povsod = doslednost. */
 import CloudinaryImage from "./CloudinaryImage.astro";
 
@@ -49,14 +51,14 @@ const {
       <span class="bframe__urltext">{url}</span>
     </span>
   </div>
-  <div class="bframe__screen">
+  <div class="bframe__screen" style={`aspect-ratio:${width}/${height}`}>
     <CloudinaryImage
       src={src}
       alt={alt}
       width={width}
       height={height}
       crop="fill"
-      gravity="auto"
+      gravity="north"
       quality="auto"
       sizes={sizes}
       widths={widths}

@@ -113,7 +113,7 @@ export const cases: Record<string, CaseStudy> = {
       "Trgovina je v živo od novembra 2026, plačila s kartico in Flikom delujejo v produkciji, Petra trgovino upravlja sama. Kako se vidnost v Googlu in AI asistentih spreminja od odprtja, bom dodal tukaj, ko bodo na voljo prve meritve.",
     liveLabel: "minime-reci.si",
     liveUrl: "https://minime-reci.si/",
-    screenshot: "v1794343235/minime-trgovina-skolai.png.png",
+    screenshot: "v1794415914/minime-trgovina-skolai.png.png", // javni id ima dvojno končnico; deluje samo cela pot
   },
 };
 
