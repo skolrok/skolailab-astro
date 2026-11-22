@@ -3,13 +3,13 @@ title: "Kako izbrati ponudnika za spletno stran: 8 vprašanj pred podpisom"
 metaTitle: "Kako izbrati ponudnika za spletno stran | SKOL AI"
 description: "Kaj vprašati, preden komu zaupaš izdelavo spletne strani: lastništvo domene, kaj je v ceni, urejanje, vzdrževanje in opozorilni znaki pred podpisom."
 llms: "Osem vprašanj pred podpisom pogodbe za spletno stran: lastništvo domene in dostopov, kaj je v ceni, urejanje vsebine, vzdrževanje in varnost, strani v živo, merjenje hitrosti, kaj ob razhodu, kdo dejansko dela na projektu; opozorilni znaki in agencija ali samostojni ponudnik."
-pubDate: 2026-11-16
-updatedDate: 2026-11-16
+pubDate: 2026-11-22
+updatedDate: 2026-11-22
 author: "Rok Skol"
 tags: ["spletne strani", "vodič", "nasveti"]
 image: ""
 imageAlt: ""
-draft: true
+draft: false
 ---
 
 Najpomembnejše vprašanje ni, koliko stane, ampak kdo bo lastnik strani, ko bo gotova. Cene se da primerjati v nekaj minutah. Domene, ki je registrirana na izdelovalca, ali strani, do katere nimaš dostopa, pa ne popraviš enostavno. Spodaj je osem vprašanj, ki jih postavi vsakemu ponudniku, tudi meni.
