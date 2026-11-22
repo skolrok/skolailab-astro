@@ -1,7 +1,7 @@
 ---
 title: "Koliko stane SEO optimizacija in kaj malo podjetje res potrebuje"
-metaTitle: "Koliko stane SEO optimizacija v Sloveniji"
-description: "Realne cene SEO optimizacije v Sloveniji, od česa so odvisne in zakaj večina malih podjetij ne potrebuje mesečne pogodbe za več sto evrov."
+metaTitle: "Cena SEO optimizacije: realni razponi v Sloveniji | SKOL AI"
+description: "Koliko stane SEO v Sloveniji: osnovni paketi od okoli 50 €, srednji 150 do 400 € na mesec. Kdaj mesečna pogodba nima smisla in kaj res potrebuješ."
 llms: "Realne cene SEO v Sloveniji, od česa so odvisne, česa malo podjetje ne potrebuje, koliko časa traja in kako se SEO povezuje z GEO."
 pubDate: 2026-08-12
 updatedDate: 2026-08-12

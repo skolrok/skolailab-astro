@@ -26,3 +26,6 @@ Thumbs.db
 content/paket-*.md
 content/*-interno.md
 content/minime-*.md
+
+# Interni podatki iz Search Console (izhodišča, meritve)
+docs/gsc-*.md
